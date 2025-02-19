@@ -102,3 +102,37 @@ impl From<feature_flags_contract::Error> for Error {
         }
     }
 }
+
+impl From<wallet_utils_contract::Error> for Error {
+    fn from(e: wallet_utils_contract::Error) -> Self {
+        match e {
+            wallet_utils_contract::Error::UnknownVersionMismatch {
+                method,
+                known_versions,
+                received,
+            } => Error::UnknownVersionMismatch {
+                method,
+                known_versions,
+                received,
+            },
+            wallet_utils_contract::Error::InvalidSchemaJson(e) => Error::InvalidSchemaJson(e),
+        }
+    }
+}
+
+impl From<token_history_contract::Error> for Error {
+    fn from(e: token_history_contract::Error) -> Self {
+        match e {
+            token_history_contract::Error::UnknownVersionMismatch {
+                method,
+                known_versions,
+                received,
+            } => Error::UnknownVersionMismatch {
+                method,
+                known_versions,
+                received,
+            },
+            token_history_contract::Error::InvalidSchemaJson(e) => Error::InvalidSchemaJson(e),
+        }
+    }
+}

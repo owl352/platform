@@ -37,33 +37,38 @@ use dpp::state_transition::StateTransition;
 use dpp::version::PlatformVersion;
 use drive::drive::identity::key::fetch::{IdentityKeysRequest, KeyRequestType};
 
+use bincode::{Decode, Encode};
 use dpp::data_contract::accessors::v0::{DataContractV0Getters, DataContractV0Setters};
+use dpp::data_contract::document_type::accessors::DocumentTypeV0Getters;
+use dpp::data_contract::document_type::DocumentType;
+use dpp::fee::Credits;
+use dpp::identifier::Identifier;
+use dpp::identity::accessors::IdentityGettersV0;
+use dpp::platform_value::{BinaryData, Bytes32, Value};
+use dpp::state_transition::batch_transition::batched_transition::document_delete_transition::DocumentDeleteTransitionV0;
+use dpp::state_transition::batch_transition::batched_transition::document_replace_transition::DocumentReplaceTransitionV0;
+use dpp::state_transition::batch_transition::batched_transition::document_transfer_transition::DocumentTransferTransitionV0;
+use dpp::state_transition::batch_transition::batched_transition::{
+    DocumentDeleteTransition, DocumentReplaceTransition, DocumentTransferTransition,
+};
+use dpp::state_transition::batch_transition::document_base_transition::v0::DocumentBaseTransitionV0;
+use dpp::state_transition::batch_transition::document_create_transition::{
+    DocumentCreateTransition, DocumentCreateTransitionV0,
+};
+use dpp::state_transition::batch_transition::{BatchTransition, BatchTransitionV0};
+use dpp::state_transition::data_contract_create_transition::methods::v0::DataContractCreateTransitionMethodsV0;
 use dpp::state_transition::data_contract_update_transition::methods::DataContractUpdateTransitionMethodsV0;
+use dpp::ProtocolError::{PlatformDeserializationError, PlatformSerializationError};
+use dpp::{dash_to_duffs, ProtocolError};
 use operations::{DataContractUpdateAction, DataContractUpdateOp};
 use platform_version::TryFromPlatformVersioned;
 use rand::prelude::StdRng;
 use rand::seq::{IteratorRandom, SliceRandom};
 use rand::Rng;
+use simple_signer::signer::SimpleSigner;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::ops::RangeInclusive;
-use bincode::{Decode, Encode};
-use dpp::data_contract::document_type::accessors::DocumentTypeV0Getters;
-use dpp::identifier::Identifier;
-use dpp::data_contract::document_type::DocumentType;
-use dpp::fee::Credits;
-use dpp::identity::accessors::IdentityGettersV0;
-use dpp::platform_value::{BinaryData, Bytes32, Value};
-use dpp::{dash_to_duffs, ProtocolError};
-use dpp::ProtocolError::{PlatformDeserializationError, PlatformSerializationError};
-use dpp::state_transition::documents_batch_transition::document_base_transition::v0::DocumentBaseTransitionV0;
-use dpp::state_transition::documents_batch_transition::document_create_transition::{DocumentCreateTransition, DocumentCreateTransitionV0};
-use dpp::state_transition::documents_batch_transition::document_transition::document_delete_transition::DocumentDeleteTransitionV0;
-use dpp::state_transition::documents_batch_transition::document_transition::document_replace_transition::DocumentReplaceTransitionV0;
-use dpp::state_transition::documents_batch_transition::{DocumentsBatchTransition, DocumentsBatchTransitionV0};
-use dpp::state_transition::documents_batch_transition::document_transition::{DocumentDeleteTransition, DocumentReplaceTransition, DocumentTransferTransition};
-use dpp::state_transition::data_contract_create_transition::methods::v0::DataContractCreateTransitionMethodsV0;
-use dpp::state_transition::documents_batch_transition::document_transition::document_transfer_transition::DocumentTransferTransitionV0;
-use simple_signer::signer::SimpleSigner;
+use transitions::create_identity_credit_transfer_transition;
 
 pub mod frequency;
 pub mod operations;
@@ -146,7 +151,7 @@ pub struct StartIdentities {
     pub keys_per_identity: u8,
     pub starting_balances: u64, // starting balance in duffs
     pub extra_keys: KeyMaps,
-    pub hard_coded: Vec<(Identity, StateTransition)>,
+    pub hard_coded: Vec<(Identity, Option<StateTransition>)>,
 }
 
 /// Identities to register on the first block of the strategy
@@ -719,8 +724,8 @@ impl Strategy {
                                     }
                                     .into();
 
-                                let document_batch_transition: DocumentsBatchTransition =
-                                    DocumentsBatchTransitionV0 {
+                                let document_batch_transition: BatchTransition =
+                                    BatchTransitionV0 {
                                         owner_id: identity.id(),
                                         transitions: vec![document_create_transition.into()],
                                         user_fee_increase: 0,
@@ -845,8 +850,8 @@ impl Strategy {
                                     }
                                     .into();
 
-                                let document_batch_transition: DocumentsBatchTransition =
-                                    DocumentsBatchTransitionV0 {
+                                let document_batch_transition: BatchTransition =
+                                    BatchTransitionV0 {
                                         owner_id: identity.id(),
                                         transitions: vec![document_create_transition.into()],
                                         user_fee_increase: 0,
@@ -935,15 +940,14 @@ impl Strategy {
                                 }
                                 .into();
 
-                            let document_batch_transition: DocumentsBatchTransition =
-                                DocumentsBatchTransitionV0 {
-                                    owner_id: identity.id(),
-                                    transitions: vec![document_delete_transition.into()],
-                                    user_fee_increase: 0,
-                                    signature_public_key_id: 1,
-                                    signature: BinaryData::default(),
-                                }
-                                .into();
+                            let document_batch_transition: BatchTransition = BatchTransitionV0 {
+                                owner_id: identity.id(),
+                                transitions: vec![document_delete_transition.into()],
+                                user_fee_increase: 0,
+                                signature_public_key_id: 1,
+                                signature: BinaryData::default(),
+                            }
+                            .into();
 
                             let mut document_batch_transition: StateTransition =
                                 document_batch_transition.into();
@@ -1033,15 +1037,14 @@ impl Strategy {
                                 }
                                 .into();
 
-                            let document_batch_transition: DocumentsBatchTransition =
-                                DocumentsBatchTransitionV0 {
-                                    owner_id: identity.id,
-                                    transitions: vec![document_replace_transition.into()],
-                                    user_fee_increase: 0,
-                                    signature_public_key_id: 1,
-                                    signature: BinaryData::default(),
-                                }
-                                .into();
+                            let document_batch_transition: BatchTransition = BatchTransitionV0 {
+                                owner_id: identity.id,
+                                transitions: vec![document_replace_transition.into()],
+                                user_fee_increase: 0,
+                                signature_public_key_id: 1,
+                                signature: BinaryData::default(),
+                            }
+                            .into();
 
                             let mut document_batch_transition: StateTransition =
                                 document_batch_transition.into();
@@ -1137,15 +1140,14 @@ impl Strategy {
                                 }
                                 .into();
 
-                            let document_batch_transition: DocumentsBatchTransition =
-                                DocumentsBatchTransitionV0 {
-                                    owner_id: identity.id,
-                                    transitions: vec![document_transfer_transition.into()],
-                                    user_fee_increase: 0,
-                                    signature_public_key_id: 1,
-                                    signature: BinaryData::default(),
-                                }
-                                .into();
+                            let document_batch_transition: BatchTransition = BatchTransitionV0 {
+                                owner_id: identity.id,
+                                transitions: vec![document_transfer_transition.into()],
+                                user_fee_increase: 0,
+                                signature_public_key_id: 1,
+                                signature: BinaryData::default(),
+                            }
+                            .into();
 
                             let mut document_batch_transition: StateTransition =
                                 document_batch_transition.into();
@@ -1287,38 +1289,65 @@ impl Strategy {
                     }
 
                     // Generate state transition for identity transfer operation
-                    OperationType::IdentityTransfer if current_identities.len() > 1 => {
+                    OperationType::IdentityTransfer(identity_transfer_info) => {
                         for _ in 0..count {
-                            let identities_count = current_identities.len();
-                            if identities_count == 0 {
-                                break;
-                            }
+                            // Handle the case where specific sender, recipient, and amount are provided
+                            if let Some(transfer_info) = identity_transfer_info {
+                                let sender = current_identities
+                                    .iter()
+                                    .find(|identity| identity.id() == transfer_info.from)
+                                    .expect(
+                                        "Expected to find sender identity in hardcoded start identities",
+                                    );
+                                let recipient = current_identities
+                                    .iter()
+                                    .find(|identity| identity.id() == transfer_info.to)
+                                    .expect(
+                                        "Expected to find recipient identity in hardcoded start identities",
+                                    );
 
-                            // Select a random identity from the current_identities for the sender
-                            let random_index_sender = rng.gen_range(0..identities_count);
+                                let state_transition = create_identity_credit_transfer_transition(
+                                    &sender,
+                                    &recipient,
+                                    identity_nonce_counter,
+                                    signer, // This means in the TUI, the loaded identity must always be the sender since we're always signing with it for now
+                                    transfer_info.amount,
+                                );
+                                operations.push(state_transition);
+                            } else if current_identities.len() > 1 {
+                                // Handle the case where no sender, recipient, and amount are provided
 
-                            // Clone current_identities to a Vec for manipulation
-                            let mut unused_identities: Vec<_> =
-                                current_identities.iter().cloned().collect();
-                            unused_identities.remove(random_index_sender); // Remove the sender
-                            let unused_identities_count = unused_identities.len();
+                                let identities_count = current_identities.len();
+                                if identities_count == 0 {
+                                    break;
+                                }
 
-                            // Select a random identity from the remaining ones for the recipient
-                            let random_index_recipient = rng.gen_range(0..unused_identities_count);
-                            let recipient = &unused_identities[random_index_recipient];
+                                // Select a random identity from the current_identities for the sender
+                                let random_index_sender = rng.gen_range(0..identities_count);
 
-                            // Use the sender index on the original slice
-                            let sender = &mut current_identities[random_index_sender];
+                                // Clone current_identities to a Vec for manipulation
+                                let mut unused_identities: Vec<_> =
+                                    current_identities.iter().cloned().collect();
+                                unused_identities.remove(random_index_sender); // Remove the sender
+                                let unused_identities_count = unused_identities.len();
 
-                            let state_transition =
-                                crate::transitions::create_identity_credit_transfer_transition(
+                                // Select a random identity from the remaining ones for the recipient
+                                let random_index_recipient =
+                                    rng.gen_range(0..unused_identities_count);
+                                let recipient = &unused_identities[random_index_recipient];
+
+                                // Use the sender index on the original slice
+                                let sender = &mut current_identities[random_index_sender];
+
+                                let state_transition = create_identity_credit_transfer_transition(
                                     sender,
                                     recipient,
                                     identity_nonce_counter,
                                     signer,
                                     300000,
                                 );
-                            operations.push(state_transition);
+                                operations.push(state_transition);
+                            }
                         }
                     }
 
@@ -1891,28 +1920,22 @@ mod tests {
 
         let mut simple_signer = SimpleSigner::default();
 
-        let (identity1, keys) =
-            Identity::random_identity_with_main_keys_with_private_key::<Vec<_>>(
-                2,
-                &mut rng,
-                platform_version,
-            )
-            .unwrap();
+        let (mut identity1, keys) = Identity::random_identity_with_main_keys_with_private_key::<
+            Vec<_>,
+        >(2, &mut rng, platform_version)
+        .unwrap();
 
         simple_signer.add_keys(keys);
 
-        let (identity2, keys) =
-            Identity::random_identity_with_main_keys_with_private_key::<Vec<_>>(
-                2,
-                &mut rng,
-                platform_version,
-            )
-            .unwrap();
+        let (mut identity2, keys) = Identity::random_identity_with_main_keys_with_private_key::<
+            Vec<_>,
+        >(2, &mut rng, platform_version)
+        .unwrap();
 
         simple_signer.add_keys(keys);
 
         let start_identities = create_state_transitions_for_identities(
-            vec![identity1, identity2],
+            vec![&mut identity1, &mut identity2],
             &(dash_to_duffs!(1)..=dash_to_duffs!(1)),
             &mut simple_signer,
             &mut rng,

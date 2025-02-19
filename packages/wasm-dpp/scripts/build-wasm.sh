@@ -28,8 +28,8 @@ fi
 #  - packages/wasm-dpp/Cargo.toml
 #  - Dockerfile
 if ! [[ -x "$(command -v wasm-bindgen)" ]]; then
-  echo "Wasm-bindgen CLI ${WASM_BINDGEN_VERSION} is not installed. Installing"
-  cargo install --config net.git-fetch-with-cli=true --profile "${CARGO_BUILD_PROFILE}" -f "wasm-bindgen-cli@0.2.86"
+  echo "Wasm-bindgen CLI ${WASM_BINDGEN_VERSION} is not installed."
+  exit 1
 fi
 
 # On a mac, bundled clang won't work - you need to install LLVM manually through brew,
@@ -47,8 +47,9 @@ fi
 # EMCC_CFLAGS="-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry" cargo build --target=wasm32-unknown-emscripten --release
 # EMCC_CFLAGS="-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry" wasm-bindgen --out-dir=wasm --target=web --omit-default-module-path ../../target/wasm32-unknown-emscripten/release/wasm_dpp.wasm
 
-# TODO: Must be somehow preinstalled?
-#if [ "$PROFILE" == "release" ]; then
-#  echo "Optimizing wasm using Binaryen"
-#  wasm-opt -Os "$OUTPUT_FILE" -o "$OUTPUT_FILE"
-#fi
+if command -v wasm-opt &> /dev/null; then
+  echo "Optimizing wasm using Binaryen"
+  wasm-opt -Oz "$OUTPUT_FILE" -o "$OUTPUT_FILE"
+else
+  echo "wasm-opt command not found. Skipping wasm optimization."
+fi

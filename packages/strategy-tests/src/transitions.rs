@@ -802,7 +802,7 @@ pub fn create_identity_withdrawal_transition_with_output_address(
 /// - If the sender's identity does not have a suitable authentication key available for signing.
 /// - If there's an error during the signing process.
 pub fn create_identity_credit_transfer_transition(
-    identity: &mut Identity,
+    identity: &Identity,
     recipient: &Identity,
     identity_nonce_counter: &mut BTreeMap<Identifier, u64>,
     signer: &mut SimpleSigner,
@@ -1018,16 +1018,19 @@ pub fn create_identities_state_transitions(
 /// - When unable to generate random cryptographic keys.
 /// - When failing to transform an identity into its corresponding state transition.
 /// - Conversion and encoding errors related to the cryptographic data.
-pub fn create_state_transitions_for_identities(
-    identities: Vec<Identity>,
+pub fn create_state_transitions_for_identities<'a, I>(
+    identities: I,
     amount_range: &AmountRange,
     signer: &SimpleSigner,
     rng: &mut StdRng,
     platform_version: &PlatformVersion,
-) -> Vec<(Identity, StateTransition)> {
+) -> Vec<(Identity, StateTransition)>
+where
+    I: IntoIterator<Item = &'a mut Identity>,
+{
     identities
         .into_iter()
-        .map(|mut identity| {
+        .map(|identity| {
             let (_, pk) = ECDSA_SECP256K1
                 .random_public_and_private_key_data(rng, platform_version)
                 .unwrap();
@@ -1051,7 +1054,7 @@ pub fn create_state_transitions_for_identities(
                 .expect("expected to transform identity into identity create transition");
             identity.set_id(identity_create_transition.owner_id());
 
-            (identity, identity_create_transition)
+            (identity.clone(), identity_create_transition)
         })
         .collect()
 }

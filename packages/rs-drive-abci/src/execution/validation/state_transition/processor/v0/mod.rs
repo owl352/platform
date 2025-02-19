@@ -85,7 +85,7 @@ pub(super) fn process_state_transition_v0<'a, C: CoreRPCLike>(
     };
 
     // Only identity top up and identity create do not have nonces validation
-    if state_transition.has_nonces_validation() {
+    if state_transition.has_nonce_validation(platform_version)? {
         // Validating identity contract nonce, this must happen after validating the signature
         let result = state_transition.validate_nonces(
             &platform.into(),
@@ -383,12 +383,11 @@ pub(crate) trait StateTransitionNonceValidationV0 {
         execution_context: &mut StateTransitionExecutionContext,
         platform_version: &PlatformVersion,
     ) -> Result<SimpleConsensusValidationResult, Error>;
+}
 
-    /// True if the state transition validates nonces, either identity nonces or identity contract
-    /// nonces
-    fn has_nonces_validation(&self) -> bool {
-        true
-    }
+pub(crate) trait StateTransitionHasNonceValidationV0 {
+    /// True if the state transition has nonces validation.
+    fn has_nonce_validation(&self, platform_version: &PlatformVersion) -> Result<bool, Error>;
 }
 
 /// A trait for validating state transitions within a blockchain.
@@ -529,7 +528,7 @@ impl StateTransitionBasicStructureValidationV0 for StateTransition {
             StateTransition::IdentityCreditWithdrawal(st) => {
                 st.validate_basic_structure(platform_version)
             }
-            StateTransition::DocumentsBatch(st) => st.validate_basic_structure(platform_version),
+            StateTransition::Batch(st) => st.validate_basic_structure(platform_version),
             StateTransition::IdentityCreditTransfer(st) => {
                 st.validate_basic_structure(platform_version)
             }
@@ -555,7 +554,7 @@ impl StateTransitionNonceValidationV0 for StateTransition {
         platform_version: &PlatformVersion,
     ) -> Result<SimpleConsensusValidationResult, Error> {
         match self {
-            StateTransition::DocumentsBatch(st) => st.validate_nonces(
+            StateTransition::Batch(st) => st.validate_nonces(
                 platform,
                 block_info,
                 tx,
@@ -607,17 +606,50 @@ impl StateTransitionNonceValidationV0 for StateTransition {
             _ => Ok(SimpleConsensusValidationResult::new()),
         }
     }
+}
 
-    fn has_nonces_validation(&self) -> bool {
-        matches!(
-            self,
-            StateTransition::DocumentsBatch(_)
-                | StateTransition::DataContractCreate(_)
-                | StateTransition::DataContractUpdate(_)
-                | StateTransition::IdentityUpdate(_)
-                | StateTransition::IdentityCreditTransfer(_)
-                | StateTransition::IdentityCreditWithdrawal(_)
-        )
+impl StateTransitionHasNonceValidationV0 for StateTransition {
+    fn has_nonce_validation(&self, platform_version: &PlatformVersion) -> Result<bool, Error> {
+        match platform_version
+            .drive_abci
+            .validation_and_processing
+            .has_nonce_validation
+        {
+            0 => {
+                let has_nonce_validation = matches!(
+                    self,
+                    StateTransition::Batch(_)
+                        | StateTransition::DataContractCreate(_)
+                        | StateTransition::DataContractUpdate(_)
+                        | StateTransition::IdentityUpdate(_)
+                        | StateTransition::IdentityCreditTransfer(_)
+                        | StateTransition::IdentityCreditWithdrawal(_)
+                );
+
+                Ok(has_nonce_validation)
+            }
+            1 => {
+                // Preferably to use match without wildcard arm (_) to avoid missing cases
+                // in the future when new state transitions are added
+                let has_nonce_validation = match self {
+                    StateTransition::Batch(_)
+                    | StateTransition::DataContractCreate(_)
+                    | StateTransition::DataContractUpdate(_)
+                    | StateTransition::IdentityUpdate(_)
+                    | StateTransition::IdentityCreditTransfer(_)
+                    | StateTransition::IdentityCreditWithdrawal(_)
+                    | StateTransition::MasternodeVote(_) => true,
+                    StateTransition::IdentityCreate(_) | StateTransition::IdentityTopUp(_) => false,
+                };
+
+                Ok(has_nonce_validation)
+            }
+            version => Err(Error::Execution(ExecutionError::UnknownVersionMismatch {
+                method: "StateTransition::has_nonce_validation".to_string(),
+                known_versions: vec![0, 1],
+                received: version,
+            })),
+        }
     }
 }
 
@@ -634,7 +666,7 @@ impl StateTransitionIdentityBalanceValidationV0 for StateTransition {
             StateTransition::IdentityCreditWithdrawal(st) => {
                 st.validate_minimum_balance_pre_check(identity, platform_version)
             }
-            StateTransition::DocumentsBatch(st) => {
+            StateTransition::Batch(st) => {
                 st.validate_minimum_balance_pre_check(identity, platform_version)
             }
             StateTransition::DataContractCreate(_)
@@ -655,7 +687,7 @@ impl StateTransitionIdentityBalanceValidationV0 for StateTransition {
                 | StateTransition::IdentityCreditWithdrawal(_)
                 | StateTransition::DataContractCreate(_)
                 | StateTransition::DataContractUpdate(_)
-                | StateTransition::DocumentsBatch(_)
+                | StateTransition::Batch(_)
                 | StateTransition::IdentityUpdate(_)
         )
     }
@@ -758,7 +790,7 @@ impl StateTransitionStructureKnownInStateValidationV0 for StateTransition {
         platform_version: &PlatformVersion,
     ) -> Result<ConsensusValidationResult<StateTransitionAction>, Error> {
         match self {
-            StateTransition::DocumentsBatch(st) => st.validate_advanced_structure_from_state(
+            StateTransition::Batch(st) => st.validate_advanced_structure_from_state(
                 block_info,
                 network,
                 action,
@@ -797,7 +829,7 @@ impl StateTransitionStructureKnownInStateValidationV0 for StateTransition {
     fn has_advanced_structure_validation_with_state(&self) -> bool {
         matches!(
             self,
-            StateTransition::DocumentsBatch(_)
+            StateTransition::Batch(_)
                 | StateTransition::IdentityCreate(_)
                 | StateTransition::MasternodeVote(_)
         )
@@ -806,7 +838,7 @@ impl StateTransitionStructureKnownInStateValidationV0 for StateTransition {
     /// This means we should transform into the action before validation of the advanced structure,
     /// and that we must even do this on check_tx
     fn requires_advanced_structure_validation_with_state_on_check_tx(&self) -> bool {
-        matches!(self, StateTransition::DocumentsBatch(_))
+        matches!(self, StateTransition::Batch(_))
     }
 }
 
@@ -822,7 +854,7 @@ impl StateTransitionIdentityBasedSignatureValidationV0 for StateTransition {
             StateTransition::DataContractCreate(_)
             | StateTransition::DataContractUpdate(_)
             | StateTransition::IdentityCreditTransfer(_)
-            | StateTransition::DocumentsBatch(_) => {
+            | StateTransition::Batch(_) => {
                 //Basic signature verification
                 Ok(self.validate_state_transition_identity_signed(
                     drive,
@@ -997,7 +1029,7 @@ impl StateTransitionStateValidationV0 for StateTransition {
                 tx,
             ),
             // The replay attack is prevented by identity data contract nonce
-            StateTransition::DocumentsBatch(st) => st.validate_state(
+            StateTransition::Batch(st) => st.validate_state(
                 action,
                 platform,
                 validation_mode,
@@ -1028,7 +1060,7 @@ impl StateTransitionStateValidationV0 for StateTransition {
 impl StateTransitionIsAllowedValidationV0 for StateTransition {
     fn has_is_allowed_validation(&self, platform_version: &PlatformVersion) -> Result<bool, Error> {
         match self {
-            StateTransition::DocumentsBatch(st) => st.has_is_allowed_validation(platform_version),
+            StateTransition::Batch(st) => st.has_is_allowed_validation(platform_version),
             StateTransition::DataContractCreate(_)
             | StateTransition::DataContractUpdate(_)
             | StateTransition::IdentityCreate(_)
@@ -1046,9 +1078,7 @@ impl StateTransitionIsAllowedValidationV0 for StateTransition {
         platform_version: &PlatformVersion,
     ) -> Result<ConsensusValidationResult<()>, Error> {
         match self {
-            StateTransition::DocumentsBatch(st) => {
-                st.validate_is_allowed(platform, platform_version)
-            }
+            StateTransition::Batch(st) => st.validate_is_allowed(platform, platform_version),
             _ => Err(Error::Execution(ExecutionError::CorruptedCodeExecution(
                 "validate_is_allowed is not implemented for this state transition",
             ))),

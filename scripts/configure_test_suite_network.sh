@@ -57,15 +57,14 @@ MASTERNODE_OWNER_MASTER_PRIVATE_KEY=$(yq .hp_masternodes."$MASTERNODE_NAME".owne
 
 if [[ "$NETWORK_STRING" == "devnet"* ]]; then
   NETWORK=devnet
-  INSIGHT_URL="http://insight.${NETWORK_STRING#devnet-}.networks.dash.org:3001/insight-api/sync"
   CERT_FLAG=":self-signed"
   ST_EXECUTION_INTERVAL=5000
 else
   NETWORK=testnet
-  INSIGHT_URL="https://testnet-insight.dashevo.org/insight-api/sync"
   CERT_FLAG=""
   ST_EXECUTION_INTERVAL=15000
 fi
+INSIGHT_URL="http://insight.${NETWORK_STRING#devnet-}.networks.dash.org:3001/insight-api/sync"
 SKIP_SYNC_BEFORE_HEIGHT=$(curl -s $INSIGHT_URL | jq '.height - 200')
 
 # check variables are not empty
