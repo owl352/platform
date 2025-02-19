@@ -66,7 +66,7 @@ impl TryFromPlatformVersioned<DataContract> for DataContractCreateTransitionV0 {
         platform_version: &PlatformVersion,
     ) -> Result<Self, Self::Error> {
         Ok(DataContractCreateTransitionV0 {
-            data_contract: value.try_into_platform_versioned(platform_version)?,
+            data_contract: value.try_into_platform_versioned(PlatformVersion::latest())?,
             identity_nonce: Default::default(),
             user_fee_increase: 0,
             signature_public_key_id: 0,

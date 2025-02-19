@@ -37,13 +37,14 @@ pub enum DataContractFactory {
 impl DataContractFactory {
     /// Create a new data contract factory knowing versions
     pub fn new(protocol_version: u32) -> Result<Self, ProtocolError> {
-        let platform_version = PlatformVersion::get(protocol_version)?;
+        let platform_version = PlatformVersion::first();
         match platform_version
             .dpp
             .factory_versions
             .data_contract_factory_structure_version
         {
-            0 => Ok(DataContractFactoryV0::new(protocol_version).into()),
+            0 => Ok(DataContractFactoryV0::new(9).into()),
+            1 => Ok(DataContractFactoryV0::new(9).into()),
             version => Err(ProtocolError::UnknownVersionMismatch {
                 method: "DataContractFactory::new".to_string(),
                 known_versions: vec![0],

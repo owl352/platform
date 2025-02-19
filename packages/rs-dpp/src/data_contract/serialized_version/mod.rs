@@ -98,11 +98,11 @@ impl DataContractInSerializationFormat {
     }
 }
 
-impl TryFromPlatformVersioned<DataContractV0> for DataContractInSerializationFormat {
+impl TryFromPlatformVersioned<DataContractV1> for DataContractInSerializationFormat {
     type Error = ProtocolError;
 
     fn try_from_platform_versioned(
-        value: DataContractV0,
+        value: DataContractV1,
         platform_version: &PlatformVersion,
     ) -> Result<Self, Self::Error> {
         match platform_version
@@ -112,11 +112,11 @@ impl TryFromPlatformVersioned<DataContractV0> for DataContractInSerializationFor
             .default_current_version
         {
             0 => {
-                let v0_format: DataContractInSerializationFormatV0 = DataContract::V0(value).into();
-                Ok(v0_format.into())
+                let v1_format: DataContractInSerializationFormatV1 = DataContract::V1(value).into();
+                Ok(v1_format.into())
             }
             1 => {
-                let v1_format: DataContractInSerializationFormatV1 = DataContract::V0(value).into();
+                let v1_format: DataContractInSerializationFormatV1 = DataContract::V1(value).into();
                 Ok(v1_format.into())
             }
             version => Err(ProtocolError::UnknownVersionMismatch {

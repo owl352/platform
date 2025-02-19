@@ -2,7 +2,7 @@ use std::convert::TryFrom;
 
 use dpp::data_contract::created_data_contract::CreatedDataContract;
 
-use dpp::data_contract::{DataContractFacade, DataContractFactoryV0, TokenConfiguration, TokenContractPosition};
+use dpp::data_contract::{DataContractFacade, DataContract, TokenConfiguration, TokenContractPosition};
 use dpp::identifier::Identifier;
 
 use crate::data_contract::state_transition::DataContractCreateTransitionWasm;
@@ -18,7 +18,10 @@ use std::sync::Arc;
 
 use dpp::prelude::IdentityNonce;
 use wasm_bindgen::prelude::*;
+use dpp::data_contract::accessors::v0::DataContractV0Getters;
 use dpp::data_contract::accessors::v1::DataContractV1Setters;
+use dpp::data_contract::associated_token::token_configuration::v0::TokenConfigurationV0;
+use dpp::data_contract::conversion::json::DataContractJsonConversionMethodsV0;
 
 impl From<DataContractFacade> for DataContractFacadeWasm {
     fn from(facade: DataContractFacade) -> Self {
@@ -69,33 +72,52 @@ impl DataContractFacadeWasm {
     }
 
     /// Create Data Contract from plain object
-    #[wasm_bindgen(js_name=createFromObject)]
+    #[wasm_bindgen(js_name=createFromObject1)]
     pub async fn create_from_object(
         &self,
         js_raw_data_contract: JsValue,
         options: Option<js_sys::Object>,
     ) -> Result<DataContractWasm, JsValue> {
+
+        use web_sys::console;
+
+        console::log_1(&"starts".into());
+
         let skip_validation = if let Some(options) = options {
             get_bool_from_options(options.into(), SKIP_VALIDATION_PROPERTY_NAME, false)?
         } else {
             false
         };
 
-        let mut data_contract = self.0
-            .create_from_object(
-                js_raw_data_contract.with_serde_to_platform_value()?,
-                skip_validation,
-            )?;
+        console::log_1(&"skip_validation here".into());
+
+        let mut data_contract = match self.0
+          .create_from_object(
+              js_raw_data_contract.with_serde_to_platform_value()?,
+              skip_validation,
+          ){
+            Ok(data_contract) => data_contract,
+            Err(err) => {
+                console::log_1(&err.to_string().into());
+
+                panic!("err");
+            }
+        };
 
 
-        // Sample
-        let token_configuration = TokenConfiguration::default();
 
-        data_contract.add_token(1u16, token_configuration);
+        console::log_1(&"data_contract here".into());
 
-        Ok(data_contract
-            .map(DataContractWasm::from)
-            .map_err(from_protocol_error))
+
+        let token_configuration = TokenConfiguration::from(TokenConfigurationV0::default_most_restrictive());
+
+        console::log_1(&"token created".into());
+
+        data_contract.add_token(0u16, token_configuration);
+
+        console::log_1(&"token here".into());
+
+        Ok(data_contract.into())
     }
 
     /// Create Data Contract from buffer

@@ -72,7 +72,7 @@ impl TryFrom<&DataContractWasm> for CreatedDataContract {
     fn try_from(v: &DataContractWasm) -> Result<Self, Self::Error> {
         let identity_nonce = v.identity_nonce.unwrap_or_default();
 
-        let platform_version = PlatformVersion::first();
+        let platform_version = PlatformVersion::latest();
 
         CreatedDataContract::from_contract_and_identity_nonce(
             v.to_owned().into(),

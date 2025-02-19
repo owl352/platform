@@ -107,6 +107,13 @@ impl DataContractFactoryV0 {
         full_validation: bool,
     ) -> Result<DataContract, ProtocolError> {
         let platform_version = PlatformVersion::get(self.protocol_version)?;
+
+        use web_sys::console;
+
+        console::log_1(&"rs-dpp dc factory create_from_object".into());
+
+        console::log_1(&platform_version.dpp.contract_versions.contract_structure_version.into());
+
         match platform_version
             .dpp
             .contract_versions
@@ -189,7 +196,7 @@ impl DataContractFactoryV0 {
     ) -> Result<DataContractCreateTransition, ProtocolError> {
         DataContractCreateTransition::try_from_platform_versioned(
             created_data_contract,
-            PlatformVersion::get(self.protocol_version)?,
+            PlatformVersion::latest(),
         )
     }
 

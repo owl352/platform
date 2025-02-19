@@ -22,6 +22,8 @@ impl TokenConfiguration {
             TokenConfiguration::V0(v0) => Cow::Borrowed(v0),
         }
     }
+
+
 }
 
 impl fmt::Display for TokenConfiguration {

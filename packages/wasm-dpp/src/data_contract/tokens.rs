@@ -1,5 +1,8 @@
+use wasm_bindgen::JsValue;
 use dpp::data_contract::TokenConfiguration;
 use wasm_bindgen::prelude::wasm_bindgen;
+use dpp::balances::credits::TokenAmount;
+use dpp::data_contract::associated_token::token_configuration::accessors::v0::{TokenConfigurationV0Getters, TokenConfigurationV0Setters};
 
 #[derive(Debug, Clone)]
 #[wasm_bindgen(js_name = "TokenConfiguration")]
@@ -14,5 +17,23 @@ impl From<TokenConfiguration> for TokenConfigurationWasm {
 impl Into<TokenConfiguration> for TokenConfigurationWasm {
     fn into(self) -> TokenConfiguration {
         self.0
+    }
+}
+
+#[wasm_bindgen(js_class = "TokenConfiguration")]
+impl TokenConfigurationWasm {
+    #[wasm_bindgen(js_name=keepsHistory)]
+    pub fn keeps_history(&self) -> bool {
+        self.0.keeps_history()
+    }
+
+    #[wasm_bindgen(js_name=baseSupply)]
+    pub fn base_supply(&self) -> TokenAmount {
+        self.0.base_supply()
+    }
+
+    #[wasm_bindgen(js_name=maxSupply)]
+    pub fn max_supply(&self) -> JsValue {
+        self.0.max_supply().into()
     }
 }
