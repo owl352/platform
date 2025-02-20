@@ -346,7 +346,7 @@ impl DataContractWasm {
 
     #[wasm_bindgen(js_name=toObject)]
     pub fn to_object(&self) -> Result<JsValue, JsValue> {
-        let platform_version = PlatformVersion::first();
+        let platform_version = PlatformVersion::latest();
 
         let value = self.inner.to_value(platform_version).with_js_error()?;
 
@@ -390,7 +390,7 @@ impl DataContractWasm {
 
     #[wasm_bindgen(js_name=toJSON)]
     pub fn to_json(&self) -> Result<JsValue, JsValue> {
-        let platform_version = PlatformVersion::first();
+        let platform_version = PlatformVersion::latest();
 
         let json = self.inner.to_json(platform_version).with_js_error()?;
         let serializer = serde_wasm_bindgen::Serializer::json_compatible();
