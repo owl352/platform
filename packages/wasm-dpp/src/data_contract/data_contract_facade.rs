@@ -21,7 +21,10 @@ use wasm_bindgen::prelude::*;
 use dpp::data_contract::accessors::v0::DataContractV0Getters;
 use dpp::data_contract::accessors::v1::DataContractV1Setters;
 use dpp::data_contract::associated_token::token_configuration::v0::TokenConfigurationV0;
+use dpp::data_contract::associated_token::token_configuration_item::TokenConfigurationChangeItem;
+use dpp::data_contract::change_control_rules::authorized_action_takers::AuthorizedActionTakers;
 use dpp::data_contract::conversion::json::DataContractJsonConversionMethodsV0;
+use dpp::platform_value::string_encoding::Encoding;
 
 impl From<DataContractFacade> for DataContractFacadeWasm {
     fn from(facade: DataContractFacade) -> Self {
@@ -108,8 +111,15 @@ impl DataContractFacadeWasm {
 
         console::log_1(&"data_contract here".into());
 
+        let mut token_configuration = TokenConfigurationV0::default_most_restrictive();
 
-        let token_configuration = TokenConfiguration::from(TokenConfigurationV0::default_most_restrictive());
+        token_configuration.apply_token_configuration_item(
+            TokenConfigurationChangeItem::ManualMinting(
+                AuthorizedActionTakers::ContractOwner
+            )
+        );
+
+        let token_configuration = TokenConfiguration::from(token_configuration);
 
         console::log_1(&"token created".into());
 

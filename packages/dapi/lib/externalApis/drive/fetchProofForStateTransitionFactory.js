@@ -47,7 +47,7 @@ function fetchProofForStateTransitionFactory(driveClient, dpp) {
 
       for (const batchedTransition of stateTransition.getTransitions()) {
         if (batchedTransition instanceof TokenTransition) {
-          switch (batchedTransition.getTransitionType()) {
+          switch (batchedTransition.getType()) {
             case TokenTransitionType.Burn: {
               const request = new IdentityTokenBalanceRequest({
                 tokenId: batchedTransition.getTokenId()

@@ -13,6 +13,16 @@ use dpp::state_transition::state_transition_factory::StateTransitionFactory;
 use dpp::state_transition::StateTransition;
 use dpp::ProtocolError;
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
+use dpp::data_contract::JsonValue;
+use dpp::platform_value::IdentifierBytes32;
+use dpp::platform_value::string_encoding::Encoding;
+use dpp::prelude::{Identifier, IdentityNonce};
+use dpp::state_transition::batch_transition::{BatchTransition, BatchTransitionV1, TokenMintTransition};
+use dpp::state_transition::batch_transition::batched_transition::BatchedTransition;
+use dpp::state_transition::batch_transition::batched_transition::token_transition::TokenTransition;
+use dpp::state_transition::batch_transition::token_base_transition::TokenBaseTransition;
+use dpp::state_transition::batch_transition::token_base_transition::v0::TokenBaseTransitionV0;
+use dpp::state_transition::batch_transition::token_mint_transition::TokenMintTransitionV0;
 
 #[wasm_bindgen(js_name = StateTransitionFactory)]
 pub struct StateTransitionFactoryWasm(StateTransitionFactory);
@@ -189,6 +199,53 @@ impl StateTransitionFactoryWasm {
     //
     //     Self::state_transition_wasm_from_factory_result(result)
     // }
+
+    #[wasm_bindgen(js_name=createTokenTx)]
+    pub fn test(
+        &self,
+        identity_contract_nonce: IdentityNonce,
+        data_contract_id_raw: String,
+        owner_id: String,
+    ) -> Result<JsValue, JsValue> {
+
+        let data_contract_id = Identifier::from_string(&data_contract_id_raw.to_string(), Encoding::Base58).expect("dc");
+
+        let mut bytes = b"dash_token".to_vec();
+        bytes.extend_from_slice(data_contract_id.as_bytes());
+        bytes.extend_from_slice(&0u16.to_be_bytes());
+        let token_id = dpp::util::hash::hash_double(bytes);
+
+        let token_base = TokenBaseTransition::from(TokenBaseTransitionV0{
+            identity_contract_nonce,
+            token_contract_position: 0,
+            data_contract_id,
+            token_id: token_id.into(),
+            using_group_info: None,
+        });
+
+        let token_tx = TokenMintTransitionV0{
+            base: token_base,
+            issued_to_identity_id: Some(Identifier::from_string(&owner_id.to_string(), Encoding::Base58).unwrap()),
+            amount: 100,
+            public_note: Some("bebra was made this".to_owned()),
+        };
+
+        let batched_tx = BatchedTransition::from(
+            TokenTransition::Mint(
+                TokenMintTransition::from(token_tx)
+            )
+        );
+
+        let batch_tx = BatchTransitionV1{
+            owner_id: Identifier::from_string(&owner_id.to_string(), Encoding::Base58).unwrap(),
+            transitions: vec![batched_tx],
+            user_fee_increase: 0,
+            signature_public_key_id: 0,
+            signature: Default::default(),
+        };
+
+        Ok(BatchTransitionWasm::from(BatchTransition::from(batch_tx)).into())
+    }
 
     #[wasm_bindgen(js_name=createFromBuffer)]
     pub async fn create_from_buffer(
