@@ -2,7 +2,6 @@ use std::borrow::Cow;
 use dpp::block::epoch::Epoch;
 use dpp::data_contract::accessors::v0::DataContractV0Setters;
 use dpp::data_contract::accessors::v1::DataContractV1Setters;
-use dpp::data_contract::associated_token::token_configuration::accessors::v0::TokenConfigurationV0Getters;
 use dpp::group::action_event::GroupActionEvent;
 use dpp::group::group_action::GroupAction;
 use dpp::group::group_action::v0::GroupActionV0;
@@ -61,6 +60,9 @@ impl DriveHighLevelBatchOperationConverter for TokenConfigUpdateTransitionAction
 
                     let initialize_with_insert_action_info = if *action_is_proposer {
                         Some(GroupAction::V0(GroupActionV0 {
+                            contract_id: self.base().data_contract_id(),
+                            proposer_id: owner_id,
+                            token_contract_position: self.base().token_position(),
                             event: GroupActionEvent::TokenEvent(event),
                         }))
                     } else {
@@ -74,6 +76,7 @@ impl DriveHighLevelBatchOperationConverter for TokenConfigUpdateTransitionAction
                         action_id: *action_id,
                         signer_identity_id: owner_id,
                         signer_power: *signer_power,
+                        closes_group_action: self.base().perform_action(),
                     }));
                 }
 
@@ -92,18 +95,15 @@ impl DriveHighLevelBatchOperationConverter for TokenConfigUpdateTransitionAction
                         },
                     ));
 
-                    let token_configuration = self.base().token_configuration()?;
-                    if token_configuration.keeps_history() {
-                        ops.push(TokenOperation(TokenOperationType::TokenHistory {
-                            token_id: self.token_id(),
-                            owner_id,
-                            nonce: identity_contract_nonce,
-                            event: TokenEvent::ConfigUpdate(
-                                self.update_token_configuration_item().clone(),
-                                self.public_note_owned(),
-                            ),
-                        }));
-                    }
+                    ops.push(TokenOperation(TokenOperationType::TokenHistory {
+                        token_id: self.token_id(),
+                        owner_id,
+                        nonce: identity_contract_nonce,
+                        event: TokenEvent::ConfigUpdate(
+                            self.update_token_configuration_item().clone(),
+                            self.public_note_owned(),
+                        ),
+                    }));
                 }
 
                 Ok(ops)

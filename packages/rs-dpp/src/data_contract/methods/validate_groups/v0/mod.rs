@@ -14,20 +14,20 @@ impl DataContract {
         platform_version: &PlatformVersion,
     ) -> Result<SimpleConsensusValidationResult, ProtocolError> {
         // Check for gaps in the group contract positions
-        let mut expected_position = 0;
-        for &position in groups.keys() {
-            if position != expected_position {
+        for (expected_position, position) in groups.keys().enumerate() {
+            let expected_position = expected_position as GroupContractPosition;
+
+            if *position != expected_position as GroupContractPosition {
                 return Ok(SimpleConsensusValidationResult::new_with_error(
-                    NonContiguousContractGroupPositionsError::new(expected_position, position)
+                    NonContiguousContractGroupPositionsError::new(expected_position, *position)
                         .into(),
                 ));
             }
-            expected_position += 1;
         }
 
         // Validate each group individually
-        for group in groups.values() {
-            let validation_result = group.validate(platform_version)?;
+        for (pos, group) in groups.iter() {
+            let validation_result = group.validate(Some(*pos), platform_version)?;
             if !validation_result.is_valid() {
                 return Ok(validation_result);
             }

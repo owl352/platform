@@ -89,8 +89,7 @@ mod tests {
 
         let platform_version = PlatformVersion::latest();
 
-        let (drive, _) = Drive::open(tmp_dir, None, Some(platform_version))
-            .expect("expected to open Drive successfully");
+        let (drive, _) = Drive::open(tmp_dir, None).expect("expected to open Drive successfully");
 
         drive
             .create_initial_state_structure(None, platform_version)
@@ -323,7 +322,7 @@ mod tests {
         .expect("expected to get document");
 
         let serialized = person_document0
-            .serialize(document_type, platform_version)
+            .serialize(document_type, &contract, platform_version)
             .expect("expected to serialize");
         let _deserialized = Document::from_bytes(&serialized, document_type, platform_version)
             .expect("expected to deserialize");

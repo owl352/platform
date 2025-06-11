@@ -450,39 +450,6 @@ $root.org = (function() {
                          */
 
                         /**
-                         * Callback as used by {@link org.dash.platform.dapi.v0.Platform#getProofs}.
-                         * @memberof org.dash.platform.dapi.v0.Platform
-                         * @typedef getProofsCallback
-                         * @type {function}
-                         * @param {Error|null} error Error, if any
-                         * @param {org.dash.platform.dapi.v0.GetProofsResponse} [response] GetProofsResponse
-                         */
-
-                        /**
-                         * Calls getProofs.
-                         * @function getProofs
-                         * @memberof org.dash.platform.dapi.v0.Platform
-                         * @instance
-                         * @param {org.dash.platform.dapi.v0.IGetProofsRequest} request GetProofsRequest message or plain object
-                         * @param {org.dash.platform.dapi.v0.Platform.getProofsCallback} callback Node-style callback called with the error, if any, and GetProofsResponse
-                         * @returns {undefined}
-                         * @variation 1
-                         */
-                        Object.defineProperty(Platform.prototype.getProofs = function getProofs(request, callback) {
-                            return this.rpcCall(getProofs, $root.org.dash.platform.dapi.v0.GetProofsRequest, $root.org.dash.platform.dapi.v0.GetProofsResponse, request, callback);
-                        }, "name", { value: "getProofs" });
-
-                        /**
-                         * Calls getProofs.
-                         * @function getProofs
-                         * @memberof org.dash.platform.dapi.v0.Platform
-                         * @instance
-                         * @param {org.dash.platform.dapi.v0.IGetProofsRequest} request GetProofsRequest message or plain object
-                         * @returns {Promise<org.dash.platform.dapi.v0.GetProofsResponse>} Promise
-                         * @variation 2
-                         */
-
-                        /**
                          * Callback as used by {@link org.dash.platform.dapi.v0.Platform#getDataContract}.
                          * @memberof org.dash.platform.dapi.v0.Platform
                          * @typedef getDataContractCallback
@@ -1304,6 +1271,39 @@ $root.org = (function() {
                          * @instance
                          * @param {org.dash.platform.dapi.v0.IGetTokenStatusesRequest} request GetTokenStatusesRequest message or plain object
                          * @returns {Promise<org.dash.platform.dapi.v0.GetTokenStatusesResponse>} Promise
+                         * @variation 2
+                         */
+
+                        /**
+                         * Callback as used by {@link org.dash.platform.dapi.v0.Platform#getTokenDirectPurchasePrices}.
+                         * @memberof org.dash.platform.dapi.v0.Platform
+                         * @typedef getTokenDirectPurchasePricesCallback
+                         * @type {function}
+                         * @param {Error|null} error Error, if any
+                         * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse} [response] GetTokenDirectPurchasePricesResponse
+                         */
+
+                        /**
+                         * Calls getTokenDirectPurchasePrices.
+                         * @function getTokenDirectPurchasePrices
+                         * @memberof org.dash.platform.dapi.v0.Platform
+                         * @instance
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesRequest} request GetTokenDirectPurchasePricesRequest message or plain object
+                         * @param {org.dash.platform.dapi.v0.Platform.getTokenDirectPurchasePricesCallback} callback Node-style callback called with the error, if any, and GetTokenDirectPurchasePricesResponse
+                         * @returns {undefined}
+                         * @variation 1
+                         */
+                        Object.defineProperty(Platform.prototype.getTokenDirectPurchasePrices = function getTokenDirectPurchasePrices(request, callback) {
+                            return this.rpcCall(getTokenDirectPurchasePrices, $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest, $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse, request, callback);
+                        }, "name", { value: "getTokenDirectPurchasePrices" });
+
+                        /**
+                         * Calls getTokenDirectPurchasePrices.
+                         * @function getTokenDirectPurchasePrices
+                         * @memberof org.dash.platform.dapi.v0.Platform
+                         * @instance
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesRequest} request GetTokenDirectPurchasePricesRequest message or plain object
+                         * @returns {Promise<org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse>} Promise
                          * @variation 2
                          */
 
@@ -14999,3095 +14999,6 @@ $root.org = (function() {
                         })();
 
                         return GetIdentitiesBalancesResponse;
-                    })();
-
-                    v0.GetProofsRequest = (function() {
-
-                        /**
-                         * Properties of a GetProofsRequest.
-                         * @memberof org.dash.platform.dapi.v0
-                         * @interface IGetProofsRequest
-                         * @property {org.dash.platform.dapi.v0.GetProofsRequest.IGetProofsRequestV0|null} [v0] GetProofsRequest v0
-                         */
-
-                        /**
-                         * Constructs a new GetProofsRequest.
-                         * @memberof org.dash.platform.dapi.v0
-                         * @classdesc Represents a GetProofsRequest.
-                         * @implements IGetProofsRequest
-                         * @constructor
-                         * @param {org.dash.platform.dapi.v0.IGetProofsRequest=} [properties] Properties to set
-                         */
-                        function GetProofsRequest(properties) {
-                            if (properties)
-                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                    if (properties[keys[i]] != null)
-                                        this[keys[i]] = properties[keys[i]];
-                        }
-
-                        /**
-                         * GetProofsRequest v0.
-                         * @member {org.dash.platform.dapi.v0.GetProofsRequest.IGetProofsRequestV0|null|undefined} v0
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @instance
-                         */
-                        GetProofsRequest.prototype.v0 = null;
-
-                        // OneOf field names bound to virtual getters and setters
-                        var $oneOfFields;
-
-                        /**
-                         * GetProofsRequest version.
-                         * @member {"v0"|undefined} version
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @instance
-                         */
-                        Object.defineProperty(GetProofsRequest.prototype, "version", {
-                            get: $util.oneOfGetter($oneOfFields = ["v0"]),
-                            set: $util.oneOfSetter($oneOfFields)
-                        });
-
-                        /**
-                         * Creates a new GetProofsRequest instance using the specified properties.
-                         * @function create
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.IGetProofsRequest=} [properties] Properties to set
-                         * @returns {org.dash.platform.dapi.v0.GetProofsRequest} GetProofsRequest instance
-                         */
-                        GetProofsRequest.create = function create(properties) {
-                            return new GetProofsRequest(properties);
-                        };
-
-                        /**
-                         * Encodes the specified GetProofsRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.verify|verify} messages.
-                         * @function encode
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.IGetProofsRequest} message GetProofsRequest message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        GetProofsRequest.encode = function encode(message, writer) {
-                            if (!writer)
-                                writer = $Writer.create();
-                            if (message.v0 != null && Object.hasOwnProperty.call(message, "v0"))
-                                $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.encode(message.v0, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                            return writer;
-                        };
-
-                        /**
-                         * Encodes the specified GetProofsRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.verify|verify} messages.
-                         * @function encodeDelimited
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.IGetProofsRequest} message GetProofsRequest message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        GetProofsRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                            return this.encode(message, writer).ldelim();
-                        };
-
-                        /**
-                         * Decodes a GetProofsRequest message from the specified reader or buffer.
-                         * @function decode
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @param {number} [length] Message length if known beforehand
-                         * @returns {org.dash.platform.dapi.v0.GetProofsRequest} GetProofsRequest
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        GetProofsRequest.decode = function decode(reader, length) {
-                            if (!(reader instanceof $Reader))
-                                reader = $Reader.create(reader);
-                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest();
-                            while (reader.pos < end) {
-                                var tag = reader.uint32();
-                                switch (tag >>> 3) {
-                                case 1:
-                                    message.v0 = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.decode(reader, reader.uint32());
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                                }
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Decodes a GetProofsRequest message from the specified reader or buffer, length delimited.
-                         * @function decodeDelimited
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {org.dash.platform.dapi.v0.GetProofsRequest} GetProofsRequest
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        GetProofsRequest.decodeDelimited = function decodeDelimited(reader) {
-                            if (!(reader instanceof $Reader))
-                                reader = new $Reader(reader);
-                            return this.decode(reader, reader.uint32());
-                        };
-
-                        /**
-                         * Verifies a GetProofsRequest message.
-                         * @function verify
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {Object.<string,*>} message Plain object to verify
-                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                         */
-                        GetProofsRequest.verify = function verify(message) {
-                            if (typeof message !== "object" || message === null)
-                                return "object expected";
-                            var properties = {};
-                            if (message.v0 != null && message.hasOwnProperty("v0")) {
-                                properties.version = 1;
-                                {
-                                    var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.verify(message.v0);
-                                    if (error)
-                                        return "v0." + error;
-                                }
-                            }
-                            return null;
-                        };
-
-                        /**
-                         * Creates a GetProofsRequest message from a plain object. Also converts values to their respective internal types.
-                         * @function fromObject
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {Object.<string,*>} object Plain object
-                         * @returns {org.dash.platform.dapi.v0.GetProofsRequest} GetProofsRequest
-                         */
-                        GetProofsRequest.fromObject = function fromObject(object) {
-                            if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest)
-                                return object;
-                            var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest();
-                            if (object.v0 != null) {
-                                if (typeof object.v0 !== "object")
-                                    throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.v0: object expected");
-                                message.v0 = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.fromObject(object.v0);
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Creates a plain object from a GetProofsRequest message. Also converts values to other types if specified.
-                         * @function toObject
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.GetProofsRequest} message GetProofsRequest
-                         * @param {$protobuf.IConversionOptions} [options] Conversion options
-                         * @returns {Object.<string,*>} Plain object
-                         */
-                        GetProofsRequest.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            var object = {};
-                            if (message.v0 != null && message.hasOwnProperty("v0")) {
-                                object.v0 = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.toObject(message.v0, options);
-                                if (options.oneofs)
-                                    object.version = "v0";
-                            }
-                            return object;
-                        };
-
-                        /**
-                         * Converts this GetProofsRequest to JSON.
-                         * @function toJSON
-                         * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                         * @instance
-                         * @returns {Object.<string,*>} JSON object
-                         */
-                        GetProofsRequest.prototype.toJSON = function toJSON() {
-                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                        };
-
-                        GetProofsRequest.GetProofsRequestV0 = (function() {
-
-                            /**
-                             * Properties of a GetProofsRequestV0.
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                             * @interface IGetProofsRequestV0
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityRequest>|null} [identities] GetProofsRequestV0 identities
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IContractRequest>|null} [contracts] GetProofsRequestV0 contracts
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IDocumentRequest>|null} [documents] GetProofsRequestV0 documents
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IVoteStatusRequest>|null} [votes] GetProofsRequestV0 votes
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenBalanceRequest>|null} [identityTokenBalances] GetProofsRequestV0 identityTokenBalances
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenInfoRequest>|null} [identityTokenInfos] GetProofsRequestV0 identityTokenInfos
-                             * @property {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ITokenStatusRequest>|null} [tokenStatuses] GetProofsRequestV0 tokenStatuses
-                             */
-
-                            /**
-                             * Constructs a new GetProofsRequestV0.
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest
-                             * @classdesc Represents a GetProofsRequestV0.
-                             * @implements IGetProofsRequestV0
-                             * @constructor
-                             * @param {org.dash.platform.dapi.v0.GetProofsRequest.IGetProofsRequestV0=} [properties] Properties to set
-                             */
-                            function GetProofsRequestV0(properties) {
-                                this.identities = [];
-                                this.contracts = [];
-                                this.documents = [];
-                                this.votes = [];
-                                this.identityTokenBalances = [];
-                                this.identityTokenInfos = [];
-                                this.tokenStatuses = [];
-                                if (properties)
-                                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                        if (properties[keys[i]] != null)
-                                            this[keys[i]] = properties[keys[i]];
-                            }
-
-                            /**
-                             * GetProofsRequestV0 identities.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityRequest>} identities
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.identities = $util.emptyArray;
-
-                            /**
-                             * GetProofsRequestV0 contracts.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IContractRequest>} contracts
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.contracts = $util.emptyArray;
-
-                            /**
-                             * GetProofsRequestV0 documents.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IDocumentRequest>} documents
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.documents = $util.emptyArray;
-
-                            /**
-                             * GetProofsRequestV0 votes.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IVoteStatusRequest>} votes
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.votes = $util.emptyArray;
-
-                            /**
-                             * GetProofsRequestV0 identityTokenBalances.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenBalanceRequest>} identityTokenBalances
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.identityTokenBalances = $util.emptyArray;
-
-                            /**
-                             * GetProofsRequestV0 identityTokenInfos.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenInfoRequest>} identityTokenInfos
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.identityTokenInfos = $util.emptyArray;
-
-                            /**
-                             * GetProofsRequestV0 tokenStatuses.
-                             * @member {Array.<org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ITokenStatusRequest>} tokenStatuses
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             */
-                            GetProofsRequestV0.prototype.tokenStatuses = $util.emptyArray;
-
-                            /**
-                             * Creates a new GetProofsRequestV0 instance using the specified properties.
-                             * @function create
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsRequest.IGetProofsRequestV0=} [properties] Properties to set
-                             * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0} GetProofsRequestV0 instance
-                             */
-                            GetProofsRequestV0.create = function create(properties) {
-                                return new GetProofsRequestV0(properties);
-                            };
-
-                            /**
-                             * Encodes the specified GetProofsRequestV0 message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.verify|verify} messages.
-                             * @function encode
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsRequest.IGetProofsRequestV0} message GetProofsRequestV0 message or plain object to encode
-                             * @param {$protobuf.Writer} [writer] Writer to encode to
-                             * @returns {$protobuf.Writer} Writer
-                             */
-                            GetProofsRequestV0.encode = function encode(message, writer) {
-                                if (!writer)
-                                    writer = $Writer.create();
-                                if (message.identities != null && message.identities.length)
-                                    for (var i = 0; i < message.identities.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.encode(message.identities[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                                if (message.contracts != null && message.contracts.length)
-                                    for (var i = 0; i < message.contracts.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.encode(message.contracts[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                                if (message.documents != null && message.documents.length)
-                                    for (var i = 0; i < message.documents.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.encode(message.documents[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                                if (message.votes != null && message.votes.length)
-                                    for (var i = 0; i < message.votes.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.encode(message.votes[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                                if (message.identityTokenBalances != null && message.identityTokenBalances.length)
-                                    for (var i = 0; i < message.identityTokenBalances.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.encode(message.identityTokenBalances[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                                if (message.identityTokenInfos != null && message.identityTokenInfos.length)
-                                    for (var i = 0; i < message.identityTokenInfos.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.encode(message.identityTokenInfos[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
-                                if (message.tokenStatuses != null && message.tokenStatuses.length)
-                                    for (var i = 0; i < message.tokenStatuses.length; ++i)
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.encode(message.tokenStatuses[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
-                                return writer;
-                            };
-
-                            /**
-                             * Encodes the specified GetProofsRequestV0 message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.verify|verify} messages.
-                             * @function encodeDelimited
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsRequest.IGetProofsRequestV0} message GetProofsRequestV0 message or plain object to encode
-                             * @param {$protobuf.Writer} [writer] Writer to encode to
-                             * @returns {$protobuf.Writer} Writer
-                             */
-                            GetProofsRequestV0.encodeDelimited = function encodeDelimited(message, writer) {
-                                return this.encode(message, writer).ldelim();
-                            };
-
-                            /**
-                             * Decodes a GetProofsRequestV0 message from the specified reader or buffer.
-                             * @function decode
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                             * @param {number} [length] Message length if known beforehand
-                             * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0} GetProofsRequestV0
-                             * @throws {Error} If the payload is not a reader or valid buffer
-                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                             */
-                            GetProofsRequestV0.decode = function decode(reader, length) {
-                                if (!(reader instanceof $Reader))
-                                    reader = $Reader.create(reader);
-                                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0();
-                                while (reader.pos < end) {
-                                    var tag = reader.uint32();
-                                    switch (tag >>> 3) {
-                                    case 1:
-                                        if (!(message.identities && message.identities.length))
-                                            message.identities = [];
-                                        message.identities.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    case 2:
-                                        if (!(message.contracts && message.contracts.length))
-                                            message.contracts = [];
-                                        message.contracts.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    case 3:
-                                        if (!(message.documents && message.documents.length))
-                                            message.documents = [];
-                                        message.documents.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    case 4:
-                                        if (!(message.votes && message.votes.length))
-                                            message.votes = [];
-                                        message.votes.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    case 5:
-                                        if (!(message.identityTokenBalances && message.identityTokenBalances.length))
-                                            message.identityTokenBalances = [];
-                                        message.identityTokenBalances.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    case 6:
-                                        if (!(message.identityTokenInfos && message.identityTokenInfos.length))
-                                            message.identityTokenInfos = [];
-                                        message.identityTokenInfos.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    case 7:
-                                        if (!(message.tokenStatuses && message.tokenStatuses.length))
-                                            message.tokenStatuses = [];
-                                        message.tokenStatuses.push($root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.decode(reader, reader.uint32()));
-                                        break;
-                                    default:
-                                        reader.skipType(tag & 7);
-                                        break;
-                                    }
-                                }
-                                return message;
-                            };
-
-                            /**
-                             * Decodes a GetProofsRequestV0 message from the specified reader or buffer, length delimited.
-                             * @function decodeDelimited
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                             * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0} GetProofsRequestV0
-                             * @throws {Error} If the payload is not a reader or valid buffer
-                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                             */
-                            GetProofsRequestV0.decodeDelimited = function decodeDelimited(reader) {
-                                if (!(reader instanceof $Reader))
-                                    reader = new $Reader(reader);
-                                return this.decode(reader, reader.uint32());
-                            };
-
-                            /**
-                             * Verifies a GetProofsRequestV0 message.
-                             * @function verify
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {Object.<string,*>} message Plain object to verify
-                             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                             */
-                            GetProofsRequestV0.verify = function verify(message) {
-                                if (typeof message !== "object" || message === null)
-                                    return "object expected";
-                                if (message.identities != null && message.hasOwnProperty("identities")) {
-                                    if (!Array.isArray(message.identities))
-                                        return "identities: array expected";
-                                    for (var i = 0; i < message.identities.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.verify(message.identities[i]);
-                                        if (error)
-                                            return "identities." + error;
-                                    }
-                                }
-                                if (message.contracts != null && message.hasOwnProperty("contracts")) {
-                                    if (!Array.isArray(message.contracts))
-                                        return "contracts: array expected";
-                                    for (var i = 0; i < message.contracts.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.verify(message.contracts[i]);
-                                        if (error)
-                                            return "contracts." + error;
-                                    }
-                                }
-                                if (message.documents != null && message.hasOwnProperty("documents")) {
-                                    if (!Array.isArray(message.documents))
-                                        return "documents: array expected";
-                                    for (var i = 0; i < message.documents.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.verify(message.documents[i]);
-                                        if (error)
-                                            return "documents." + error;
-                                    }
-                                }
-                                if (message.votes != null && message.hasOwnProperty("votes")) {
-                                    if (!Array.isArray(message.votes))
-                                        return "votes: array expected";
-                                    for (var i = 0; i < message.votes.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.verify(message.votes[i]);
-                                        if (error)
-                                            return "votes." + error;
-                                    }
-                                }
-                                if (message.identityTokenBalances != null && message.hasOwnProperty("identityTokenBalances")) {
-                                    if (!Array.isArray(message.identityTokenBalances))
-                                        return "identityTokenBalances: array expected";
-                                    for (var i = 0; i < message.identityTokenBalances.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.verify(message.identityTokenBalances[i]);
-                                        if (error)
-                                            return "identityTokenBalances." + error;
-                                    }
-                                }
-                                if (message.identityTokenInfos != null && message.hasOwnProperty("identityTokenInfos")) {
-                                    if (!Array.isArray(message.identityTokenInfos))
-                                        return "identityTokenInfos: array expected";
-                                    for (var i = 0; i < message.identityTokenInfos.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.verify(message.identityTokenInfos[i]);
-                                        if (error)
-                                            return "identityTokenInfos." + error;
-                                    }
-                                }
-                                if (message.tokenStatuses != null && message.hasOwnProperty("tokenStatuses")) {
-                                    if (!Array.isArray(message.tokenStatuses))
-                                        return "tokenStatuses: array expected";
-                                    for (var i = 0; i < message.tokenStatuses.length; ++i) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.verify(message.tokenStatuses[i]);
-                                        if (error)
-                                            return "tokenStatuses." + error;
-                                    }
-                                }
-                                return null;
-                            };
-
-                            /**
-                             * Creates a GetProofsRequestV0 message from a plain object. Also converts values to their respective internal types.
-                             * @function fromObject
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {Object.<string,*>} object Plain object
-                             * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0} GetProofsRequestV0
-                             */
-                            GetProofsRequestV0.fromObject = function fromObject(object) {
-                                if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0)
-                                    return object;
-                                var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0();
-                                if (object.identities) {
-                                    if (!Array.isArray(object.identities))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.identities: array expected");
-                                    message.identities = [];
-                                    for (var i = 0; i < object.identities.length; ++i) {
-                                        if (typeof object.identities[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.identities: object expected");
-                                        message.identities[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.fromObject(object.identities[i]);
-                                    }
-                                }
-                                if (object.contracts) {
-                                    if (!Array.isArray(object.contracts))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.contracts: array expected");
-                                    message.contracts = [];
-                                    for (var i = 0; i < object.contracts.length; ++i) {
-                                        if (typeof object.contracts[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.contracts: object expected");
-                                        message.contracts[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.fromObject(object.contracts[i]);
-                                    }
-                                }
-                                if (object.documents) {
-                                    if (!Array.isArray(object.documents))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.documents: array expected");
-                                    message.documents = [];
-                                    for (var i = 0; i < object.documents.length; ++i) {
-                                        if (typeof object.documents[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.documents: object expected");
-                                        message.documents[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.fromObject(object.documents[i]);
-                                    }
-                                }
-                                if (object.votes) {
-                                    if (!Array.isArray(object.votes))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.votes: array expected");
-                                    message.votes = [];
-                                    for (var i = 0; i < object.votes.length; ++i) {
-                                        if (typeof object.votes[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.votes: object expected");
-                                        message.votes[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.fromObject(object.votes[i]);
-                                    }
-                                }
-                                if (object.identityTokenBalances) {
-                                    if (!Array.isArray(object.identityTokenBalances))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.identityTokenBalances: array expected");
-                                    message.identityTokenBalances = [];
-                                    for (var i = 0; i < object.identityTokenBalances.length; ++i) {
-                                        if (typeof object.identityTokenBalances[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.identityTokenBalances: object expected");
-                                        message.identityTokenBalances[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.fromObject(object.identityTokenBalances[i]);
-                                    }
-                                }
-                                if (object.identityTokenInfos) {
-                                    if (!Array.isArray(object.identityTokenInfos))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.identityTokenInfos: array expected");
-                                    message.identityTokenInfos = [];
-                                    for (var i = 0; i < object.identityTokenInfos.length; ++i) {
-                                        if (typeof object.identityTokenInfos[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.identityTokenInfos: object expected");
-                                        message.identityTokenInfos[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.fromObject(object.identityTokenInfos[i]);
-                                    }
-                                }
-                                if (object.tokenStatuses) {
-                                    if (!Array.isArray(object.tokenStatuses))
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.tokenStatuses: array expected");
-                                    message.tokenStatuses = [];
-                                    for (var i = 0; i < object.tokenStatuses.length; ++i) {
-                                        if (typeof object.tokenStatuses[i] !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.tokenStatuses: object expected");
-                                        message.tokenStatuses[i] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.fromObject(object.tokenStatuses[i]);
-                                    }
-                                }
-                                return message;
-                            };
-
-                            /**
-                             * Creates a plain object from a GetProofsRequestV0 message. Also converts values to other types if specified.
-                             * @function toObject
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0} message GetProofsRequestV0
-                             * @param {$protobuf.IConversionOptions} [options] Conversion options
-                             * @returns {Object.<string,*>} Plain object
-                             */
-                            GetProofsRequestV0.toObject = function toObject(message, options) {
-                                if (!options)
-                                    options = {};
-                                var object = {};
-                                if (options.arrays || options.defaults) {
-                                    object.identities = [];
-                                    object.contracts = [];
-                                    object.documents = [];
-                                    object.votes = [];
-                                    object.identityTokenBalances = [];
-                                    object.identityTokenInfos = [];
-                                    object.tokenStatuses = [];
-                                }
-                                if (message.identities && message.identities.length) {
-                                    object.identities = [];
-                                    for (var j = 0; j < message.identities.length; ++j)
-                                        object.identities[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.toObject(message.identities[j], options);
-                                }
-                                if (message.contracts && message.contracts.length) {
-                                    object.contracts = [];
-                                    for (var j = 0; j < message.contracts.length; ++j)
-                                        object.contracts[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.toObject(message.contracts[j], options);
-                                }
-                                if (message.documents && message.documents.length) {
-                                    object.documents = [];
-                                    for (var j = 0; j < message.documents.length; ++j)
-                                        object.documents[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.toObject(message.documents[j], options);
-                                }
-                                if (message.votes && message.votes.length) {
-                                    object.votes = [];
-                                    for (var j = 0; j < message.votes.length; ++j)
-                                        object.votes[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.toObject(message.votes[j], options);
-                                }
-                                if (message.identityTokenBalances && message.identityTokenBalances.length) {
-                                    object.identityTokenBalances = [];
-                                    for (var j = 0; j < message.identityTokenBalances.length; ++j)
-                                        object.identityTokenBalances[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.toObject(message.identityTokenBalances[j], options);
-                                }
-                                if (message.identityTokenInfos && message.identityTokenInfos.length) {
-                                    object.identityTokenInfos = [];
-                                    for (var j = 0; j < message.identityTokenInfos.length; ++j)
-                                        object.identityTokenInfos[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.toObject(message.identityTokenInfos[j], options);
-                                }
-                                if (message.tokenStatuses && message.tokenStatuses.length) {
-                                    object.tokenStatuses = [];
-                                    for (var j = 0; j < message.tokenStatuses.length; ++j)
-                                        object.tokenStatuses[j] = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.toObject(message.tokenStatuses[j], options);
-                                }
-                                return object;
-                            };
-
-                            /**
-                             * Converts this GetProofsRequestV0 to JSON.
-                             * @function toJSON
-                             * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                             * @instance
-                             * @returns {Object.<string,*>} JSON object
-                             */
-                            GetProofsRequestV0.prototype.toJSON = function toJSON() {
-                                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                            };
-
-                            GetProofsRequestV0.DocumentRequest = (function() {
-
-                                /**
-                                 * Properties of a DocumentRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface IDocumentRequest
-                                 * @property {Uint8Array|null} [contractId] DocumentRequest contractId
-                                 * @property {string|null} [documentType] DocumentRequest documentType
-                                 * @property {boolean|null} [documentTypeKeepsHistory] DocumentRequest documentTypeKeepsHistory
-                                 * @property {Uint8Array|null} [documentId] DocumentRequest documentId
-                                 * @property {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.DocumentContestedStatus|null} [documentContestedStatus] DocumentRequest documentContestedStatus
-                                 */
-
-                                /**
-                                 * Constructs a new DocumentRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents a DocumentRequest.
-                                 * @implements IDocumentRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IDocumentRequest=} [properties] Properties to set
-                                 */
-                                function DocumentRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * DocumentRequest contractId.
-                                 * @member {Uint8Array} contractId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @instance
-                                 */
-                                DocumentRequest.prototype.contractId = $util.newBuffer([]);
-
-                                /**
-                                 * DocumentRequest documentType.
-                                 * @member {string} documentType
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @instance
-                                 */
-                                DocumentRequest.prototype.documentType = "";
-
-                                /**
-                                 * DocumentRequest documentTypeKeepsHistory.
-                                 * @member {boolean} documentTypeKeepsHistory
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @instance
-                                 */
-                                DocumentRequest.prototype.documentTypeKeepsHistory = false;
-
-                                /**
-                                 * DocumentRequest documentId.
-                                 * @member {Uint8Array} documentId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @instance
-                                 */
-                                DocumentRequest.prototype.documentId = $util.newBuffer([]);
-
-                                /**
-                                 * DocumentRequest documentContestedStatus.
-                                 * @member {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.DocumentContestedStatus} documentContestedStatus
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @instance
-                                 */
-                                DocumentRequest.prototype.documentContestedStatus = 0;
-
-                                /**
-                                 * Creates a new DocumentRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IDocumentRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest} DocumentRequest instance
-                                 */
-                                DocumentRequest.create = function create(properties) {
-                                    return new DocumentRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified DocumentRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IDocumentRequest} message DocumentRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                DocumentRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.contractId != null && Object.hasOwnProperty.call(message, "contractId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.contractId);
-                                    if (message.documentType != null && Object.hasOwnProperty.call(message, "documentType"))
-                                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.documentType);
-                                    if (message.documentTypeKeepsHistory != null && Object.hasOwnProperty.call(message, "documentTypeKeepsHistory"))
-                                        writer.uint32(/* id 3, wireType 0 =*/24).bool(message.documentTypeKeepsHistory);
-                                    if (message.documentId != null && Object.hasOwnProperty.call(message, "documentId"))
-                                        writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.documentId);
-                                    if (message.documentContestedStatus != null && Object.hasOwnProperty.call(message, "documentContestedStatus"))
-                                        writer.uint32(/* id 5, wireType 0 =*/40).int32(message.documentContestedStatus);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified DocumentRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IDocumentRequest} message DocumentRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                DocumentRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes a DocumentRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest} DocumentRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                DocumentRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.contractId = reader.bytes();
-                                            break;
-                                        case 2:
-                                            message.documentType = reader.string();
-                                            break;
-                                        case 3:
-                                            message.documentTypeKeepsHistory = reader.bool();
-                                            break;
-                                        case 4:
-                                            message.documentId = reader.bytes();
-                                            break;
-                                        case 5:
-                                            message.documentContestedStatus = reader.int32();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes a DocumentRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest} DocumentRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                DocumentRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies a DocumentRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                DocumentRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.contractId != null && message.hasOwnProperty("contractId"))
-                                        if (!(message.contractId && typeof message.contractId.length === "number" || $util.isString(message.contractId)))
-                                            return "contractId: buffer expected";
-                                    if (message.documentType != null && message.hasOwnProperty("documentType"))
-                                        if (!$util.isString(message.documentType))
-                                            return "documentType: string expected";
-                                    if (message.documentTypeKeepsHistory != null && message.hasOwnProperty("documentTypeKeepsHistory"))
-                                        if (typeof message.documentTypeKeepsHistory !== "boolean")
-                                            return "documentTypeKeepsHistory: boolean expected";
-                                    if (message.documentId != null && message.hasOwnProperty("documentId"))
-                                        if (!(message.documentId && typeof message.documentId.length === "number" || $util.isString(message.documentId)))
-                                            return "documentId: buffer expected";
-                                    if (message.documentContestedStatus != null && message.hasOwnProperty("documentContestedStatus"))
-                                        switch (message.documentContestedStatus) {
-                                        default:
-                                            return "documentContestedStatus: enum value expected";
-                                        case 0:
-                                        case 1:
-                                        case 2:
-                                            break;
-                                        }
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates a DocumentRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest} DocumentRequest
-                                 */
-                                DocumentRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest();
-                                    if (object.contractId != null)
-                                        if (typeof object.contractId === "string")
-                                            $util.base64.decode(object.contractId, message.contractId = $util.newBuffer($util.base64.length(object.contractId)), 0);
-                                        else if (object.contractId.length >= 0)
-                                            message.contractId = object.contractId;
-                                    if (object.documentType != null)
-                                        message.documentType = String(object.documentType);
-                                    if (object.documentTypeKeepsHistory != null)
-                                        message.documentTypeKeepsHistory = Boolean(object.documentTypeKeepsHistory);
-                                    if (object.documentId != null)
-                                        if (typeof object.documentId === "string")
-                                            $util.base64.decode(object.documentId, message.documentId = $util.newBuffer($util.base64.length(object.documentId)), 0);
-                                        else if (object.documentId.length >= 0)
-                                            message.documentId = object.documentId;
-                                    switch (object.documentContestedStatus) {
-                                    case "NOT_CONTESTED":
-                                    case 0:
-                                        message.documentContestedStatus = 0;
-                                        break;
-                                    case "MAYBE_CONTESTED":
-                                    case 1:
-                                        message.documentContestedStatus = 1;
-                                        break;
-                                    case "CONTESTED":
-                                    case 2:
-                                        message.documentContestedStatus = 2;
-                                        break;
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from a DocumentRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest} message DocumentRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                DocumentRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults) {
-                                        if (options.bytes === String)
-                                            object.contractId = "";
-                                        else {
-                                            object.contractId = [];
-                                            if (options.bytes !== Array)
-                                                object.contractId = $util.newBuffer(object.contractId);
-                                        }
-                                        object.documentType = "";
-                                        object.documentTypeKeepsHistory = false;
-                                        if (options.bytes === String)
-                                            object.documentId = "";
-                                        else {
-                                            object.documentId = [];
-                                            if (options.bytes !== Array)
-                                                object.documentId = $util.newBuffer(object.documentId);
-                                        }
-                                        object.documentContestedStatus = options.enums === String ? "NOT_CONTESTED" : 0;
-                                    }
-                                    if (message.contractId != null && message.hasOwnProperty("contractId"))
-                                        object.contractId = options.bytes === String ? $util.base64.encode(message.contractId, 0, message.contractId.length) : options.bytes === Array ? Array.prototype.slice.call(message.contractId) : message.contractId;
-                                    if (message.documentType != null && message.hasOwnProperty("documentType"))
-                                        object.documentType = message.documentType;
-                                    if (message.documentTypeKeepsHistory != null && message.hasOwnProperty("documentTypeKeepsHistory"))
-                                        object.documentTypeKeepsHistory = message.documentTypeKeepsHistory;
-                                    if (message.documentId != null && message.hasOwnProperty("documentId"))
-                                        object.documentId = options.bytes === String ? $util.base64.encode(message.documentId, 0, message.documentId.length) : options.bytes === Array ? Array.prototype.slice.call(message.documentId) : message.documentId;
-                                    if (message.documentContestedStatus != null && message.hasOwnProperty("documentContestedStatus"))
-                                        object.documentContestedStatus = options.enums === String ? $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.DocumentContestedStatus[message.documentContestedStatus] : message.documentContestedStatus;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this DocumentRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                DocumentRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                /**
-                                 * DocumentContestedStatus enum.
-                                 * @name org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.DocumentRequest.DocumentContestedStatus
-                                 * @enum {number}
-                                 * @property {number} NOT_CONTESTED=0 NOT_CONTESTED value
-                                 * @property {number} MAYBE_CONTESTED=1 MAYBE_CONTESTED value
-                                 * @property {number} CONTESTED=2 CONTESTED value
-                                 */
-                                DocumentRequest.DocumentContestedStatus = (function() {
-                                    var valuesById = {}, values = Object.create(valuesById);
-                                    values[valuesById[0] = "NOT_CONTESTED"] = 0;
-                                    values[valuesById[1] = "MAYBE_CONTESTED"] = 1;
-                                    values[valuesById[2] = "CONTESTED"] = 2;
-                                    return values;
-                                })();
-
-                                return DocumentRequest;
-                            })();
-
-                            GetProofsRequestV0.IdentityRequest = (function() {
-
-                                /**
-                                 * Properties of an IdentityRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface IIdentityRequest
-                                 * @property {Uint8Array|null} [identityId] IdentityRequest identityId
-                                 * @property {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.Type|null} [requestType] IdentityRequest requestType
-                                 */
-
-                                /**
-                                 * Constructs a new IdentityRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents an IdentityRequest.
-                                 * @implements IIdentityRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityRequest=} [properties] Properties to set
-                                 */
-                                function IdentityRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * IdentityRequest identityId.
-                                 * @member {Uint8Array} identityId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @instance
-                                 */
-                                IdentityRequest.prototype.identityId = $util.newBuffer([]);
-
-                                /**
-                                 * IdentityRequest requestType.
-                                 * @member {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.Type} requestType
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @instance
-                                 */
-                                IdentityRequest.prototype.requestType = 0;
-
-                                /**
-                                 * Creates a new IdentityRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest} IdentityRequest instance
-                                 */
-                                IdentityRequest.create = function create(properties) {
-                                    return new IdentityRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified IdentityRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityRequest} message IdentityRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                IdentityRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.identityId != null && Object.hasOwnProperty.call(message, "identityId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.identityId);
-                                    if (message.requestType != null && Object.hasOwnProperty.call(message, "requestType"))
-                                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.requestType);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified IdentityRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityRequest} message IdentityRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                IdentityRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes an IdentityRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest} IdentityRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                IdentityRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.identityId = reader.bytes();
-                                            break;
-                                        case 2:
-                                            message.requestType = reader.int32();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes an IdentityRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest} IdentityRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                IdentityRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies an IdentityRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                IdentityRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.identityId != null && message.hasOwnProperty("identityId"))
-                                        if (!(message.identityId && typeof message.identityId.length === "number" || $util.isString(message.identityId)))
-                                            return "identityId: buffer expected";
-                                    if (message.requestType != null && message.hasOwnProperty("requestType"))
-                                        switch (message.requestType) {
-                                        default:
-                                            return "requestType: enum value expected";
-                                        case 0:
-                                        case 1:
-                                        case 2:
-                                        case 3:
-                                            break;
-                                        }
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates an IdentityRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest} IdentityRequest
-                                 */
-                                IdentityRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest();
-                                    if (object.identityId != null)
-                                        if (typeof object.identityId === "string")
-                                            $util.base64.decode(object.identityId, message.identityId = $util.newBuffer($util.base64.length(object.identityId)), 0);
-                                        else if (object.identityId.length >= 0)
-                                            message.identityId = object.identityId;
-                                    switch (object.requestType) {
-                                    case "FULL_IDENTITY":
-                                    case 0:
-                                        message.requestType = 0;
-                                        break;
-                                    case "BALANCE":
-                                    case 1:
-                                        message.requestType = 1;
-                                        break;
-                                    case "KEYS":
-                                    case 2:
-                                        message.requestType = 2;
-                                        break;
-                                    case "REVISION":
-                                    case 3:
-                                        message.requestType = 3;
-                                        break;
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from an IdentityRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest} message IdentityRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                IdentityRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults) {
-                                        if (options.bytes === String)
-                                            object.identityId = "";
-                                        else {
-                                            object.identityId = [];
-                                            if (options.bytes !== Array)
-                                                object.identityId = $util.newBuffer(object.identityId);
-                                        }
-                                        object.requestType = options.enums === String ? "FULL_IDENTITY" : 0;
-                                    }
-                                    if (message.identityId != null && message.hasOwnProperty("identityId"))
-                                        object.identityId = options.bytes === String ? $util.base64.encode(message.identityId, 0, message.identityId.length) : options.bytes === Array ? Array.prototype.slice.call(message.identityId) : message.identityId;
-                                    if (message.requestType != null && message.hasOwnProperty("requestType"))
-                                        object.requestType = options.enums === String ? $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.Type[message.requestType] : message.requestType;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this IdentityRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                IdentityRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                /**
-                                 * Type enum.
-                                 * @name org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityRequest.Type
-                                 * @enum {number}
-                                 * @property {number} FULL_IDENTITY=0 FULL_IDENTITY value
-                                 * @property {number} BALANCE=1 BALANCE value
-                                 * @property {number} KEYS=2 KEYS value
-                                 * @property {number} REVISION=3 REVISION value
-                                 */
-                                IdentityRequest.Type = (function() {
-                                    var valuesById = {}, values = Object.create(valuesById);
-                                    values[valuesById[0] = "FULL_IDENTITY"] = 0;
-                                    values[valuesById[1] = "BALANCE"] = 1;
-                                    values[valuesById[2] = "KEYS"] = 2;
-                                    values[valuesById[3] = "REVISION"] = 3;
-                                    return values;
-                                })();
-
-                                return IdentityRequest;
-                            })();
-
-                            GetProofsRequestV0.ContractRequest = (function() {
-
-                                /**
-                                 * Properties of a ContractRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface IContractRequest
-                                 * @property {Uint8Array|null} [contractId] ContractRequest contractId
-                                 */
-
-                                /**
-                                 * Constructs a new ContractRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents a ContractRequest.
-                                 * @implements IContractRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IContractRequest=} [properties] Properties to set
-                                 */
-                                function ContractRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * ContractRequest contractId.
-                                 * @member {Uint8Array} contractId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @instance
-                                 */
-                                ContractRequest.prototype.contractId = $util.newBuffer([]);
-
-                                /**
-                                 * Creates a new ContractRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IContractRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest} ContractRequest instance
-                                 */
-                                ContractRequest.create = function create(properties) {
-                                    return new ContractRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified ContractRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IContractRequest} message ContractRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                ContractRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.contractId != null && Object.hasOwnProperty.call(message, "contractId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.contractId);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified ContractRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IContractRequest} message ContractRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                ContractRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes a ContractRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest} ContractRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                ContractRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.contractId = reader.bytes();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes a ContractRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest} ContractRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                ContractRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies a ContractRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                ContractRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.contractId != null && message.hasOwnProperty("contractId"))
-                                        if (!(message.contractId && typeof message.contractId.length === "number" || $util.isString(message.contractId)))
-                                            return "contractId: buffer expected";
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates a ContractRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest} ContractRequest
-                                 */
-                                ContractRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest();
-                                    if (object.contractId != null)
-                                        if (typeof object.contractId === "string")
-                                            $util.base64.decode(object.contractId, message.contractId = $util.newBuffer($util.base64.length(object.contractId)), 0);
-                                        else if (object.contractId.length >= 0)
-                                            message.contractId = object.contractId;
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from a ContractRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest} message ContractRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                ContractRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults)
-                                        if (options.bytes === String)
-                                            object.contractId = "";
-                                        else {
-                                            object.contractId = [];
-                                            if (options.bytes !== Array)
-                                                object.contractId = $util.newBuffer(object.contractId);
-                                        }
-                                    if (message.contractId != null && message.hasOwnProperty("contractId"))
-                                        object.contractId = options.bytes === String ? $util.base64.encode(message.contractId, 0, message.contractId.length) : options.bytes === Array ? Array.prototype.slice.call(message.contractId) : message.contractId;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this ContractRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ContractRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                ContractRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                return ContractRequest;
-                            })();
-
-                            GetProofsRequestV0.VoteStatusRequest = (function() {
-
-                                /**
-                                 * Properties of a VoteStatusRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface IVoteStatusRequest
-                                 * @property {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.IContestedResourceVoteStatusRequest|null} [contestedResourceVoteStatusRequest] VoteStatusRequest contestedResourceVoteStatusRequest
-                                 */
-
-                                /**
-                                 * Constructs a new VoteStatusRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents a VoteStatusRequest.
-                                 * @implements IVoteStatusRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IVoteStatusRequest=} [properties] Properties to set
-                                 */
-                                function VoteStatusRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * VoteStatusRequest contestedResourceVoteStatusRequest.
-                                 * @member {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.IContestedResourceVoteStatusRequest|null|undefined} contestedResourceVoteStatusRequest
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @instance
-                                 */
-                                VoteStatusRequest.prototype.contestedResourceVoteStatusRequest = null;
-
-                                // OneOf field names bound to virtual getters and setters
-                                var $oneOfFields;
-
-                                /**
-                                 * VoteStatusRequest requestType.
-                                 * @member {"contestedResourceVoteStatusRequest"|undefined} requestType
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @instance
-                                 */
-                                Object.defineProperty(VoteStatusRequest.prototype, "requestType", {
-                                    get: $util.oneOfGetter($oneOfFields = ["contestedResourceVoteStatusRequest"]),
-                                    set: $util.oneOfSetter($oneOfFields)
-                                });
-
-                                /**
-                                 * Creates a new VoteStatusRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IVoteStatusRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest} VoteStatusRequest instance
-                                 */
-                                VoteStatusRequest.create = function create(properties) {
-                                    return new VoteStatusRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified VoteStatusRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IVoteStatusRequest} message VoteStatusRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                VoteStatusRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.contestedResourceVoteStatusRequest != null && Object.hasOwnProperty.call(message, "contestedResourceVoteStatusRequest"))
-                                        $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.encode(message.contestedResourceVoteStatusRequest, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified VoteStatusRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IVoteStatusRequest} message VoteStatusRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                VoteStatusRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes a VoteStatusRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest} VoteStatusRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                VoteStatusRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.contestedResourceVoteStatusRequest = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.decode(reader, reader.uint32());
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes a VoteStatusRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest} VoteStatusRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                VoteStatusRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies a VoteStatusRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                VoteStatusRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    var properties = {};
-                                    if (message.contestedResourceVoteStatusRequest != null && message.hasOwnProperty("contestedResourceVoteStatusRequest")) {
-                                        properties.requestType = 1;
-                                        {
-                                            var error = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.verify(message.contestedResourceVoteStatusRequest);
-                                            if (error)
-                                                return "contestedResourceVoteStatusRequest." + error;
-                                        }
-                                    }
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates a VoteStatusRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest} VoteStatusRequest
-                                 */
-                                VoteStatusRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest();
-                                    if (object.contestedResourceVoteStatusRequest != null) {
-                                        if (typeof object.contestedResourceVoteStatusRequest !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.contestedResourceVoteStatusRequest: object expected");
-                                        message.contestedResourceVoteStatusRequest = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.fromObject(object.contestedResourceVoteStatusRequest);
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from a VoteStatusRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest} message VoteStatusRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                VoteStatusRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (message.contestedResourceVoteStatusRequest != null && message.hasOwnProperty("contestedResourceVoteStatusRequest")) {
-                                        object.contestedResourceVoteStatusRequest = $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.toObject(message.contestedResourceVoteStatusRequest, options);
-                                        if (options.oneofs)
-                                            object.requestType = "contestedResourceVoteStatusRequest";
-                                    }
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this VoteStatusRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                VoteStatusRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                VoteStatusRequest.ContestedResourceVoteStatusRequest = (function() {
-
-                                    /**
-                                     * Properties of a ContestedResourceVoteStatusRequest.
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                     * @interface IContestedResourceVoteStatusRequest
-                                     * @property {Uint8Array|null} [contractId] ContestedResourceVoteStatusRequest contractId
-                                     * @property {string|null} [documentTypeName] ContestedResourceVoteStatusRequest documentTypeName
-                                     * @property {string|null} [indexName] ContestedResourceVoteStatusRequest indexName
-                                     * @property {Array.<Uint8Array>|null} [indexValues] ContestedResourceVoteStatusRequest indexValues
-                                     * @property {Uint8Array|null} [voterIdentifier] ContestedResourceVoteStatusRequest voterIdentifier
-                                     */
-
-                                    /**
-                                     * Constructs a new ContestedResourceVoteStatusRequest.
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest
-                                     * @classdesc Represents a ContestedResourceVoteStatusRequest.
-                                     * @implements IContestedResourceVoteStatusRequest
-                                     * @constructor
-                                     * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.IContestedResourceVoteStatusRequest=} [properties] Properties to set
-                                     */
-                                    function ContestedResourceVoteStatusRequest(properties) {
-                                        this.indexValues = [];
-                                        if (properties)
-                                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                                if (properties[keys[i]] != null)
-                                                    this[keys[i]] = properties[keys[i]];
-                                    }
-
-                                    /**
-                                     * ContestedResourceVoteStatusRequest contractId.
-                                     * @member {Uint8Array} contractId
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @instance
-                                     */
-                                    ContestedResourceVoteStatusRequest.prototype.contractId = $util.newBuffer([]);
-
-                                    /**
-                                     * ContestedResourceVoteStatusRequest documentTypeName.
-                                     * @member {string} documentTypeName
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @instance
-                                     */
-                                    ContestedResourceVoteStatusRequest.prototype.documentTypeName = "";
-
-                                    /**
-                                     * ContestedResourceVoteStatusRequest indexName.
-                                     * @member {string} indexName
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @instance
-                                     */
-                                    ContestedResourceVoteStatusRequest.prototype.indexName = "";
-
-                                    /**
-                                     * ContestedResourceVoteStatusRequest indexValues.
-                                     * @member {Array.<Uint8Array>} indexValues
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @instance
-                                     */
-                                    ContestedResourceVoteStatusRequest.prototype.indexValues = $util.emptyArray;
-
-                                    /**
-                                     * ContestedResourceVoteStatusRequest voterIdentifier.
-                                     * @member {Uint8Array} voterIdentifier
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @instance
-                                     */
-                                    ContestedResourceVoteStatusRequest.prototype.voterIdentifier = $util.newBuffer([]);
-
-                                    /**
-                                     * Creates a new ContestedResourceVoteStatusRequest instance using the specified properties.
-                                     * @function create
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.IContestedResourceVoteStatusRequest=} [properties] Properties to set
-                                     * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest} ContestedResourceVoteStatusRequest instance
-                                     */
-                                    ContestedResourceVoteStatusRequest.create = function create(properties) {
-                                        return new ContestedResourceVoteStatusRequest(properties);
-                                    };
-
-                                    /**
-                                     * Encodes the specified ContestedResourceVoteStatusRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.verify|verify} messages.
-                                     * @function encode
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.IContestedResourceVoteStatusRequest} message ContestedResourceVoteStatusRequest message or plain object to encode
-                                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                                     * @returns {$protobuf.Writer} Writer
-                                     */
-                                    ContestedResourceVoteStatusRequest.encode = function encode(message, writer) {
-                                        if (!writer)
-                                            writer = $Writer.create();
-                                        if (message.contractId != null && Object.hasOwnProperty.call(message, "contractId"))
-                                            writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.contractId);
-                                        if (message.documentTypeName != null && Object.hasOwnProperty.call(message, "documentTypeName"))
-                                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.documentTypeName);
-                                        if (message.indexName != null && Object.hasOwnProperty.call(message, "indexName"))
-                                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.indexName);
-                                        if (message.indexValues != null && message.indexValues.length)
-                                            for (var i = 0; i < message.indexValues.length; ++i)
-                                                writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.indexValues[i]);
-                                        if (message.voterIdentifier != null && Object.hasOwnProperty.call(message, "voterIdentifier"))
-                                            writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.voterIdentifier);
-                                        return writer;
-                                    };
-
-                                    /**
-                                     * Encodes the specified ContestedResourceVoteStatusRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.verify|verify} messages.
-                                     * @function encodeDelimited
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.IContestedResourceVoteStatusRequest} message ContestedResourceVoteStatusRequest message or plain object to encode
-                                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                                     * @returns {$protobuf.Writer} Writer
-                                     */
-                                    ContestedResourceVoteStatusRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                        return this.encode(message, writer).ldelim();
-                                    };
-
-                                    /**
-                                     * Decodes a ContestedResourceVoteStatusRequest message from the specified reader or buffer.
-                                     * @function decode
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                     * @param {number} [length] Message length if known beforehand
-                                     * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest} ContestedResourceVoteStatusRequest
-                                     * @throws {Error} If the payload is not a reader or valid buffer
-                                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                     */
-                                    ContestedResourceVoteStatusRequest.decode = function decode(reader, length) {
-                                        if (!(reader instanceof $Reader))
-                                            reader = $Reader.create(reader);
-                                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest();
-                                        while (reader.pos < end) {
-                                            var tag = reader.uint32();
-                                            switch (tag >>> 3) {
-                                            case 1:
-                                                message.contractId = reader.bytes();
-                                                break;
-                                            case 2:
-                                                message.documentTypeName = reader.string();
-                                                break;
-                                            case 3:
-                                                message.indexName = reader.string();
-                                                break;
-                                            case 4:
-                                                if (!(message.indexValues && message.indexValues.length))
-                                                    message.indexValues = [];
-                                                message.indexValues.push(reader.bytes());
-                                                break;
-                                            case 5:
-                                                message.voterIdentifier = reader.bytes();
-                                                break;
-                                            default:
-                                                reader.skipType(tag & 7);
-                                                break;
-                                            }
-                                        }
-                                        return message;
-                                    };
-
-                                    /**
-                                     * Decodes a ContestedResourceVoteStatusRequest message from the specified reader or buffer, length delimited.
-                                     * @function decodeDelimited
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                     * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest} ContestedResourceVoteStatusRequest
-                                     * @throws {Error} If the payload is not a reader or valid buffer
-                                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                     */
-                                    ContestedResourceVoteStatusRequest.decodeDelimited = function decodeDelimited(reader) {
-                                        if (!(reader instanceof $Reader))
-                                            reader = new $Reader(reader);
-                                        return this.decode(reader, reader.uint32());
-                                    };
-
-                                    /**
-                                     * Verifies a ContestedResourceVoteStatusRequest message.
-                                     * @function verify
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {Object.<string,*>} message Plain object to verify
-                                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                     */
-                                    ContestedResourceVoteStatusRequest.verify = function verify(message) {
-                                        if (typeof message !== "object" || message === null)
-                                            return "object expected";
-                                        if (message.contractId != null && message.hasOwnProperty("contractId"))
-                                            if (!(message.contractId && typeof message.contractId.length === "number" || $util.isString(message.contractId)))
-                                                return "contractId: buffer expected";
-                                        if (message.documentTypeName != null && message.hasOwnProperty("documentTypeName"))
-                                            if (!$util.isString(message.documentTypeName))
-                                                return "documentTypeName: string expected";
-                                        if (message.indexName != null && message.hasOwnProperty("indexName"))
-                                            if (!$util.isString(message.indexName))
-                                                return "indexName: string expected";
-                                        if (message.indexValues != null && message.hasOwnProperty("indexValues")) {
-                                            if (!Array.isArray(message.indexValues))
-                                                return "indexValues: array expected";
-                                            for (var i = 0; i < message.indexValues.length; ++i)
-                                                if (!(message.indexValues[i] && typeof message.indexValues[i].length === "number" || $util.isString(message.indexValues[i])))
-                                                    return "indexValues: buffer[] expected";
-                                        }
-                                        if (message.voterIdentifier != null && message.hasOwnProperty("voterIdentifier"))
-                                            if (!(message.voterIdentifier && typeof message.voterIdentifier.length === "number" || $util.isString(message.voterIdentifier)))
-                                                return "voterIdentifier: buffer expected";
-                                        return null;
-                                    };
-
-                                    /**
-                                     * Creates a ContestedResourceVoteStatusRequest message from a plain object. Also converts values to their respective internal types.
-                                     * @function fromObject
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {Object.<string,*>} object Plain object
-                                     * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest} ContestedResourceVoteStatusRequest
-                                     */
-                                    ContestedResourceVoteStatusRequest.fromObject = function fromObject(object) {
-                                        if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest)
-                                            return object;
-                                        var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest();
-                                        if (object.contractId != null)
-                                            if (typeof object.contractId === "string")
-                                                $util.base64.decode(object.contractId, message.contractId = $util.newBuffer($util.base64.length(object.contractId)), 0);
-                                            else if (object.contractId.length >= 0)
-                                                message.contractId = object.contractId;
-                                        if (object.documentTypeName != null)
-                                            message.documentTypeName = String(object.documentTypeName);
-                                        if (object.indexName != null)
-                                            message.indexName = String(object.indexName);
-                                        if (object.indexValues) {
-                                            if (!Array.isArray(object.indexValues))
-                                                throw TypeError(".org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest.indexValues: array expected");
-                                            message.indexValues = [];
-                                            for (var i = 0; i < object.indexValues.length; ++i)
-                                                if (typeof object.indexValues[i] === "string")
-                                                    $util.base64.decode(object.indexValues[i], message.indexValues[i] = $util.newBuffer($util.base64.length(object.indexValues[i])), 0);
-                                                else if (object.indexValues[i].length >= 0)
-                                                    message.indexValues[i] = object.indexValues[i];
-                                        }
-                                        if (object.voterIdentifier != null)
-                                            if (typeof object.voterIdentifier === "string")
-                                                $util.base64.decode(object.voterIdentifier, message.voterIdentifier = $util.newBuffer($util.base64.length(object.voterIdentifier)), 0);
-                                            else if (object.voterIdentifier.length >= 0)
-                                                message.voterIdentifier = object.voterIdentifier;
-                                        return message;
-                                    };
-
-                                    /**
-                                     * Creates a plain object from a ContestedResourceVoteStatusRequest message. Also converts values to other types if specified.
-                                     * @function toObject
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @static
-                                     * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest} message ContestedResourceVoteStatusRequest
-                                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                     * @returns {Object.<string,*>} Plain object
-                                     */
-                                    ContestedResourceVoteStatusRequest.toObject = function toObject(message, options) {
-                                        if (!options)
-                                            options = {};
-                                        var object = {};
-                                        if (options.arrays || options.defaults)
-                                            object.indexValues = [];
-                                        if (options.defaults) {
-                                            if (options.bytes === String)
-                                                object.contractId = "";
-                                            else {
-                                                object.contractId = [];
-                                                if (options.bytes !== Array)
-                                                    object.contractId = $util.newBuffer(object.contractId);
-                                            }
-                                            object.documentTypeName = "";
-                                            object.indexName = "";
-                                            if (options.bytes === String)
-                                                object.voterIdentifier = "";
-                                            else {
-                                                object.voterIdentifier = [];
-                                                if (options.bytes !== Array)
-                                                    object.voterIdentifier = $util.newBuffer(object.voterIdentifier);
-                                            }
-                                        }
-                                        if (message.contractId != null && message.hasOwnProperty("contractId"))
-                                            object.contractId = options.bytes === String ? $util.base64.encode(message.contractId, 0, message.contractId.length) : options.bytes === Array ? Array.prototype.slice.call(message.contractId) : message.contractId;
-                                        if (message.documentTypeName != null && message.hasOwnProperty("documentTypeName"))
-                                            object.documentTypeName = message.documentTypeName;
-                                        if (message.indexName != null && message.hasOwnProperty("indexName"))
-                                            object.indexName = message.indexName;
-                                        if (message.indexValues && message.indexValues.length) {
-                                            object.indexValues = [];
-                                            for (var j = 0; j < message.indexValues.length; ++j)
-                                                object.indexValues[j] = options.bytes === String ? $util.base64.encode(message.indexValues[j], 0, message.indexValues[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.indexValues[j]) : message.indexValues[j];
-                                        }
-                                        if (message.voterIdentifier != null && message.hasOwnProperty("voterIdentifier"))
-                                            object.voterIdentifier = options.bytes === String ? $util.base64.encode(message.voterIdentifier, 0, message.voterIdentifier.length) : options.bytes === Array ? Array.prototype.slice.call(message.voterIdentifier) : message.voterIdentifier;
-                                        return object;
-                                    };
-
-                                    /**
-                                     * Converts this ContestedResourceVoteStatusRequest to JSON.
-                                     * @function toJSON
-                                     * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.VoteStatusRequest.ContestedResourceVoteStatusRequest
-                                     * @instance
-                                     * @returns {Object.<string,*>} JSON object
-                                     */
-                                    ContestedResourceVoteStatusRequest.prototype.toJSON = function toJSON() {
-                                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                    };
-
-                                    return ContestedResourceVoteStatusRequest;
-                                })();
-
-                                return VoteStatusRequest;
-                            })();
-
-                            GetProofsRequestV0.IdentityTokenBalanceRequest = (function() {
-
-                                /**
-                                 * Properties of an IdentityTokenBalanceRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface IIdentityTokenBalanceRequest
-                                 * @property {Uint8Array|null} [tokenId] IdentityTokenBalanceRequest tokenId
-                                 * @property {Uint8Array|null} [identityId] IdentityTokenBalanceRequest identityId
-                                 */
-
-                                /**
-                                 * Constructs a new IdentityTokenBalanceRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents an IdentityTokenBalanceRequest.
-                                 * @implements IIdentityTokenBalanceRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenBalanceRequest=} [properties] Properties to set
-                                 */
-                                function IdentityTokenBalanceRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * IdentityTokenBalanceRequest tokenId.
-                                 * @member {Uint8Array} tokenId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @instance
-                                 */
-                                IdentityTokenBalanceRequest.prototype.tokenId = $util.newBuffer([]);
-
-                                /**
-                                 * IdentityTokenBalanceRequest identityId.
-                                 * @member {Uint8Array} identityId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @instance
-                                 */
-                                IdentityTokenBalanceRequest.prototype.identityId = $util.newBuffer([]);
-
-                                /**
-                                 * Creates a new IdentityTokenBalanceRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenBalanceRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest} IdentityTokenBalanceRequest instance
-                                 */
-                                IdentityTokenBalanceRequest.create = function create(properties) {
-                                    return new IdentityTokenBalanceRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified IdentityTokenBalanceRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenBalanceRequest} message IdentityTokenBalanceRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                IdentityTokenBalanceRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.tokenId != null && Object.hasOwnProperty.call(message, "tokenId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.tokenId);
-                                    if (message.identityId != null && Object.hasOwnProperty.call(message, "identityId"))
-                                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.identityId);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified IdentityTokenBalanceRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenBalanceRequest} message IdentityTokenBalanceRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                IdentityTokenBalanceRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes an IdentityTokenBalanceRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest} IdentityTokenBalanceRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                IdentityTokenBalanceRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.tokenId = reader.bytes();
-                                            break;
-                                        case 2:
-                                            message.identityId = reader.bytes();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes an IdentityTokenBalanceRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest} IdentityTokenBalanceRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                IdentityTokenBalanceRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies an IdentityTokenBalanceRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                IdentityTokenBalanceRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
-                                        if (!(message.tokenId && typeof message.tokenId.length === "number" || $util.isString(message.tokenId)))
-                                            return "tokenId: buffer expected";
-                                    if (message.identityId != null && message.hasOwnProperty("identityId"))
-                                        if (!(message.identityId && typeof message.identityId.length === "number" || $util.isString(message.identityId)))
-                                            return "identityId: buffer expected";
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates an IdentityTokenBalanceRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest} IdentityTokenBalanceRequest
-                                 */
-                                IdentityTokenBalanceRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest();
-                                    if (object.tokenId != null)
-                                        if (typeof object.tokenId === "string")
-                                            $util.base64.decode(object.tokenId, message.tokenId = $util.newBuffer($util.base64.length(object.tokenId)), 0);
-                                        else if (object.tokenId.length >= 0)
-                                            message.tokenId = object.tokenId;
-                                    if (object.identityId != null)
-                                        if (typeof object.identityId === "string")
-                                            $util.base64.decode(object.identityId, message.identityId = $util.newBuffer($util.base64.length(object.identityId)), 0);
-                                        else if (object.identityId.length >= 0)
-                                            message.identityId = object.identityId;
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from an IdentityTokenBalanceRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest} message IdentityTokenBalanceRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                IdentityTokenBalanceRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults) {
-                                        if (options.bytes === String)
-                                            object.tokenId = "";
-                                        else {
-                                            object.tokenId = [];
-                                            if (options.bytes !== Array)
-                                                object.tokenId = $util.newBuffer(object.tokenId);
-                                        }
-                                        if (options.bytes === String)
-                                            object.identityId = "";
-                                        else {
-                                            object.identityId = [];
-                                            if (options.bytes !== Array)
-                                                object.identityId = $util.newBuffer(object.identityId);
-                                        }
-                                    }
-                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
-                                        object.tokenId = options.bytes === String ? $util.base64.encode(message.tokenId, 0, message.tokenId.length) : options.bytes === Array ? Array.prototype.slice.call(message.tokenId) : message.tokenId;
-                                    if (message.identityId != null && message.hasOwnProperty("identityId"))
-                                        object.identityId = options.bytes === String ? $util.base64.encode(message.identityId, 0, message.identityId.length) : options.bytes === Array ? Array.prototype.slice.call(message.identityId) : message.identityId;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this IdentityTokenBalanceRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenBalanceRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                IdentityTokenBalanceRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                return IdentityTokenBalanceRequest;
-                            })();
-
-                            GetProofsRequestV0.IdentityTokenInfoRequest = (function() {
-
-                                /**
-                                 * Properties of an IdentityTokenInfoRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface IIdentityTokenInfoRequest
-                                 * @property {Uint8Array|null} [tokenId] IdentityTokenInfoRequest tokenId
-                                 * @property {Uint8Array|null} [identityId] IdentityTokenInfoRequest identityId
-                                 */
-
-                                /**
-                                 * Constructs a new IdentityTokenInfoRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents an IdentityTokenInfoRequest.
-                                 * @implements IIdentityTokenInfoRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenInfoRequest=} [properties] Properties to set
-                                 */
-                                function IdentityTokenInfoRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * IdentityTokenInfoRequest tokenId.
-                                 * @member {Uint8Array} tokenId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @instance
-                                 */
-                                IdentityTokenInfoRequest.prototype.tokenId = $util.newBuffer([]);
-
-                                /**
-                                 * IdentityTokenInfoRequest identityId.
-                                 * @member {Uint8Array} identityId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @instance
-                                 */
-                                IdentityTokenInfoRequest.prototype.identityId = $util.newBuffer([]);
-
-                                /**
-                                 * Creates a new IdentityTokenInfoRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenInfoRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest} IdentityTokenInfoRequest instance
-                                 */
-                                IdentityTokenInfoRequest.create = function create(properties) {
-                                    return new IdentityTokenInfoRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified IdentityTokenInfoRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenInfoRequest} message IdentityTokenInfoRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                IdentityTokenInfoRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.tokenId != null && Object.hasOwnProperty.call(message, "tokenId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.tokenId);
-                                    if (message.identityId != null && Object.hasOwnProperty.call(message, "identityId"))
-                                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.identityId);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified IdentityTokenInfoRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IIdentityTokenInfoRequest} message IdentityTokenInfoRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                IdentityTokenInfoRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes an IdentityTokenInfoRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest} IdentityTokenInfoRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                IdentityTokenInfoRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.tokenId = reader.bytes();
-                                            break;
-                                        case 2:
-                                            message.identityId = reader.bytes();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes an IdentityTokenInfoRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest} IdentityTokenInfoRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                IdentityTokenInfoRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies an IdentityTokenInfoRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                IdentityTokenInfoRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
-                                        if (!(message.tokenId && typeof message.tokenId.length === "number" || $util.isString(message.tokenId)))
-                                            return "tokenId: buffer expected";
-                                    if (message.identityId != null && message.hasOwnProperty("identityId"))
-                                        if (!(message.identityId && typeof message.identityId.length === "number" || $util.isString(message.identityId)))
-                                            return "identityId: buffer expected";
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates an IdentityTokenInfoRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest} IdentityTokenInfoRequest
-                                 */
-                                IdentityTokenInfoRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest();
-                                    if (object.tokenId != null)
-                                        if (typeof object.tokenId === "string")
-                                            $util.base64.decode(object.tokenId, message.tokenId = $util.newBuffer($util.base64.length(object.tokenId)), 0);
-                                        else if (object.tokenId.length >= 0)
-                                            message.tokenId = object.tokenId;
-                                    if (object.identityId != null)
-                                        if (typeof object.identityId === "string")
-                                            $util.base64.decode(object.identityId, message.identityId = $util.newBuffer($util.base64.length(object.identityId)), 0);
-                                        else if (object.identityId.length >= 0)
-                                            message.identityId = object.identityId;
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from an IdentityTokenInfoRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest} message IdentityTokenInfoRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                IdentityTokenInfoRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults) {
-                                        if (options.bytes === String)
-                                            object.tokenId = "";
-                                        else {
-                                            object.tokenId = [];
-                                            if (options.bytes !== Array)
-                                                object.tokenId = $util.newBuffer(object.tokenId);
-                                        }
-                                        if (options.bytes === String)
-                                            object.identityId = "";
-                                        else {
-                                            object.identityId = [];
-                                            if (options.bytes !== Array)
-                                                object.identityId = $util.newBuffer(object.identityId);
-                                        }
-                                    }
-                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
-                                        object.tokenId = options.bytes === String ? $util.base64.encode(message.tokenId, 0, message.tokenId.length) : options.bytes === Array ? Array.prototype.slice.call(message.tokenId) : message.tokenId;
-                                    if (message.identityId != null && message.hasOwnProperty("identityId"))
-                                        object.identityId = options.bytes === String ? $util.base64.encode(message.identityId, 0, message.identityId.length) : options.bytes === Array ? Array.prototype.slice.call(message.identityId) : message.identityId;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this IdentityTokenInfoRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.IdentityTokenInfoRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                IdentityTokenInfoRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                return IdentityTokenInfoRequest;
-                            })();
-
-                            GetProofsRequestV0.TokenStatusRequest = (function() {
-
-                                /**
-                                 * Properties of a TokenStatusRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @interface ITokenStatusRequest
-                                 * @property {Uint8Array|null} [tokenId] TokenStatusRequest tokenId
-                                 */
-
-                                /**
-                                 * Constructs a new TokenStatusRequest.
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0
-                                 * @classdesc Represents a TokenStatusRequest.
-                                 * @implements ITokenStatusRequest
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ITokenStatusRequest=} [properties] Properties to set
-                                 */
-                                function TokenStatusRequest(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * TokenStatusRequest tokenId.
-                                 * @member {Uint8Array} tokenId
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @instance
-                                 */
-                                TokenStatusRequest.prototype.tokenId = $util.newBuffer([]);
-
-                                /**
-                                 * Creates a new TokenStatusRequest instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ITokenStatusRequest=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest} TokenStatusRequest instance
-                                 */
-                                TokenStatusRequest.create = function create(properties) {
-                                    return new TokenStatusRequest(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified TokenStatusRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ITokenStatusRequest} message TokenStatusRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                TokenStatusRequest.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.tokenId != null && Object.hasOwnProperty.call(message, "tokenId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.tokenId);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified TokenStatusRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.ITokenStatusRequest} message TokenStatusRequest message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                TokenStatusRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes a TokenStatusRequest message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest} TokenStatusRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                TokenStatusRequest.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.tokenId = reader.bytes();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes a TokenStatusRequest message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest} TokenStatusRequest
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                TokenStatusRequest.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies a TokenStatusRequest message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                TokenStatusRequest.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
-                                        if (!(message.tokenId && typeof message.tokenId.length === "number" || $util.isString(message.tokenId)))
-                                            return "tokenId: buffer expected";
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates a TokenStatusRequest message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest} TokenStatusRequest
-                                 */
-                                TokenStatusRequest.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest();
-                                    if (object.tokenId != null)
-                                        if (typeof object.tokenId === "string")
-                                            $util.base64.decode(object.tokenId, message.tokenId = $util.newBuffer($util.base64.length(object.tokenId)), 0);
-                                        else if (object.tokenId.length >= 0)
-                                            message.tokenId = object.tokenId;
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from a TokenStatusRequest message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest} message TokenStatusRequest
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                TokenStatusRequest.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults)
-                                        if (options.bytes === String)
-                                            object.tokenId = "";
-                                        else {
-                                            object.tokenId = [];
-                                            if (options.bytes !== Array)
-                                                object.tokenId = $util.newBuffer(object.tokenId);
-                                        }
-                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
-                                        object.tokenId = options.bytes === String ? $util.base64.encode(message.tokenId, 0, message.tokenId.length) : options.bytes === Array ? Array.prototype.slice.call(message.tokenId) : message.tokenId;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this TokenStatusRequest to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetProofsRequest.GetProofsRequestV0.TokenStatusRequest
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                TokenStatusRequest.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                return TokenStatusRequest;
-                            })();
-
-                            return GetProofsRequestV0;
-                        })();
-
-                        return GetProofsRequest;
-                    })();
-
-                    v0.GetProofsResponse = (function() {
-
-                        /**
-                         * Properties of a GetProofsResponse.
-                         * @memberof org.dash.platform.dapi.v0
-                         * @interface IGetProofsResponse
-                         * @property {org.dash.platform.dapi.v0.GetProofsResponse.IGetProofsResponseV0|null} [v0] GetProofsResponse v0
-                         */
-
-                        /**
-                         * Constructs a new GetProofsResponse.
-                         * @memberof org.dash.platform.dapi.v0
-                         * @classdesc Represents a GetProofsResponse.
-                         * @implements IGetProofsResponse
-                         * @constructor
-                         * @param {org.dash.platform.dapi.v0.IGetProofsResponse=} [properties] Properties to set
-                         */
-                        function GetProofsResponse(properties) {
-                            if (properties)
-                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                    if (properties[keys[i]] != null)
-                                        this[keys[i]] = properties[keys[i]];
-                        }
-
-                        /**
-                         * GetProofsResponse v0.
-                         * @member {org.dash.platform.dapi.v0.GetProofsResponse.IGetProofsResponseV0|null|undefined} v0
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @instance
-                         */
-                        GetProofsResponse.prototype.v0 = null;
-
-                        // OneOf field names bound to virtual getters and setters
-                        var $oneOfFields;
-
-                        /**
-                         * GetProofsResponse version.
-                         * @member {"v0"|undefined} version
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @instance
-                         */
-                        Object.defineProperty(GetProofsResponse.prototype, "version", {
-                            get: $util.oneOfGetter($oneOfFields = ["v0"]),
-                            set: $util.oneOfSetter($oneOfFields)
-                        });
-
-                        /**
-                         * Creates a new GetProofsResponse instance using the specified properties.
-                         * @function create
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.IGetProofsResponse=} [properties] Properties to set
-                         * @returns {org.dash.platform.dapi.v0.GetProofsResponse} GetProofsResponse instance
-                         */
-                        GetProofsResponse.create = function create(properties) {
-                            return new GetProofsResponse(properties);
-                        };
-
-                        /**
-                         * Encodes the specified GetProofsResponse message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsResponse.verify|verify} messages.
-                         * @function encode
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.IGetProofsResponse} message GetProofsResponse message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        GetProofsResponse.encode = function encode(message, writer) {
-                            if (!writer)
-                                writer = $Writer.create();
-                            if (message.v0 != null && Object.hasOwnProperty.call(message, "v0"))
-                                $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.encode(message.v0, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                            return writer;
-                        };
-
-                        /**
-                         * Encodes the specified GetProofsResponse message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsResponse.verify|verify} messages.
-                         * @function encodeDelimited
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.IGetProofsResponse} message GetProofsResponse message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        GetProofsResponse.encodeDelimited = function encodeDelimited(message, writer) {
-                            return this.encode(message, writer).ldelim();
-                        };
-
-                        /**
-                         * Decodes a GetProofsResponse message from the specified reader or buffer.
-                         * @function decode
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @param {number} [length] Message length if known beforehand
-                         * @returns {org.dash.platform.dapi.v0.GetProofsResponse} GetProofsResponse
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        GetProofsResponse.decode = function decode(reader, length) {
-                            if (!(reader instanceof $Reader))
-                                reader = $Reader.create(reader);
-                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsResponse();
-                            while (reader.pos < end) {
-                                var tag = reader.uint32();
-                                switch (tag >>> 3) {
-                                case 1:
-                                    message.v0 = $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.decode(reader, reader.uint32());
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                                }
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Decodes a GetProofsResponse message from the specified reader or buffer, length delimited.
-                         * @function decodeDelimited
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {org.dash.platform.dapi.v0.GetProofsResponse} GetProofsResponse
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        GetProofsResponse.decodeDelimited = function decodeDelimited(reader) {
-                            if (!(reader instanceof $Reader))
-                                reader = new $Reader(reader);
-                            return this.decode(reader, reader.uint32());
-                        };
-
-                        /**
-                         * Verifies a GetProofsResponse message.
-                         * @function verify
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {Object.<string,*>} message Plain object to verify
-                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                         */
-                        GetProofsResponse.verify = function verify(message) {
-                            if (typeof message !== "object" || message === null)
-                                return "object expected";
-                            var properties = {};
-                            if (message.v0 != null && message.hasOwnProperty("v0")) {
-                                properties.version = 1;
-                                {
-                                    var error = $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.verify(message.v0);
-                                    if (error)
-                                        return "v0." + error;
-                                }
-                            }
-                            return null;
-                        };
-
-                        /**
-                         * Creates a GetProofsResponse message from a plain object. Also converts values to their respective internal types.
-                         * @function fromObject
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {Object.<string,*>} object Plain object
-                         * @returns {org.dash.platform.dapi.v0.GetProofsResponse} GetProofsResponse
-                         */
-                        GetProofsResponse.fromObject = function fromObject(object) {
-                            if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsResponse)
-                                return object;
-                            var message = new $root.org.dash.platform.dapi.v0.GetProofsResponse();
-                            if (object.v0 != null) {
-                                if (typeof object.v0 !== "object")
-                                    throw TypeError(".org.dash.platform.dapi.v0.GetProofsResponse.v0: object expected");
-                                message.v0 = $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.fromObject(object.v0);
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Creates a plain object from a GetProofsResponse message. Also converts values to other types if specified.
-                         * @function toObject
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @static
-                         * @param {org.dash.platform.dapi.v0.GetProofsResponse} message GetProofsResponse
-                         * @param {$protobuf.IConversionOptions} [options] Conversion options
-                         * @returns {Object.<string,*>} Plain object
-                         */
-                        GetProofsResponse.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            var object = {};
-                            if (message.v0 != null && message.hasOwnProperty("v0")) {
-                                object.v0 = $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.toObject(message.v0, options);
-                                if (options.oneofs)
-                                    object.version = "v0";
-                            }
-                            return object;
-                        };
-
-                        /**
-                         * Converts this GetProofsResponse to JSON.
-                         * @function toJSON
-                         * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                         * @instance
-                         * @returns {Object.<string,*>} JSON object
-                         */
-                        GetProofsResponse.prototype.toJSON = function toJSON() {
-                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                        };
-
-                        GetProofsResponse.GetProofsResponseV0 = (function() {
-
-                            /**
-                             * Properties of a GetProofsResponseV0.
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                             * @interface IGetProofsResponseV0
-                             * @property {org.dash.platform.dapi.v0.IProof|null} [proof] GetProofsResponseV0 proof
-                             * @property {org.dash.platform.dapi.v0.IResponseMetadata|null} [metadata] GetProofsResponseV0 metadata
-                             */
-
-                            /**
-                             * Constructs a new GetProofsResponseV0.
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse
-                             * @classdesc Represents a GetProofsResponseV0.
-                             * @implements IGetProofsResponseV0
-                             * @constructor
-                             * @param {org.dash.platform.dapi.v0.GetProofsResponse.IGetProofsResponseV0=} [properties] Properties to set
-                             */
-                            function GetProofsResponseV0(properties) {
-                                if (properties)
-                                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                        if (properties[keys[i]] != null)
-                                            this[keys[i]] = properties[keys[i]];
-                            }
-
-                            /**
-                             * GetProofsResponseV0 proof.
-                             * @member {org.dash.platform.dapi.v0.IProof|null|undefined} proof
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @instance
-                             */
-                            GetProofsResponseV0.prototype.proof = null;
-
-                            /**
-                             * GetProofsResponseV0 metadata.
-                             * @member {org.dash.platform.dapi.v0.IResponseMetadata|null|undefined} metadata
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @instance
-                             */
-                            GetProofsResponseV0.prototype.metadata = null;
-
-                            // OneOf field names bound to virtual getters and setters
-                            var $oneOfFields;
-
-                            /**
-                             * GetProofsResponseV0 result.
-                             * @member {"proof"|undefined} result
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @instance
-                             */
-                            Object.defineProperty(GetProofsResponseV0.prototype, "result", {
-                                get: $util.oneOfGetter($oneOfFields = ["proof"]),
-                                set: $util.oneOfSetter($oneOfFields)
-                            });
-
-                            /**
-                             * Creates a new GetProofsResponseV0 instance using the specified properties.
-                             * @function create
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsResponse.IGetProofsResponseV0=} [properties] Properties to set
-                             * @returns {org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0} GetProofsResponseV0 instance
-                             */
-                            GetProofsResponseV0.create = function create(properties) {
-                                return new GetProofsResponseV0(properties);
-                            };
-
-                            /**
-                             * Encodes the specified GetProofsResponseV0 message. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.verify|verify} messages.
-                             * @function encode
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsResponse.IGetProofsResponseV0} message GetProofsResponseV0 message or plain object to encode
-                             * @param {$protobuf.Writer} [writer] Writer to encode to
-                             * @returns {$protobuf.Writer} Writer
-                             */
-                            GetProofsResponseV0.encode = function encode(message, writer) {
-                                if (!writer)
-                                    writer = $Writer.create();
-                                if (message.proof != null && Object.hasOwnProperty.call(message, "proof"))
-                                    $root.org.dash.platform.dapi.v0.Proof.encode(message.proof, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                                if (message.metadata != null && Object.hasOwnProperty.call(message, "metadata"))
-                                    $root.org.dash.platform.dapi.v0.ResponseMetadata.encode(message.metadata, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                                return writer;
-                            };
-
-                            /**
-                             * Encodes the specified GetProofsResponseV0 message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.verify|verify} messages.
-                             * @function encodeDelimited
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsResponse.IGetProofsResponseV0} message GetProofsResponseV0 message or plain object to encode
-                             * @param {$protobuf.Writer} [writer] Writer to encode to
-                             * @returns {$protobuf.Writer} Writer
-                             */
-                            GetProofsResponseV0.encodeDelimited = function encodeDelimited(message, writer) {
-                                return this.encode(message, writer).ldelim();
-                            };
-
-                            /**
-                             * Decodes a GetProofsResponseV0 message from the specified reader or buffer.
-                             * @function decode
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                             * @param {number} [length] Message length if known beforehand
-                             * @returns {org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0} GetProofsResponseV0
-                             * @throws {Error} If the payload is not a reader or valid buffer
-                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                             */
-                            GetProofsResponseV0.decode = function decode(reader, length) {
-                                if (!(reader instanceof $Reader))
-                                    reader = $Reader.create(reader);
-                                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0();
-                                while (reader.pos < end) {
-                                    var tag = reader.uint32();
-                                    switch (tag >>> 3) {
-                                    case 1:
-                                        message.proof = $root.org.dash.platform.dapi.v0.Proof.decode(reader, reader.uint32());
-                                        break;
-                                    case 2:
-                                        message.metadata = $root.org.dash.platform.dapi.v0.ResponseMetadata.decode(reader, reader.uint32());
-                                        break;
-                                    default:
-                                        reader.skipType(tag & 7);
-                                        break;
-                                    }
-                                }
-                                return message;
-                            };
-
-                            /**
-                             * Decodes a GetProofsResponseV0 message from the specified reader or buffer, length delimited.
-                             * @function decodeDelimited
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                             * @returns {org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0} GetProofsResponseV0
-                             * @throws {Error} If the payload is not a reader or valid buffer
-                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                             */
-                            GetProofsResponseV0.decodeDelimited = function decodeDelimited(reader) {
-                                if (!(reader instanceof $Reader))
-                                    reader = new $Reader(reader);
-                                return this.decode(reader, reader.uint32());
-                            };
-
-                            /**
-                             * Verifies a GetProofsResponseV0 message.
-                             * @function verify
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {Object.<string,*>} message Plain object to verify
-                             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                             */
-                            GetProofsResponseV0.verify = function verify(message) {
-                                if (typeof message !== "object" || message === null)
-                                    return "object expected";
-                                var properties = {};
-                                if (message.proof != null && message.hasOwnProperty("proof")) {
-                                    properties.result = 1;
-                                    {
-                                        var error = $root.org.dash.platform.dapi.v0.Proof.verify(message.proof);
-                                        if (error)
-                                            return "proof." + error;
-                                    }
-                                }
-                                if (message.metadata != null && message.hasOwnProperty("metadata")) {
-                                    var error = $root.org.dash.platform.dapi.v0.ResponseMetadata.verify(message.metadata);
-                                    if (error)
-                                        return "metadata." + error;
-                                }
-                                return null;
-                            };
-
-                            /**
-                             * Creates a GetProofsResponseV0 message from a plain object. Also converts values to their respective internal types.
-                             * @function fromObject
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {Object.<string,*>} object Plain object
-                             * @returns {org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0} GetProofsResponseV0
-                             */
-                            GetProofsResponseV0.fromObject = function fromObject(object) {
-                                if (object instanceof $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0)
-                                    return object;
-                                var message = new $root.org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0();
-                                if (object.proof != null) {
-                                    if (typeof object.proof !== "object")
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.proof: object expected");
-                                    message.proof = $root.org.dash.platform.dapi.v0.Proof.fromObject(object.proof);
-                                }
-                                if (object.metadata != null) {
-                                    if (typeof object.metadata !== "object")
-                                        throw TypeError(".org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0.metadata: object expected");
-                                    message.metadata = $root.org.dash.platform.dapi.v0.ResponseMetadata.fromObject(object.metadata);
-                                }
-                                return message;
-                            };
-
-                            /**
-                             * Creates a plain object from a GetProofsResponseV0 message. Also converts values to other types if specified.
-                             * @function toObject
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @static
-                             * @param {org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0} message GetProofsResponseV0
-                             * @param {$protobuf.IConversionOptions} [options] Conversion options
-                             * @returns {Object.<string,*>} Plain object
-                             */
-                            GetProofsResponseV0.toObject = function toObject(message, options) {
-                                if (!options)
-                                    options = {};
-                                var object = {};
-                                if (options.defaults)
-                                    object.metadata = null;
-                                if (message.proof != null && message.hasOwnProperty("proof")) {
-                                    object.proof = $root.org.dash.platform.dapi.v0.Proof.toObject(message.proof, options);
-                                    if (options.oneofs)
-                                        object.result = "proof";
-                                }
-                                if (message.metadata != null && message.hasOwnProperty("metadata"))
-                                    object.metadata = $root.org.dash.platform.dapi.v0.ResponseMetadata.toObject(message.metadata, options);
-                                return object;
-                            };
-
-                            /**
-                             * Converts this GetProofsResponseV0 to JSON.
-                             * @function toJSON
-                             * @memberof org.dash.platform.dapi.v0.GetProofsResponse.GetProofsResponseV0
-                             * @instance
-                             * @returns {Object.<string,*>} JSON object
-                             */
-                            GetProofsResponseV0.prototype.toJSON = function toJSON() {
-                                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                            };
-
-                            return GetProofsResponseV0;
-                        })();
-
-                        return GetProofsResponse;
                     })();
 
                     v0.GetDataContractRequest = (function() {
@@ -55031,6 +51942,1865 @@ $root.org = (function() {
                         return GetTokenStatusesResponse;
                     })();
 
+                    v0.GetTokenDirectPurchasePricesResponse = (function() {
+
+                        /**
+                         * Properties of a GetTokenDirectPurchasePricesResponse.
+                         * @memberof org.dash.platform.dapi.v0
+                         * @interface IGetTokenDirectPurchasePricesResponse
+                         * @property {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.IGetTokenDirectPurchasePricesResponseV0|null} [v0] GetTokenDirectPurchasePricesResponse v0
+                         */
+
+                        /**
+                         * Constructs a new GetTokenDirectPurchasePricesResponse.
+                         * @memberof org.dash.platform.dapi.v0
+                         * @classdesc Represents a GetTokenDirectPurchasePricesResponse.
+                         * @implements IGetTokenDirectPurchasePricesResponse
+                         * @constructor
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesResponse=} [properties] Properties to set
+                         */
+                        function GetTokenDirectPurchasePricesResponse(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * GetTokenDirectPurchasePricesResponse v0.
+                         * @member {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.IGetTokenDirectPurchasePricesResponseV0|null|undefined} v0
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @instance
+                         */
+                        GetTokenDirectPurchasePricesResponse.prototype.v0 = null;
+
+                        // OneOf field names bound to virtual getters and setters
+                        var $oneOfFields;
+
+                        /**
+                         * GetTokenDirectPurchasePricesResponse version.
+                         * @member {"v0"|undefined} version
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @instance
+                         */
+                        Object.defineProperty(GetTokenDirectPurchasePricesResponse.prototype, "version", {
+                            get: $util.oneOfGetter($oneOfFields = ["v0"]),
+                            set: $util.oneOfSetter($oneOfFields)
+                        });
+
+                        /**
+                         * Creates a new GetTokenDirectPurchasePricesResponse instance using the specified properties.
+                         * @function create
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesResponse=} [properties] Properties to set
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse} GetTokenDirectPurchasePricesResponse instance
+                         */
+                        GetTokenDirectPurchasePricesResponse.create = function create(properties) {
+                            return new GetTokenDirectPurchasePricesResponse(properties);
+                        };
+
+                        /**
+                         * Encodes the specified GetTokenDirectPurchasePricesResponse message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.verify|verify} messages.
+                         * @function encode
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesResponse} message GetTokenDirectPurchasePricesResponse message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        GetTokenDirectPurchasePricesResponse.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.v0 != null && Object.hasOwnProperty.call(message, "v0"))
+                                $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.encode(message.v0, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified GetTokenDirectPurchasePricesResponse message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesResponse} message GetTokenDirectPurchasePricesResponse message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        GetTokenDirectPurchasePricesResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a GetTokenDirectPurchasePricesResponse message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse} GetTokenDirectPurchasePricesResponse
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        GetTokenDirectPurchasePricesResponse.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.v0 = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.decode(reader, reader.uint32());
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a GetTokenDirectPurchasePricesResponse message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse} GetTokenDirectPurchasePricesResponse
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        GetTokenDirectPurchasePricesResponse.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a GetTokenDirectPurchasePricesResponse message.
+                         * @function verify
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        GetTokenDirectPurchasePricesResponse.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            var properties = {};
+                            if (message.v0 != null && message.hasOwnProperty("v0")) {
+                                properties.version = 1;
+                                {
+                                    var error = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.verify(message.v0);
+                                    if (error)
+                                        return "v0." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a GetTokenDirectPurchasePricesResponse message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse} GetTokenDirectPurchasePricesResponse
+                         */
+                        GetTokenDirectPurchasePricesResponse.fromObject = function fromObject(object) {
+                            if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse)
+                                return object;
+                            var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse();
+                            if (object.v0 != null) {
+                                if (typeof object.v0 !== "object")
+                                    throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.v0: object expected");
+                                message.v0 = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.fromObject(object.v0);
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a GetTokenDirectPurchasePricesResponse message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse} message GetTokenDirectPurchasePricesResponse
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        GetTokenDirectPurchasePricesResponse.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            var object = {};
+                            if (message.v0 != null && message.hasOwnProperty("v0")) {
+                                object.v0 = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.toObject(message.v0, options);
+                                if (options.oneofs)
+                                    object.version = "v0";
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this GetTokenDirectPurchasePricesResponse to JSON.
+                         * @function toJSON
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        GetTokenDirectPurchasePricesResponse.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0 = (function() {
+
+                            /**
+                             * Properties of a GetTokenDirectPurchasePricesResponseV0.
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                             * @interface IGetTokenDirectPurchasePricesResponseV0
+                             * @property {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePrices|null} [tokenDirectPurchasePrices] GetTokenDirectPurchasePricesResponseV0 tokenDirectPurchasePrices
+                             * @property {org.dash.platform.dapi.v0.IProof|null} [proof] GetTokenDirectPurchasePricesResponseV0 proof
+                             * @property {org.dash.platform.dapi.v0.IResponseMetadata|null} [metadata] GetTokenDirectPurchasePricesResponseV0 metadata
+                             */
+
+                            /**
+                             * Constructs a new GetTokenDirectPurchasePricesResponseV0.
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse
+                             * @classdesc Represents a GetTokenDirectPurchasePricesResponseV0.
+                             * @implements IGetTokenDirectPurchasePricesResponseV0
+                             * @constructor
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.IGetTokenDirectPurchasePricesResponseV0=} [properties] Properties to set
+                             */
+                            function GetTokenDirectPurchasePricesResponseV0(properties) {
+                                if (properties)
+                                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                        if (properties[keys[i]] != null)
+                                            this[keys[i]] = properties[keys[i]];
+                            }
+
+                            /**
+                             * GetTokenDirectPurchasePricesResponseV0 tokenDirectPurchasePrices.
+                             * @member {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePrices|null|undefined} tokenDirectPurchasePrices
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @instance
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.prototype.tokenDirectPurchasePrices = null;
+
+                            /**
+                             * GetTokenDirectPurchasePricesResponseV0 proof.
+                             * @member {org.dash.platform.dapi.v0.IProof|null|undefined} proof
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @instance
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.prototype.proof = null;
+
+                            /**
+                             * GetTokenDirectPurchasePricesResponseV0 metadata.
+                             * @member {org.dash.platform.dapi.v0.IResponseMetadata|null|undefined} metadata
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @instance
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.prototype.metadata = null;
+
+                            // OneOf field names bound to virtual getters and setters
+                            var $oneOfFields;
+
+                            /**
+                             * GetTokenDirectPurchasePricesResponseV0 result.
+                             * @member {"tokenDirectPurchasePrices"|"proof"|undefined} result
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @instance
+                             */
+                            Object.defineProperty(GetTokenDirectPurchasePricesResponseV0.prototype, "result", {
+                                get: $util.oneOfGetter($oneOfFields = ["tokenDirectPurchasePrices", "proof"]),
+                                set: $util.oneOfSetter($oneOfFields)
+                            });
+
+                            /**
+                             * Creates a new GetTokenDirectPurchasePricesResponseV0 instance using the specified properties.
+                             * @function create
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.IGetTokenDirectPurchasePricesResponseV0=} [properties] Properties to set
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0} GetTokenDirectPurchasePricesResponseV0 instance
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.create = function create(properties) {
+                                return new GetTokenDirectPurchasePricesResponseV0(properties);
+                            };
+
+                            /**
+                             * Encodes the specified GetTokenDirectPurchasePricesResponseV0 message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.verify|verify} messages.
+                             * @function encode
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.IGetTokenDirectPurchasePricesResponseV0} message GetTokenDirectPurchasePricesResponseV0 message or plain object to encode
+                             * @param {$protobuf.Writer} [writer] Writer to encode to
+                             * @returns {$protobuf.Writer} Writer
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.encode = function encode(message, writer) {
+                                if (!writer)
+                                    writer = $Writer.create();
+                                if (message.tokenDirectPurchasePrices != null && Object.hasOwnProperty.call(message, "tokenDirectPurchasePrices"))
+                                    $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.encode(message.tokenDirectPurchasePrices, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                                if (message.proof != null && Object.hasOwnProperty.call(message, "proof"))
+                                    $root.org.dash.platform.dapi.v0.Proof.encode(message.proof, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                                if (message.metadata != null && Object.hasOwnProperty.call(message, "metadata"))
+                                    $root.org.dash.platform.dapi.v0.ResponseMetadata.encode(message.metadata, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                                return writer;
+                            };
+
+                            /**
+                             * Encodes the specified GetTokenDirectPurchasePricesResponseV0 message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.verify|verify} messages.
+                             * @function encodeDelimited
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.IGetTokenDirectPurchasePricesResponseV0} message GetTokenDirectPurchasePricesResponseV0 message or plain object to encode
+                             * @param {$protobuf.Writer} [writer] Writer to encode to
+                             * @returns {$protobuf.Writer} Writer
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.encodeDelimited = function encodeDelimited(message, writer) {
+                                return this.encode(message, writer).ldelim();
+                            };
+
+                            /**
+                             * Decodes a GetTokenDirectPurchasePricesResponseV0 message from the specified reader or buffer.
+                             * @function decode
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                             * @param {number} [length] Message length if known beforehand
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0} GetTokenDirectPurchasePricesResponseV0
+                             * @throws {Error} If the payload is not a reader or valid buffer
+                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.decode = function decode(reader, length) {
+                                if (!(reader instanceof $Reader))
+                                    reader = $Reader.create(reader);
+                                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0();
+                                while (reader.pos < end) {
+                                    var tag = reader.uint32();
+                                    switch (tag >>> 3) {
+                                    case 1:
+                                        message.tokenDirectPurchasePrices = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.decode(reader, reader.uint32());
+                                        break;
+                                    case 2:
+                                        message.proof = $root.org.dash.platform.dapi.v0.Proof.decode(reader, reader.uint32());
+                                        break;
+                                    case 3:
+                                        message.metadata = $root.org.dash.platform.dapi.v0.ResponseMetadata.decode(reader, reader.uint32());
+                                        break;
+                                    default:
+                                        reader.skipType(tag & 7);
+                                        break;
+                                    }
+                                }
+                                return message;
+                            };
+
+                            /**
+                             * Decodes a GetTokenDirectPurchasePricesResponseV0 message from the specified reader or buffer, length delimited.
+                             * @function decodeDelimited
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0} GetTokenDirectPurchasePricesResponseV0
+                             * @throws {Error} If the payload is not a reader or valid buffer
+                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.decodeDelimited = function decodeDelimited(reader) {
+                                if (!(reader instanceof $Reader))
+                                    reader = new $Reader(reader);
+                                return this.decode(reader, reader.uint32());
+                            };
+
+                            /**
+                             * Verifies a GetTokenDirectPurchasePricesResponseV0 message.
+                             * @function verify
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {Object.<string,*>} message Plain object to verify
+                             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.verify = function verify(message) {
+                                if (typeof message !== "object" || message === null)
+                                    return "object expected";
+                                var properties = {};
+                                if (message.tokenDirectPurchasePrices != null && message.hasOwnProperty("tokenDirectPurchasePrices")) {
+                                    properties.result = 1;
+                                    {
+                                        var error = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.verify(message.tokenDirectPurchasePrices);
+                                        if (error)
+                                            return "tokenDirectPurchasePrices." + error;
+                                    }
+                                }
+                                if (message.proof != null && message.hasOwnProperty("proof")) {
+                                    if (properties.result === 1)
+                                        return "result: multiple values";
+                                    properties.result = 1;
+                                    {
+                                        var error = $root.org.dash.platform.dapi.v0.Proof.verify(message.proof);
+                                        if (error)
+                                            return "proof." + error;
+                                    }
+                                }
+                                if (message.metadata != null && message.hasOwnProperty("metadata")) {
+                                    var error = $root.org.dash.platform.dapi.v0.ResponseMetadata.verify(message.metadata);
+                                    if (error)
+                                        return "metadata." + error;
+                                }
+                                return null;
+                            };
+
+                            /**
+                             * Creates a GetTokenDirectPurchasePricesResponseV0 message from a plain object. Also converts values to their respective internal types.
+                             * @function fromObject
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {Object.<string,*>} object Plain object
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0} GetTokenDirectPurchasePricesResponseV0
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.fromObject = function fromObject(object) {
+                                if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0)
+                                    return object;
+                                var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0();
+                                if (object.tokenDirectPurchasePrices != null) {
+                                    if (typeof object.tokenDirectPurchasePrices !== "object")
+                                        throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.tokenDirectPurchasePrices: object expected");
+                                    message.tokenDirectPurchasePrices = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.fromObject(object.tokenDirectPurchasePrices);
+                                }
+                                if (object.proof != null) {
+                                    if (typeof object.proof !== "object")
+                                        throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.proof: object expected");
+                                    message.proof = $root.org.dash.platform.dapi.v0.Proof.fromObject(object.proof);
+                                }
+                                if (object.metadata != null) {
+                                    if (typeof object.metadata !== "object")
+                                        throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.metadata: object expected");
+                                    message.metadata = $root.org.dash.platform.dapi.v0.ResponseMetadata.fromObject(object.metadata);
+                                }
+                                return message;
+                            };
+
+                            /**
+                             * Creates a plain object from a GetTokenDirectPurchasePricesResponseV0 message. Also converts values to other types if specified.
+                             * @function toObject
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0} message GetTokenDirectPurchasePricesResponseV0
+                             * @param {$protobuf.IConversionOptions} [options] Conversion options
+                             * @returns {Object.<string,*>} Plain object
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.toObject = function toObject(message, options) {
+                                if (!options)
+                                    options = {};
+                                var object = {};
+                                if (options.defaults)
+                                    object.metadata = null;
+                                if (message.tokenDirectPurchasePrices != null && message.hasOwnProperty("tokenDirectPurchasePrices")) {
+                                    object.tokenDirectPurchasePrices = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.toObject(message.tokenDirectPurchasePrices, options);
+                                    if (options.oneofs)
+                                        object.result = "tokenDirectPurchasePrices";
+                                }
+                                if (message.proof != null && message.hasOwnProperty("proof")) {
+                                    object.proof = $root.org.dash.platform.dapi.v0.Proof.toObject(message.proof, options);
+                                    if (options.oneofs)
+                                        object.result = "proof";
+                                }
+                                if (message.metadata != null && message.hasOwnProperty("metadata"))
+                                    object.metadata = $root.org.dash.platform.dapi.v0.ResponseMetadata.toObject(message.metadata, options);
+                                return object;
+                            };
+
+                            /**
+                             * Converts this GetTokenDirectPurchasePricesResponseV0 to JSON.
+                             * @function toJSON
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                             * @instance
+                             * @returns {Object.<string,*>} JSON object
+                             */
+                            GetTokenDirectPurchasePricesResponseV0.prototype.toJSON = function toJSON() {
+                                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                            };
+
+                            GetTokenDirectPurchasePricesResponseV0.PriceForQuantity = (function() {
+
+                                /**
+                                 * Properties of a PriceForQuantity.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @interface IPriceForQuantity
+                                 * @property {number|Long|null} [quantity] PriceForQuantity quantity
+                                 * @property {number|Long|null} [price] PriceForQuantity price
+                                 */
+
+                                /**
+                                 * Constructs a new PriceForQuantity.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @classdesc Represents a PriceForQuantity.
+                                 * @implements IPriceForQuantity
+                                 * @constructor
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPriceForQuantity=} [properties] Properties to set
+                                 */
+                                function PriceForQuantity(properties) {
+                                    if (properties)
+                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                            if (properties[keys[i]] != null)
+                                                this[keys[i]] = properties[keys[i]];
+                                }
+
+                                /**
+                                 * PriceForQuantity quantity.
+                                 * @member {number|Long} quantity
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @instance
+                                 */
+                                PriceForQuantity.prototype.quantity = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                                /**
+                                 * PriceForQuantity price.
+                                 * @member {number|Long} price
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @instance
+                                 */
+                                PriceForQuantity.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                                /**
+                                 * Creates a new PriceForQuantity instance using the specified properties.
+                                 * @function create
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPriceForQuantity=} [properties] Properties to set
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity} PriceForQuantity instance
+                                 */
+                                PriceForQuantity.create = function create(properties) {
+                                    return new PriceForQuantity(properties);
+                                };
+
+                                /**
+                                 * Encodes the specified PriceForQuantity message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.verify|verify} messages.
+                                 * @function encode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPriceForQuantity} message PriceForQuantity message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                PriceForQuantity.encode = function encode(message, writer) {
+                                    if (!writer)
+                                        writer = $Writer.create();
+                                    if (message.quantity != null && Object.hasOwnProperty.call(message, "quantity"))
+                                        writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.quantity);
+                                    if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                                        writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.price);
+                                    return writer;
+                                };
+
+                                /**
+                                 * Encodes the specified PriceForQuantity message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.verify|verify} messages.
+                                 * @function encodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPriceForQuantity} message PriceForQuantity message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                PriceForQuantity.encodeDelimited = function encodeDelimited(message, writer) {
+                                    return this.encode(message, writer).ldelim();
+                                };
+
+                                /**
+                                 * Decodes a PriceForQuantity message from the specified reader or buffer.
+                                 * @function decode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @param {number} [length] Message length if known beforehand
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity} PriceForQuantity
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                PriceForQuantity.decode = function decode(reader, length) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = $Reader.create(reader);
+                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity();
+                                    while (reader.pos < end) {
+                                        var tag = reader.uint32();
+                                        switch (tag >>> 3) {
+                                        case 1:
+                                            message.quantity = reader.uint64();
+                                            break;
+                                        case 2:
+                                            message.price = reader.uint64();
+                                            break;
+                                        default:
+                                            reader.skipType(tag & 7);
+                                            break;
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Decodes a PriceForQuantity message from the specified reader or buffer, length delimited.
+                                 * @function decodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity} PriceForQuantity
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                PriceForQuantity.decodeDelimited = function decodeDelimited(reader) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = new $Reader(reader);
+                                    return this.decode(reader, reader.uint32());
+                                };
+
+                                /**
+                                 * Verifies a PriceForQuantity message.
+                                 * @function verify
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {Object.<string,*>} message Plain object to verify
+                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                 */
+                                PriceForQuantity.verify = function verify(message) {
+                                    if (typeof message !== "object" || message === null)
+                                        return "object expected";
+                                    if (message.quantity != null && message.hasOwnProperty("quantity"))
+                                        if (!$util.isInteger(message.quantity) && !(message.quantity && $util.isInteger(message.quantity.low) && $util.isInteger(message.quantity.high)))
+                                            return "quantity: integer|Long expected";
+                                    if (message.price != null && message.hasOwnProperty("price"))
+                                        if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
+                                            return "price: integer|Long expected";
+                                    return null;
+                                };
+
+                                /**
+                                 * Creates a PriceForQuantity message from a plain object. Also converts values to their respective internal types.
+                                 * @function fromObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {Object.<string,*>} object Plain object
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity} PriceForQuantity
+                                 */
+                                PriceForQuantity.fromObject = function fromObject(object) {
+                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity)
+                                        return object;
+                                    var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity();
+                                    if (object.quantity != null)
+                                        if ($util.Long)
+                                            (message.quantity = $util.Long.fromValue(object.quantity)).unsigned = true;
+                                        else if (typeof object.quantity === "string")
+                                            message.quantity = parseInt(object.quantity, 10);
+                                        else if (typeof object.quantity === "number")
+                                            message.quantity = object.quantity;
+                                        else if (typeof object.quantity === "object")
+                                            message.quantity = new $util.LongBits(object.quantity.low >>> 0, object.quantity.high >>> 0).toNumber(true);
+                                    if (object.price != null)
+                                        if ($util.Long)
+                                            (message.price = $util.Long.fromValue(object.price)).unsigned = true;
+                                        else if (typeof object.price === "string")
+                                            message.price = parseInt(object.price, 10);
+                                        else if (typeof object.price === "number")
+                                            message.price = object.price;
+                                        else if (typeof object.price === "object")
+                                            message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+                                    return message;
+                                };
+
+                                /**
+                                 * Creates a plain object from a PriceForQuantity message. Also converts values to other types if specified.
+                                 * @function toObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity} message PriceForQuantity
+                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                 * @returns {Object.<string,*>} Plain object
+                                 */
+                                PriceForQuantity.toObject = function toObject(message, options) {
+                                    if (!options)
+                                        options = {};
+                                    var object = {};
+                                    if (options.defaults) {
+                                        if ($util.Long) {
+                                            var long = new $util.Long(0, 0, true);
+                                            object.quantity = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                        } else
+                                            object.quantity = options.longs === String ? "0" : 0;
+                                        if ($util.Long) {
+                                            var long = new $util.Long(0, 0, true);
+                                            object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                        } else
+                                            object.price = options.longs === String ? "0" : 0;
+                                    }
+                                    if (message.quantity != null && message.hasOwnProperty("quantity"))
+                                        if (typeof message.quantity === "number")
+                                            object.quantity = options.longs === String ? String(message.quantity) : message.quantity;
+                                        else
+                                            object.quantity = options.longs === String ? $util.Long.prototype.toString.call(message.quantity) : options.longs === Number ? new $util.LongBits(message.quantity.low >>> 0, message.quantity.high >>> 0).toNumber(true) : message.quantity;
+                                    if (message.price != null && message.hasOwnProperty("price"))
+                                        if (typeof message.price === "number")
+                                            object.price = options.longs === String ? String(message.price) : message.price;
+                                        else
+                                            object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+                                    return object;
+                                };
+
+                                /**
+                                 * Converts this PriceForQuantity to JSON.
+                                 * @function toJSON
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity
+                                 * @instance
+                                 * @returns {Object.<string,*>} JSON object
+                                 */
+                                PriceForQuantity.prototype.toJSON = function toJSON() {
+                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                };
+
+                                return PriceForQuantity;
+                            })();
+
+                            GetTokenDirectPurchasePricesResponseV0.PricingSchedule = (function() {
+
+                                /**
+                                 * Properties of a PricingSchedule.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @interface IPricingSchedule
+                                 * @property {Array.<org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPriceForQuantity>|null} [priceForQuantity] PricingSchedule priceForQuantity
+                                 */
+
+                                /**
+                                 * Constructs a new PricingSchedule.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @classdesc Represents a PricingSchedule.
+                                 * @implements IPricingSchedule
+                                 * @constructor
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPricingSchedule=} [properties] Properties to set
+                                 */
+                                function PricingSchedule(properties) {
+                                    this.priceForQuantity = [];
+                                    if (properties)
+                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                            if (properties[keys[i]] != null)
+                                                this[keys[i]] = properties[keys[i]];
+                                }
+
+                                /**
+                                 * PricingSchedule priceForQuantity.
+                                 * @member {Array.<org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPriceForQuantity>} priceForQuantity
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @instance
+                                 */
+                                PricingSchedule.prototype.priceForQuantity = $util.emptyArray;
+
+                                /**
+                                 * Creates a new PricingSchedule instance using the specified properties.
+                                 * @function create
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPricingSchedule=} [properties] Properties to set
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule} PricingSchedule instance
+                                 */
+                                PricingSchedule.create = function create(properties) {
+                                    return new PricingSchedule(properties);
+                                };
+
+                                /**
+                                 * Encodes the specified PricingSchedule message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.verify|verify} messages.
+                                 * @function encode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPricingSchedule} message PricingSchedule message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                PricingSchedule.encode = function encode(message, writer) {
+                                    if (!writer)
+                                        writer = $Writer.create();
+                                    if (message.priceForQuantity != null && message.priceForQuantity.length)
+                                        for (var i = 0; i < message.priceForQuantity.length; ++i)
+                                            $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.encode(message.priceForQuantity[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                                    return writer;
+                                };
+
+                                /**
+                                 * Encodes the specified PricingSchedule message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.verify|verify} messages.
+                                 * @function encodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPricingSchedule} message PricingSchedule message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                PricingSchedule.encodeDelimited = function encodeDelimited(message, writer) {
+                                    return this.encode(message, writer).ldelim();
+                                };
+
+                                /**
+                                 * Decodes a PricingSchedule message from the specified reader or buffer.
+                                 * @function decode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @param {number} [length] Message length if known beforehand
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule} PricingSchedule
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                PricingSchedule.decode = function decode(reader, length) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = $Reader.create(reader);
+                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule();
+                                    while (reader.pos < end) {
+                                        var tag = reader.uint32();
+                                        switch (tag >>> 3) {
+                                        case 1:
+                                            if (!(message.priceForQuantity && message.priceForQuantity.length))
+                                                message.priceForQuantity = [];
+                                            message.priceForQuantity.push($root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.decode(reader, reader.uint32()));
+                                            break;
+                                        default:
+                                            reader.skipType(tag & 7);
+                                            break;
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Decodes a PricingSchedule message from the specified reader or buffer, length delimited.
+                                 * @function decodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule} PricingSchedule
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                PricingSchedule.decodeDelimited = function decodeDelimited(reader) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = new $Reader(reader);
+                                    return this.decode(reader, reader.uint32());
+                                };
+
+                                /**
+                                 * Verifies a PricingSchedule message.
+                                 * @function verify
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {Object.<string,*>} message Plain object to verify
+                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                 */
+                                PricingSchedule.verify = function verify(message) {
+                                    if (typeof message !== "object" || message === null)
+                                        return "object expected";
+                                    if (message.priceForQuantity != null && message.hasOwnProperty("priceForQuantity")) {
+                                        if (!Array.isArray(message.priceForQuantity))
+                                            return "priceForQuantity: array expected";
+                                        for (var i = 0; i < message.priceForQuantity.length; ++i) {
+                                            var error = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.verify(message.priceForQuantity[i]);
+                                            if (error)
+                                                return "priceForQuantity." + error;
+                                        }
+                                    }
+                                    return null;
+                                };
+
+                                /**
+                                 * Creates a PricingSchedule message from a plain object. Also converts values to their respective internal types.
+                                 * @function fromObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {Object.<string,*>} object Plain object
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule} PricingSchedule
+                                 */
+                                PricingSchedule.fromObject = function fromObject(object) {
+                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule)
+                                        return object;
+                                    var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule();
+                                    if (object.priceForQuantity) {
+                                        if (!Array.isArray(object.priceForQuantity))
+                                            throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.priceForQuantity: array expected");
+                                        message.priceForQuantity = [];
+                                        for (var i = 0; i < object.priceForQuantity.length; ++i) {
+                                            if (typeof object.priceForQuantity[i] !== "object")
+                                                throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.priceForQuantity: object expected");
+                                            message.priceForQuantity[i] = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.fromObject(object.priceForQuantity[i]);
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Creates a plain object from a PricingSchedule message. Also converts values to other types if specified.
+                                 * @function toObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule} message PricingSchedule
+                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                 * @returns {Object.<string,*>} Plain object
+                                 */
+                                PricingSchedule.toObject = function toObject(message, options) {
+                                    if (!options)
+                                        options = {};
+                                    var object = {};
+                                    if (options.arrays || options.defaults)
+                                        object.priceForQuantity = [];
+                                    if (message.priceForQuantity && message.priceForQuantity.length) {
+                                        object.priceForQuantity = [];
+                                        for (var j = 0; j < message.priceForQuantity.length; ++j)
+                                            object.priceForQuantity[j] = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PriceForQuantity.toObject(message.priceForQuantity[j], options);
+                                    }
+                                    return object;
+                                };
+
+                                /**
+                                 * Converts this PricingSchedule to JSON.
+                                 * @function toJSON
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule
+                                 * @instance
+                                 * @returns {Object.<string,*>} JSON object
+                                 */
+                                PricingSchedule.prototype.toJSON = function toJSON() {
+                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                };
+
+                                return PricingSchedule;
+                            })();
+
+                            GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry = (function() {
+
+                                /**
+                                 * Properties of a TokenDirectPurchasePriceEntry.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @interface ITokenDirectPurchasePriceEntry
+                                 * @property {Uint8Array|null} [tokenId] TokenDirectPurchasePriceEntry tokenId
+                                 * @property {number|Long|null} [fixedPrice] TokenDirectPurchasePriceEntry fixedPrice
+                                 * @property {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPricingSchedule|null} [variablePrice] TokenDirectPurchasePriceEntry variablePrice
+                                 */
+
+                                /**
+                                 * Constructs a new TokenDirectPurchasePriceEntry.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @classdesc Represents a TokenDirectPurchasePriceEntry.
+                                 * @implements ITokenDirectPurchasePriceEntry
+                                 * @constructor
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePriceEntry=} [properties] Properties to set
+                                 */
+                                function TokenDirectPurchasePriceEntry(properties) {
+                                    if (properties)
+                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                            if (properties[keys[i]] != null)
+                                                this[keys[i]] = properties[keys[i]];
+                                }
+
+                                /**
+                                 * TokenDirectPurchasePriceEntry tokenId.
+                                 * @member {Uint8Array} tokenId
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @instance
+                                 */
+                                TokenDirectPurchasePriceEntry.prototype.tokenId = $util.newBuffer([]);
+
+                                /**
+                                 * TokenDirectPurchasePriceEntry fixedPrice.
+                                 * @member {number|Long} fixedPrice
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @instance
+                                 */
+                                TokenDirectPurchasePriceEntry.prototype.fixedPrice = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                                /**
+                                 * TokenDirectPurchasePriceEntry variablePrice.
+                                 * @member {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.IPricingSchedule|null|undefined} variablePrice
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @instance
+                                 */
+                                TokenDirectPurchasePriceEntry.prototype.variablePrice = null;
+
+                                // OneOf field names bound to virtual getters and setters
+                                var $oneOfFields;
+
+                                /**
+                                 * TokenDirectPurchasePriceEntry price.
+                                 * @member {"fixedPrice"|"variablePrice"|undefined} price
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @instance
+                                 */
+                                Object.defineProperty(TokenDirectPurchasePriceEntry.prototype, "price", {
+                                    get: $util.oneOfGetter($oneOfFields = ["fixedPrice", "variablePrice"]),
+                                    set: $util.oneOfSetter($oneOfFields)
+                                });
+
+                                /**
+                                 * Creates a new TokenDirectPurchasePriceEntry instance using the specified properties.
+                                 * @function create
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePriceEntry=} [properties] Properties to set
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry} TokenDirectPurchasePriceEntry instance
+                                 */
+                                TokenDirectPurchasePriceEntry.create = function create(properties) {
+                                    return new TokenDirectPurchasePriceEntry(properties);
+                                };
+
+                                /**
+                                 * Encodes the specified TokenDirectPurchasePriceEntry message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.verify|verify} messages.
+                                 * @function encode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePriceEntry} message TokenDirectPurchasePriceEntry message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                TokenDirectPurchasePriceEntry.encode = function encode(message, writer) {
+                                    if (!writer)
+                                        writer = $Writer.create();
+                                    if (message.tokenId != null && Object.hasOwnProperty.call(message, "tokenId"))
+                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.tokenId);
+                                    if (message.fixedPrice != null && Object.hasOwnProperty.call(message, "fixedPrice"))
+                                        writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.fixedPrice);
+                                    if (message.variablePrice != null && Object.hasOwnProperty.call(message, "variablePrice"))
+                                        $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.encode(message.variablePrice, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                                    return writer;
+                                };
+
+                                /**
+                                 * Encodes the specified TokenDirectPurchasePriceEntry message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.verify|verify} messages.
+                                 * @function encodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePriceEntry} message TokenDirectPurchasePriceEntry message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                TokenDirectPurchasePriceEntry.encodeDelimited = function encodeDelimited(message, writer) {
+                                    return this.encode(message, writer).ldelim();
+                                };
+
+                                /**
+                                 * Decodes a TokenDirectPurchasePriceEntry message from the specified reader or buffer.
+                                 * @function decode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @param {number} [length] Message length if known beforehand
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry} TokenDirectPurchasePriceEntry
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                TokenDirectPurchasePriceEntry.decode = function decode(reader, length) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = $Reader.create(reader);
+                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry();
+                                    while (reader.pos < end) {
+                                        var tag = reader.uint32();
+                                        switch (tag >>> 3) {
+                                        case 1:
+                                            message.tokenId = reader.bytes();
+                                            break;
+                                        case 2:
+                                            message.fixedPrice = reader.uint64();
+                                            break;
+                                        case 3:
+                                            message.variablePrice = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.decode(reader, reader.uint32());
+                                            break;
+                                        default:
+                                            reader.skipType(tag & 7);
+                                            break;
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Decodes a TokenDirectPurchasePriceEntry message from the specified reader or buffer, length delimited.
+                                 * @function decodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry} TokenDirectPurchasePriceEntry
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                TokenDirectPurchasePriceEntry.decodeDelimited = function decodeDelimited(reader) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = new $Reader(reader);
+                                    return this.decode(reader, reader.uint32());
+                                };
+
+                                /**
+                                 * Verifies a TokenDirectPurchasePriceEntry message.
+                                 * @function verify
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {Object.<string,*>} message Plain object to verify
+                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                 */
+                                TokenDirectPurchasePriceEntry.verify = function verify(message) {
+                                    if (typeof message !== "object" || message === null)
+                                        return "object expected";
+                                    var properties = {};
+                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
+                                        if (!(message.tokenId && typeof message.tokenId.length === "number" || $util.isString(message.tokenId)))
+                                            return "tokenId: buffer expected";
+                                    if (message.fixedPrice != null && message.hasOwnProperty("fixedPrice")) {
+                                        properties.price = 1;
+                                        if (!$util.isInteger(message.fixedPrice) && !(message.fixedPrice && $util.isInteger(message.fixedPrice.low) && $util.isInteger(message.fixedPrice.high)))
+                                            return "fixedPrice: integer|Long expected";
+                                    }
+                                    if (message.variablePrice != null && message.hasOwnProperty("variablePrice")) {
+                                        if (properties.price === 1)
+                                            return "price: multiple values";
+                                        properties.price = 1;
+                                        {
+                                            var error = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.verify(message.variablePrice);
+                                            if (error)
+                                                return "variablePrice." + error;
+                                        }
+                                    }
+                                    return null;
+                                };
+
+                                /**
+                                 * Creates a TokenDirectPurchasePriceEntry message from a plain object. Also converts values to their respective internal types.
+                                 * @function fromObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {Object.<string,*>} object Plain object
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry} TokenDirectPurchasePriceEntry
+                                 */
+                                TokenDirectPurchasePriceEntry.fromObject = function fromObject(object) {
+                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry)
+                                        return object;
+                                    var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry();
+                                    if (object.tokenId != null)
+                                        if (typeof object.tokenId === "string")
+                                            $util.base64.decode(object.tokenId, message.tokenId = $util.newBuffer($util.base64.length(object.tokenId)), 0);
+                                        else if (object.tokenId.length >= 0)
+                                            message.tokenId = object.tokenId;
+                                    if (object.fixedPrice != null)
+                                        if ($util.Long)
+                                            (message.fixedPrice = $util.Long.fromValue(object.fixedPrice)).unsigned = true;
+                                        else if (typeof object.fixedPrice === "string")
+                                            message.fixedPrice = parseInt(object.fixedPrice, 10);
+                                        else if (typeof object.fixedPrice === "number")
+                                            message.fixedPrice = object.fixedPrice;
+                                        else if (typeof object.fixedPrice === "object")
+                                            message.fixedPrice = new $util.LongBits(object.fixedPrice.low >>> 0, object.fixedPrice.high >>> 0).toNumber(true);
+                                    if (object.variablePrice != null) {
+                                        if (typeof object.variablePrice !== "object")
+                                            throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.variablePrice: object expected");
+                                        message.variablePrice = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.fromObject(object.variablePrice);
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Creates a plain object from a TokenDirectPurchasePriceEntry message. Also converts values to other types if specified.
+                                 * @function toObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry} message TokenDirectPurchasePriceEntry
+                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                 * @returns {Object.<string,*>} Plain object
+                                 */
+                                TokenDirectPurchasePriceEntry.toObject = function toObject(message, options) {
+                                    if (!options)
+                                        options = {};
+                                    var object = {};
+                                    if (options.defaults)
+                                        if (options.bytes === String)
+                                            object.tokenId = "";
+                                        else {
+                                            object.tokenId = [];
+                                            if (options.bytes !== Array)
+                                                object.tokenId = $util.newBuffer(object.tokenId);
+                                        }
+                                    if (message.tokenId != null && message.hasOwnProperty("tokenId"))
+                                        object.tokenId = options.bytes === String ? $util.base64.encode(message.tokenId, 0, message.tokenId.length) : options.bytes === Array ? Array.prototype.slice.call(message.tokenId) : message.tokenId;
+                                    if (message.fixedPrice != null && message.hasOwnProperty("fixedPrice")) {
+                                        if (typeof message.fixedPrice === "number")
+                                            object.fixedPrice = options.longs === String ? String(message.fixedPrice) : message.fixedPrice;
+                                        else
+                                            object.fixedPrice = options.longs === String ? $util.Long.prototype.toString.call(message.fixedPrice) : options.longs === Number ? new $util.LongBits(message.fixedPrice.low >>> 0, message.fixedPrice.high >>> 0).toNumber(true) : message.fixedPrice;
+                                        if (options.oneofs)
+                                            object.price = "fixedPrice";
+                                    }
+                                    if (message.variablePrice != null && message.hasOwnProperty("variablePrice")) {
+                                        object.variablePrice = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.PricingSchedule.toObject(message.variablePrice, options);
+                                        if (options.oneofs)
+                                            object.price = "variablePrice";
+                                    }
+                                    return object;
+                                };
+
+                                /**
+                                 * Converts this TokenDirectPurchasePriceEntry to JSON.
+                                 * @function toJSON
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry
+                                 * @instance
+                                 * @returns {Object.<string,*>} JSON object
+                                 */
+                                TokenDirectPurchasePriceEntry.prototype.toJSON = function toJSON() {
+                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                };
+
+                                return TokenDirectPurchasePriceEntry;
+                            })();
+
+                            GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices = (function() {
+
+                                /**
+                                 * Properties of a TokenDirectPurchasePrices.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @interface ITokenDirectPurchasePrices
+                                 * @property {Array.<org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePriceEntry>|null} [tokenDirectPurchasePrice] TokenDirectPurchasePrices tokenDirectPurchasePrice
+                                 */
+
+                                /**
+                                 * Constructs a new TokenDirectPurchasePrices.
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0
+                                 * @classdesc Represents a TokenDirectPurchasePrices.
+                                 * @implements ITokenDirectPurchasePrices
+                                 * @constructor
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePrices=} [properties] Properties to set
+                                 */
+                                function TokenDirectPurchasePrices(properties) {
+                                    this.tokenDirectPurchasePrice = [];
+                                    if (properties)
+                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                            if (properties[keys[i]] != null)
+                                                this[keys[i]] = properties[keys[i]];
+                                }
+
+                                /**
+                                 * TokenDirectPurchasePrices tokenDirectPurchasePrice.
+                                 * @member {Array.<org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePriceEntry>} tokenDirectPurchasePrice
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @instance
+                                 */
+                                TokenDirectPurchasePrices.prototype.tokenDirectPurchasePrice = $util.emptyArray;
+
+                                /**
+                                 * Creates a new TokenDirectPurchasePrices instance using the specified properties.
+                                 * @function create
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePrices=} [properties] Properties to set
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices} TokenDirectPurchasePrices instance
+                                 */
+                                TokenDirectPurchasePrices.create = function create(properties) {
+                                    return new TokenDirectPurchasePrices(properties);
+                                };
+
+                                /**
+                                 * Encodes the specified TokenDirectPurchasePrices message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.verify|verify} messages.
+                                 * @function encode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePrices} message TokenDirectPurchasePrices message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                TokenDirectPurchasePrices.encode = function encode(message, writer) {
+                                    if (!writer)
+                                        writer = $Writer.create();
+                                    if (message.tokenDirectPurchasePrice != null && message.tokenDirectPurchasePrice.length)
+                                        for (var i = 0; i < message.tokenDirectPurchasePrice.length; ++i)
+                                            $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.encode(message.tokenDirectPurchasePrice[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                                    return writer;
+                                };
+
+                                /**
+                                 * Encodes the specified TokenDirectPurchasePrices message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.verify|verify} messages.
+                                 * @function encodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.ITokenDirectPurchasePrices} message TokenDirectPurchasePrices message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                TokenDirectPurchasePrices.encodeDelimited = function encodeDelimited(message, writer) {
+                                    return this.encode(message, writer).ldelim();
+                                };
+
+                                /**
+                                 * Decodes a TokenDirectPurchasePrices message from the specified reader or buffer.
+                                 * @function decode
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @param {number} [length] Message length if known beforehand
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices} TokenDirectPurchasePrices
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                TokenDirectPurchasePrices.decode = function decode(reader, length) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = $Reader.create(reader);
+                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices();
+                                    while (reader.pos < end) {
+                                        var tag = reader.uint32();
+                                        switch (tag >>> 3) {
+                                        case 1:
+                                            if (!(message.tokenDirectPurchasePrice && message.tokenDirectPurchasePrice.length))
+                                                message.tokenDirectPurchasePrice = [];
+                                            message.tokenDirectPurchasePrice.push($root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.decode(reader, reader.uint32()));
+                                            break;
+                                        default:
+                                            reader.skipType(tag & 7);
+                                            break;
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Decodes a TokenDirectPurchasePrices message from the specified reader or buffer, length delimited.
+                                 * @function decodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices} TokenDirectPurchasePrices
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                TokenDirectPurchasePrices.decodeDelimited = function decodeDelimited(reader) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = new $Reader(reader);
+                                    return this.decode(reader, reader.uint32());
+                                };
+
+                                /**
+                                 * Verifies a TokenDirectPurchasePrices message.
+                                 * @function verify
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {Object.<string,*>} message Plain object to verify
+                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                 */
+                                TokenDirectPurchasePrices.verify = function verify(message) {
+                                    if (typeof message !== "object" || message === null)
+                                        return "object expected";
+                                    if (message.tokenDirectPurchasePrice != null && message.hasOwnProperty("tokenDirectPurchasePrice")) {
+                                        if (!Array.isArray(message.tokenDirectPurchasePrice))
+                                            return "tokenDirectPurchasePrice: array expected";
+                                        for (var i = 0; i < message.tokenDirectPurchasePrice.length; ++i) {
+                                            var error = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.verify(message.tokenDirectPurchasePrice[i]);
+                                            if (error)
+                                                return "tokenDirectPurchasePrice." + error;
+                                        }
+                                    }
+                                    return null;
+                                };
+
+                                /**
+                                 * Creates a TokenDirectPurchasePrices message from a plain object. Also converts values to their respective internal types.
+                                 * @function fromObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {Object.<string,*>} object Plain object
+                                 * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices} TokenDirectPurchasePrices
+                                 */
+                                TokenDirectPurchasePrices.fromObject = function fromObject(object) {
+                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices)
+                                        return object;
+                                    var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices();
+                                    if (object.tokenDirectPurchasePrice) {
+                                        if (!Array.isArray(object.tokenDirectPurchasePrice))
+                                            throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.tokenDirectPurchasePrice: array expected");
+                                        message.tokenDirectPurchasePrice = [];
+                                        for (var i = 0; i < object.tokenDirectPurchasePrice.length; ++i) {
+                                            if (typeof object.tokenDirectPurchasePrice[i] !== "object")
+                                                throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices.tokenDirectPurchasePrice: object expected");
+                                            message.tokenDirectPurchasePrice[i] = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.fromObject(object.tokenDirectPurchasePrice[i]);
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Creates a plain object from a TokenDirectPurchasePrices message. Also converts values to other types if specified.
+                                 * @function toObject
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices} message TokenDirectPurchasePrices
+                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                 * @returns {Object.<string,*>} Plain object
+                                 */
+                                TokenDirectPurchasePrices.toObject = function toObject(message, options) {
+                                    if (!options)
+                                        options = {};
+                                    var object = {};
+                                    if (options.arrays || options.defaults)
+                                        object.tokenDirectPurchasePrice = [];
+                                    if (message.tokenDirectPurchasePrice && message.tokenDirectPurchasePrice.length) {
+                                        object.tokenDirectPurchasePrice = [];
+                                        for (var j = 0; j < message.tokenDirectPurchasePrice.length; ++j)
+                                            object.tokenDirectPurchasePrice[j] = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePriceEntry.toObject(message.tokenDirectPurchasePrice[j], options);
+                                    }
+                                    return object;
+                                };
+
+                                /**
+                                 * Converts this TokenDirectPurchasePrices to JSON.
+                                 * @function toJSON
+                                 * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesResponse.GetTokenDirectPurchasePricesResponseV0.TokenDirectPurchasePrices
+                                 * @instance
+                                 * @returns {Object.<string,*>} JSON object
+                                 */
+                                TokenDirectPurchasePrices.prototype.toJSON = function toJSON() {
+                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                };
+
+                                return TokenDirectPurchasePrices;
+                            })();
+
+                            return GetTokenDirectPurchasePricesResponseV0;
+                        })();
+
+                        return GetTokenDirectPurchasePricesResponse;
+                    })();
+
+                    v0.GetTokenDirectPurchasePricesRequest = (function() {
+
+                        /**
+                         * Properties of a GetTokenDirectPurchasePricesRequest.
+                         * @memberof org.dash.platform.dapi.v0
+                         * @interface IGetTokenDirectPurchasePricesRequest
+                         * @property {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.IGetTokenDirectPurchasePricesRequestV0|null} [v0] GetTokenDirectPurchasePricesRequest v0
+                         */
+
+                        /**
+                         * Constructs a new GetTokenDirectPurchasePricesRequest.
+                         * @memberof org.dash.platform.dapi.v0
+                         * @classdesc Represents a GetTokenDirectPurchasePricesRequest.
+                         * @implements IGetTokenDirectPurchasePricesRequest
+                         * @constructor
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesRequest=} [properties] Properties to set
+                         */
+                        function GetTokenDirectPurchasePricesRequest(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * GetTokenDirectPurchasePricesRequest v0.
+                         * @member {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.IGetTokenDirectPurchasePricesRequestV0|null|undefined} v0
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @instance
+                         */
+                        GetTokenDirectPurchasePricesRequest.prototype.v0 = null;
+
+                        // OneOf field names bound to virtual getters and setters
+                        var $oneOfFields;
+
+                        /**
+                         * GetTokenDirectPurchasePricesRequest version.
+                         * @member {"v0"|undefined} version
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @instance
+                         */
+                        Object.defineProperty(GetTokenDirectPurchasePricesRequest.prototype, "version", {
+                            get: $util.oneOfGetter($oneOfFields = ["v0"]),
+                            set: $util.oneOfSetter($oneOfFields)
+                        });
+
+                        /**
+                         * Creates a new GetTokenDirectPurchasePricesRequest instance using the specified properties.
+                         * @function create
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesRequest=} [properties] Properties to set
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest} GetTokenDirectPurchasePricesRequest instance
+                         */
+                        GetTokenDirectPurchasePricesRequest.create = function create(properties) {
+                            return new GetTokenDirectPurchasePricesRequest(properties);
+                        };
+
+                        /**
+                         * Encodes the specified GetTokenDirectPurchasePricesRequest message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.verify|verify} messages.
+                         * @function encode
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesRequest} message GetTokenDirectPurchasePricesRequest message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        GetTokenDirectPurchasePricesRequest.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.v0 != null && Object.hasOwnProperty.call(message, "v0"))
+                                $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.encode(message.v0, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified GetTokenDirectPurchasePricesRequest message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.IGetTokenDirectPurchasePricesRequest} message GetTokenDirectPurchasePricesRequest message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        GetTokenDirectPurchasePricesRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a GetTokenDirectPurchasePricesRequest message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest} GetTokenDirectPurchasePricesRequest
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        GetTokenDirectPurchasePricesRequest.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.v0 = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.decode(reader, reader.uint32());
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a GetTokenDirectPurchasePricesRequest message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest} GetTokenDirectPurchasePricesRequest
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        GetTokenDirectPurchasePricesRequest.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a GetTokenDirectPurchasePricesRequest message.
+                         * @function verify
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        GetTokenDirectPurchasePricesRequest.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            var properties = {};
+                            if (message.v0 != null && message.hasOwnProperty("v0")) {
+                                properties.version = 1;
+                                {
+                                    var error = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.verify(message.v0);
+                                    if (error)
+                                        return "v0." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a GetTokenDirectPurchasePricesRequest message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest} GetTokenDirectPurchasePricesRequest
+                         */
+                        GetTokenDirectPurchasePricesRequest.fromObject = function fromObject(object) {
+                            if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest)
+                                return object;
+                            var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest();
+                            if (object.v0 != null) {
+                                if (typeof object.v0 !== "object")
+                                    throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.v0: object expected");
+                                message.v0 = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.fromObject(object.v0);
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a GetTokenDirectPurchasePricesRequest message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @static
+                         * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest} message GetTokenDirectPurchasePricesRequest
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        GetTokenDirectPurchasePricesRequest.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            var object = {};
+                            if (message.v0 != null && message.hasOwnProperty("v0")) {
+                                object.v0 = $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.toObject(message.v0, options);
+                                if (options.oneofs)
+                                    object.version = "v0";
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this GetTokenDirectPurchasePricesRequest to JSON.
+                         * @function toJSON
+                         * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        GetTokenDirectPurchasePricesRequest.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0 = (function() {
+
+                            /**
+                             * Properties of a GetTokenDirectPurchasePricesRequestV0.
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                             * @interface IGetTokenDirectPurchasePricesRequestV0
+                             * @property {Array.<Uint8Array>|null} [tokenIds] GetTokenDirectPurchasePricesRequestV0 tokenIds
+                             * @property {boolean|null} [prove] GetTokenDirectPurchasePricesRequestV0 prove
+                             */
+
+                            /**
+                             * Constructs a new GetTokenDirectPurchasePricesRequestV0.
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest
+                             * @classdesc Represents a GetTokenDirectPurchasePricesRequestV0.
+                             * @implements IGetTokenDirectPurchasePricesRequestV0
+                             * @constructor
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.IGetTokenDirectPurchasePricesRequestV0=} [properties] Properties to set
+                             */
+                            function GetTokenDirectPurchasePricesRequestV0(properties) {
+                                this.tokenIds = [];
+                                if (properties)
+                                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                        if (properties[keys[i]] != null)
+                                            this[keys[i]] = properties[keys[i]];
+                            }
+
+                            /**
+                             * GetTokenDirectPurchasePricesRequestV0 tokenIds.
+                             * @member {Array.<Uint8Array>} tokenIds
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @instance
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.prototype.tokenIds = $util.emptyArray;
+
+                            /**
+                             * GetTokenDirectPurchasePricesRequestV0 prove.
+                             * @member {boolean} prove
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @instance
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.prototype.prove = false;
+
+                            /**
+                             * Creates a new GetTokenDirectPurchasePricesRequestV0 instance using the specified properties.
+                             * @function create
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.IGetTokenDirectPurchasePricesRequestV0=} [properties] Properties to set
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0} GetTokenDirectPurchasePricesRequestV0 instance
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.create = function create(properties) {
+                                return new GetTokenDirectPurchasePricesRequestV0(properties);
+                            };
+
+                            /**
+                             * Encodes the specified GetTokenDirectPurchasePricesRequestV0 message. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.verify|verify} messages.
+                             * @function encode
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.IGetTokenDirectPurchasePricesRequestV0} message GetTokenDirectPurchasePricesRequestV0 message or plain object to encode
+                             * @param {$protobuf.Writer} [writer] Writer to encode to
+                             * @returns {$protobuf.Writer} Writer
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.encode = function encode(message, writer) {
+                                if (!writer)
+                                    writer = $Writer.create();
+                                if (message.tokenIds != null && message.tokenIds.length)
+                                    for (var i = 0; i < message.tokenIds.length; ++i)
+                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.tokenIds[i]);
+                                if (message.prove != null && Object.hasOwnProperty.call(message, "prove"))
+                                    writer.uint32(/* id 2, wireType 0 =*/16).bool(message.prove);
+                                return writer;
+                            };
+
+                            /**
+                             * Encodes the specified GetTokenDirectPurchasePricesRequestV0 message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.verify|verify} messages.
+                             * @function encodeDelimited
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.IGetTokenDirectPurchasePricesRequestV0} message GetTokenDirectPurchasePricesRequestV0 message or plain object to encode
+                             * @param {$protobuf.Writer} [writer] Writer to encode to
+                             * @returns {$protobuf.Writer} Writer
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.encodeDelimited = function encodeDelimited(message, writer) {
+                                return this.encode(message, writer).ldelim();
+                            };
+
+                            /**
+                             * Decodes a GetTokenDirectPurchasePricesRequestV0 message from the specified reader or buffer.
+                             * @function decode
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                             * @param {number} [length] Message length if known beforehand
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0} GetTokenDirectPurchasePricesRequestV0
+                             * @throws {Error} If the payload is not a reader or valid buffer
+                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.decode = function decode(reader, length) {
+                                if (!(reader instanceof $Reader))
+                                    reader = $Reader.create(reader);
+                                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0();
+                                while (reader.pos < end) {
+                                    var tag = reader.uint32();
+                                    switch (tag >>> 3) {
+                                    case 1:
+                                        if (!(message.tokenIds && message.tokenIds.length))
+                                            message.tokenIds = [];
+                                        message.tokenIds.push(reader.bytes());
+                                        break;
+                                    case 2:
+                                        message.prove = reader.bool();
+                                        break;
+                                    default:
+                                        reader.skipType(tag & 7);
+                                        break;
+                                    }
+                                }
+                                return message;
+                            };
+
+                            /**
+                             * Decodes a GetTokenDirectPurchasePricesRequestV0 message from the specified reader or buffer, length delimited.
+                             * @function decodeDelimited
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0} GetTokenDirectPurchasePricesRequestV0
+                             * @throws {Error} If the payload is not a reader or valid buffer
+                             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.decodeDelimited = function decodeDelimited(reader) {
+                                if (!(reader instanceof $Reader))
+                                    reader = new $Reader(reader);
+                                return this.decode(reader, reader.uint32());
+                            };
+
+                            /**
+                             * Verifies a GetTokenDirectPurchasePricesRequestV0 message.
+                             * @function verify
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {Object.<string,*>} message Plain object to verify
+                             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.verify = function verify(message) {
+                                if (typeof message !== "object" || message === null)
+                                    return "object expected";
+                                if (message.tokenIds != null && message.hasOwnProperty("tokenIds")) {
+                                    if (!Array.isArray(message.tokenIds))
+                                        return "tokenIds: array expected";
+                                    for (var i = 0; i < message.tokenIds.length; ++i)
+                                        if (!(message.tokenIds[i] && typeof message.tokenIds[i].length === "number" || $util.isString(message.tokenIds[i])))
+                                            return "tokenIds: buffer[] expected";
+                                }
+                                if (message.prove != null && message.hasOwnProperty("prove"))
+                                    if (typeof message.prove !== "boolean")
+                                        return "prove: boolean expected";
+                                return null;
+                            };
+
+                            /**
+                             * Creates a GetTokenDirectPurchasePricesRequestV0 message from a plain object. Also converts values to their respective internal types.
+                             * @function fromObject
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {Object.<string,*>} object Plain object
+                             * @returns {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0} GetTokenDirectPurchasePricesRequestV0
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.fromObject = function fromObject(object) {
+                                if (object instanceof $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0)
+                                    return object;
+                                var message = new $root.org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0();
+                                if (object.tokenIds) {
+                                    if (!Array.isArray(object.tokenIds))
+                                        throw TypeError(".org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0.tokenIds: array expected");
+                                    message.tokenIds = [];
+                                    for (var i = 0; i < object.tokenIds.length; ++i)
+                                        if (typeof object.tokenIds[i] === "string")
+                                            $util.base64.decode(object.tokenIds[i], message.tokenIds[i] = $util.newBuffer($util.base64.length(object.tokenIds[i])), 0);
+                                        else if (object.tokenIds[i].length >= 0)
+                                            message.tokenIds[i] = object.tokenIds[i];
+                                }
+                                if (object.prove != null)
+                                    message.prove = Boolean(object.prove);
+                                return message;
+                            };
+
+                            /**
+                             * Creates a plain object from a GetTokenDirectPurchasePricesRequestV0 message. Also converts values to other types if specified.
+                             * @function toObject
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @static
+                             * @param {org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0} message GetTokenDirectPurchasePricesRequestV0
+                             * @param {$protobuf.IConversionOptions} [options] Conversion options
+                             * @returns {Object.<string,*>} Plain object
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.toObject = function toObject(message, options) {
+                                if (!options)
+                                    options = {};
+                                var object = {};
+                                if (options.arrays || options.defaults)
+                                    object.tokenIds = [];
+                                if (options.defaults)
+                                    object.prove = false;
+                                if (message.tokenIds && message.tokenIds.length) {
+                                    object.tokenIds = [];
+                                    for (var j = 0; j < message.tokenIds.length; ++j)
+                                        object.tokenIds[j] = options.bytes === String ? $util.base64.encode(message.tokenIds[j], 0, message.tokenIds[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.tokenIds[j]) : message.tokenIds[j];
+                                }
+                                if (message.prove != null && message.hasOwnProperty("prove"))
+                                    object.prove = message.prove;
+                                return object;
+                            };
+
+                            /**
+                             * Converts this GetTokenDirectPurchasePricesRequestV0 to JSON.
+                             * @function toJSON
+                             * @memberof org.dash.platform.dapi.v0.GetTokenDirectPurchasePricesRequest.GetTokenDirectPurchasePricesRequestV0
+                             * @instance
+                             * @returns {Object.<string,*>} JSON object
+                             */
+                            GetTokenDirectPurchasePricesRequestV0.prototype.toJSON = function toJSON() {
+                                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                            };
+
+                            return GetTokenDirectPurchasePricesRequestV0;
+                        })();
+
+                        return GetTokenDirectPurchasePricesRequest;
+                    })();
+
                     v0.GetTokenPreProgrammedDistributionsRequest = (function() {
 
                         /**
@@ -64451,315 +63221,6 @@ $root.org = (function() {
                                 return PersonalEncryptedNote;
                             })();
 
-                            GetGroupActionsResponseV0.TransferEvent = (function() {
-
-                                /**
-                                 * Properties of a TransferEvent.
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0
-                                 * @interface ITransferEvent
-                                 * @property {Uint8Array|null} [recipientId] TransferEvent recipientId
-                                 * @property {string|null} [publicNote] TransferEvent publicNote
-                                 * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ISharedEncryptedNote|null} [sharedEncryptedNote] TransferEvent sharedEncryptedNote
-                                 * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IPersonalEncryptedNote|null} [personalEncryptedNote] TransferEvent personalEncryptedNote
-                                 * @property {number|Long|null} [amount] TransferEvent amount
-                                 */
-
-                                /**
-                                 * Constructs a new TransferEvent.
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0
-                                 * @classdesc Represents a TransferEvent.
-                                 * @implements ITransferEvent
-                                 * @constructor
-                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITransferEvent=} [properties] Properties to set
-                                 */
-                                function TransferEvent(properties) {
-                                    if (properties)
-                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                            if (properties[keys[i]] != null)
-                                                this[keys[i]] = properties[keys[i]];
-                                }
-
-                                /**
-                                 * TransferEvent recipientId.
-                                 * @member {Uint8Array} recipientId
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @instance
-                                 */
-                                TransferEvent.prototype.recipientId = $util.newBuffer([]);
-
-                                /**
-                                 * TransferEvent publicNote.
-                                 * @member {string} publicNote
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @instance
-                                 */
-                                TransferEvent.prototype.publicNote = "";
-
-                                /**
-                                 * TransferEvent sharedEncryptedNote.
-                                 * @member {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ISharedEncryptedNote|null|undefined} sharedEncryptedNote
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @instance
-                                 */
-                                TransferEvent.prototype.sharedEncryptedNote = null;
-
-                                /**
-                                 * TransferEvent personalEncryptedNote.
-                                 * @member {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IPersonalEncryptedNote|null|undefined} personalEncryptedNote
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @instance
-                                 */
-                                TransferEvent.prototype.personalEncryptedNote = null;
-
-                                /**
-                                 * TransferEvent amount.
-                                 * @member {number|Long} amount
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @instance
-                                 */
-                                TransferEvent.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-                                /**
-                                 * Creates a new TransferEvent instance using the specified properties.
-                                 * @function create
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITransferEvent=} [properties] Properties to set
-                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent} TransferEvent instance
-                                 */
-                                TransferEvent.create = function create(properties) {
-                                    return new TransferEvent(properties);
-                                };
-
-                                /**
-                                 * Encodes the specified TransferEvent message. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.verify|verify} messages.
-                                 * @function encode
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITransferEvent} message TransferEvent message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                TransferEvent.encode = function encode(message, writer) {
-                                    if (!writer)
-                                        writer = $Writer.create();
-                                    if (message.recipientId != null && Object.hasOwnProperty.call(message, "recipientId"))
-                                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.recipientId);
-                                    if (message.publicNote != null && Object.hasOwnProperty.call(message, "publicNote"))
-                                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.publicNote);
-                                    if (message.sharedEncryptedNote != null && Object.hasOwnProperty.call(message, "sharedEncryptedNote"))
-                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.SharedEncryptedNote.encode(message.sharedEncryptedNote, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                                    if (message.personalEncryptedNote != null && Object.hasOwnProperty.call(message, "personalEncryptedNote"))
-                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.PersonalEncryptedNote.encode(message.personalEncryptedNote, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                                    if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                                        writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.amount);
-                                    return writer;
-                                };
-
-                                /**
-                                 * Encodes the specified TransferEvent message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.verify|verify} messages.
-                                 * @function encodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITransferEvent} message TransferEvent message or plain object to encode
-                                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                                 * @returns {$protobuf.Writer} Writer
-                                 */
-                                TransferEvent.encodeDelimited = function encodeDelimited(message, writer) {
-                                    return this.encode(message, writer).ldelim();
-                                };
-
-                                /**
-                                 * Decodes a TransferEvent message from the specified reader or buffer.
-                                 * @function decode
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @param {number} [length] Message length if known beforehand
-                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent} TransferEvent
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                TransferEvent.decode = function decode(reader, length) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = $Reader.create(reader);
-                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent();
-                                    while (reader.pos < end) {
-                                        var tag = reader.uint32();
-                                        switch (tag >>> 3) {
-                                        case 1:
-                                            message.recipientId = reader.bytes();
-                                            break;
-                                        case 2:
-                                            message.publicNote = reader.string();
-                                            break;
-                                        case 3:
-                                            message.sharedEncryptedNote = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.SharedEncryptedNote.decode(reader, reader.uint32());
-                                            break;
-                                        case 4:
-                                            message.personalEncryptedNote = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.PersonalEncryptedNote.decode(reader, reader.uint32());
-                                            break;
-                                        case 5:
-                                            message.amount = reader.uint64();
-                                            break;
-                                        default:
-                                            reader.skipType(tag & 7);
-                                            break;
-                                        }
-                                    }
-                                    return message;
-                                };
-
-                                /**
-                                 * Decodes a TransferEvent message from the specified reader or buffer, length delimited.
-                                 * @function decodeDelimited
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent} TransferEvent
-                                 * @throws {Error} If the payload is not a reader or valid buffer
-                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                                 */
-                                TransferEvent.decodeDelimited = function decodeDelimited(reader) {
-                                    if (!(reader instanceof $Reader))
-                                        reader = new $Reader(reader);
-                                    return this.decode(reader, reader.uint32());
-                                };
-
-                                /**
-                                 * Verifies a TransferEvent message.
-                                 * @function verify
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {Object.<string,*>} message Plain object to verify
-                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                                 */
-                                TransferEvent.verify = function verify(message) {
-                                    if (typeof message !== "object" || message === null)
-                                        return "object expected";
-                                    if (message.recipientId != null && message.hasOwnProperty("recipientId"))
-                                        if (!(message.recipientId && typeof message.recipientId.length === "number" || $util.isString(message.recipientId)))
-                                            return "recipientId: buffer expected";
-                                    if (message.publicNote != null && message.hasOwnProperty("publicNote"))
-                                        if (!$util.isString(message.publicNote))
-                                            return "publicNote: string expected";
-                                    if (message.sharedEncryptedNote != null && message.hasOwnProperty("sharedEncryptedNote")) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.SharedEncryptedNote.verify(message.sharedEncryptedNote);
-                                        if (error)
-                                            return "sharedEncryptedNote." + error;
-                                    }
-                                    if (message.personalEncryptedNote != null && message.hasOwnProperty("personalEncryptedNote")) {
-                                        var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.PersonalEncryptedNote.verify(message.personalEncryptedNote);
-                                        if (error)
-                                            return "personalEncryptedNote." + error;
-                                    }
-                                    if (message.amount != null && message.hasOwnProperty("amount"))
-                                        if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
-                                            return "amount: integer|Long expected";
-                                    return null;
-                                };
-
-                                /**
-                                 * Creates a TransferEvent message from a plain object. Also converts values to their respective internal types.
-                                 * @function fromObject
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {Object.<string,*>} object Plain object
-                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent} TransferEvent
-                                 */
-                                TransferEvent.fromObject = function fromObject(object) {
-                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent)
-                                        return object;
-                                    var message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent();
-                                    if (object.recipientId != null)
-                                        if (typeof object.recipientId === "string")
-                                            $util.base64.decode(object.recipientId, message.recipientId = $util.newBuffer($util.base64.length(object.recipientId)), 0);
-                                        else if (object.recipientId.length >= 0)
-                                            message.recipientId = object.recipientId;
-                                    if (object.publicNote != null)
-                                        message.publicNote = String(object.publicNote);
-                                    if (object.sharedEncryptedNote != null) {
-                                        if (typeof object.sharedEncryptedNote !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.sharedEncryptedNote: object expected");
-                                        message.sharedEncryptedNote = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.SharedEncryptedNote.fromObject(object.sharedEncryptedNote);
-                                    }
-                                    if (object.personalEncryptedNote != null) {
-                                        if (typeof object.personalEncryptedNote !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.personalEncryptedNote: object expected");
-                                        message.personalEncryptedNote = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.PersonalEncryptedNote.fromObject(object.personalEncryptedNote);
-                                    }
-                                    if (object.amount != null)
-                                        if ($util.Long)
-                                            (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
-                                        else if (typeof object.amount === "string")
-                                            message.amount = parseInt(object.amount, 10);
-                                        else if (typeof object.amount === "number")
-                                            message.amount = object.amount;
-                                        else if (typeof object.amount === "object")
-                                            message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
-                                    return message;
-                                };
-
-                                /**
-                                 * Creates a plain object from a TransferEvent message. Also converts values to other types if specified.
-                                 * @function toObject
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @static
-                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent} message TransferEvent
-                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                                 * @returns {Object.<string,*>} Plain object
-                                 */
-                                TransferEvent.toObject = function toObject(message, options) {
-                                    if (!options)
-                                        options = {};
-                                    var object = {};
-                                    if (options.defaults) {
-                                        if (options.bytes === String)
-                                            object.recipientId = "";
-                                        else {
-                                            object.recipientId = [];
-                                            if (options.bytes !== Array)
-                                                object.recipientId = $util.newBuffer(object.recipientId);
-                                        }
-                                        object.publicNote = "";
-                                        object.sharedEncryptedNote = null;
-                                        object.personalEncryptedNote = null;
-                                        if ($util.Long) {
-                                            var long = new $util.Long(0, 0, true);
-                                            object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                                        } else
-                                            object.amount = options.longs === String ? "0" : 0;
-                                    }
-                                    if (message.recipientId != null && message.hasOwnProperty("recipientId"))
-                                        object.recipientId = options.bytes === String ? $util.base64.encode(message.recipientId, 0, message.recipientId.length) : options.bytes === Array ? Array.prototype.slice.call(message.recipientId) : message.recipientId;
-                                    if (message.publicNote != null && message.hasOwnProperty("publicNote"))
-                                        object.publicNote = message.publicNote;
-                                    if (message.sharedEncryptedNote != null && message.hasOwnProperty("sharedEncryptedNote"))
-                                        object.sharedEncryptedNote = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.SharedEncryptedNote.toObject(message.sharedEncryptedNote, options);
-                                    if (message.personalEncryptedNote != null && message.hasOwnProperty("personalEncryptedNote"))
-                                        object.personalEncryptedNote = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.PersonalEncryptedNote.toObject(message.personalEncryptedNote, options);
-                                    if (message.amount != null && message.hasOwnProperty("amount"))
-                                        if (typeof message.amount === "number")
-                                            object.amount = options.longs === String ? String(message.amount) : message.amount;
-                                        else
-                                            object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
-                                    return object;
-                                };
-
-                                /**
-                                 * Converts this TransferEvent to JSON.
-                                 * @function toJSON
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent
-                                 * @instance
-                                 * @returns {Object.<string,*>} JSON object
-                                 */
-                                TransferEvent.prototype.toJSON = function toJSON() {
-                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                                };
-
-                                return TransferEvent;
-                            })();
-
                             GetGroupActionsResponseV0.EmergencyActionEvent = (function() {
 
                                 /**
@@ -65214,6 +63675,724 @@ $root.org = (function() {
                                 };
 
                                 return TokenConfigUpdateEvent;
+                            })();
+
+                            GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent = (function() {
+
+                                /**
+                                 * Properties of an UpdateDirectPurchasePriceEvent.
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0
+                                 * @interface IUpdateDirectPurchasePriceEvent
+                                 * @property {number|Long|null} [fixedPrice] UpdateDirectPurchasePriceEvent fixedPrice
+                                 * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPricingSchedule|null} [variablePrice] UpdateDirectPurchasePriceEvent variablePrice
+                                 * @property {string|null} [publicNote] UpdateDirectPurchasePriceEvent publicNote
+                                 */
+
+                                /**
+                                 * Constructs a new UpdateDirectPurchasePriceEvent.
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0
+                                 * @classdesc Represents an UpdateDirectPurchasePriceEvent.
+                                 * @implements IUpdateDirectPurchasePriceEvent
+                                 * @constructor
+                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUpdateDirectPurchasePriceEvent=} [properties] Properties to set
+                                 */
+                                function UpdateDirectPurchasePriceEvent(properties) {
+                                    if (properties)
+                                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                            if (properties[keys[i]] != null)
+                                                this[keys[i]] = properties[keys[i]];
+                                }
+
+                                /**
+                                 * UpdateDirectPurchasePriceEvent fixedPrice.
+                                 * @member {number|Long} fixedPrice
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @instance
+                                 */
+                                UpdateDirectPurchasePriceEvent.prototype.fixedPrice = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                                /**
+                                 * UpdateDirectPurchasePriceEvent variablePrice.
+                                 * @member {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPricingSchedule|null|undefined} variablePrice
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @instance
+                                 */
+                                UpdateDirectPurchasePriceEvent.prototype.variablePrice = null;
+
+                                /**
+                                 * UpdateDirectPurchasePriceEvent publicNote.
+                                 * @member {string} publicNote
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @instance
+                                 */
+                                UpdateDirectPurchasePriceEvent.prototype.publicNote = "";
+
+                                // OneOf field names bound to virtual getters and setters
+                                var $oneOfFields;
+
+                                /**
+                                 * UpdateDirectPurchasePriceEvent price.
+                                 * @member {"fixedPrice"|"variablePrice"|undefined} price
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @instance
+                                 */
+                                Object.defineProperty(UpdateDirectPurchasePriceEvent.prototype, "price", {
+                                    get: $util.oneOfGetter($oneOfFields = ["fixedPrice", "variablePrice"]),
+                                    set: $util.oneOfSetter($oneOfFields)
+                                });
+
+                                /**
+                                 * Creates a new UpdateDirectPurchasePriceEvent instance using the specified properties.
+                                 * @function create
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUpdateDirectPurchasePriceEvent=} [properties] Properties to set
+                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent} UpdateDirectPurchasePriceEvent instance
+                                 */
+                                UpdateDirectPurchasePriceEvent.create = function create(properties) {
+                                    return new UpdateDirectPurchasePriceEvent(properties);
+                                };
+
+                                /**
+                                 * Encodes the specified UpdateDirectPurchasePriceEvent message. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.verify|verify} messages.
+                                 * @function encode
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUpdateDirectPurchasePriceEvent} message UpdateDirectPurchasePriceEvent message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                UpdateDirectPurchasePriceEvent.encode = function encode(message, writer) {
+                                    if (!writer)
+                                        writer = $Writer.create();
+                                    if (message.fixedPrice != null && Object.hasOwnProperty.call(message, "fixedPrice"))
+                                        writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.fixedPrice);
+                                    if (message.variablePrice != null && Object.hasOwnProperty.call(message, "variablePrice"))
+                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.encode(message.variablePrice, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                                    if (message.publicNote != null && Object.hasOwnProperty.call(message, "publicNote"))
+                                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.publicNote);
+                                    return writer;
+                                };
+
+                                /**
+                                 * Encodes the specified UpdateDirectPurchasePriceEvent message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.verify|verify} messages.
+                                 * @function encodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUpdateDirectPurchasePriceEvent} message UpdateDirectPurchasePriceEvent message or plain object to encode
+                                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                                 * @returns {$protobuf.Writer} Writer
+                                 */
+                                UpdateDirectPurchasePriceEvent.encodeDelimited = function encodeDelimited(message, writer) {
+                                    return this.encode(message, writer).ldelim();
+                                };
+
+                                /**
+                                 * Decodes an UpdateDirectPurchasePriceEvent message from the specified reader or buffer.
+                                 * @function decode
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @param {number} [length] Message length if known beforehand
+                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent} UpdateDirectPurchasePriceEvent
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                UpdateDirectPurchasePriceEvent.decode = function decode(reader, length) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = $Reader.create(reader);
+                                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent();
+                                    while (reader.pos < end) {
+                                        var tag = reader.uint32();
+                                        switch (tag >>> 3) {
+                                        case 1:
+                                            message.fixedPrice = reader.uint64();
+                                            break;
+                                        case 2:
+                                            message.variablePrice = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.decode(reader, reader.uint32());
+                                            break;
+                                        case 3:
+                                            message.publicNote = reader.string();
+                                            break;
+                                        default:
+                                            reader.skipType(tag & 7);
+                                            break;
+                                        }
+                                    }
+                                    return message;
+                                };
+
+                                /**
+                                 * Decodes an UpdateDirectPurchasePriceEvent message from the specified reader or buffer, length delimited.
+                                 * @function decodeDelimited
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent} UpdateDirectPurchasePriceEvent
+                                 * @throws {Error} If the payload is not a reader or valid buffer
+                                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                 */
+                                UpdateDirectPurchasePriceEvent.decodeDelimited = function decodeDelimited(reader) {
+                                    if (!(reader instanceof $Reader))
+                                        reader = new $Reader(reader);
+                                    return this.decode(reader, reader.uint32());
+                                };
+
+                                /**
+                                 * Verifies an UpdateDirectPurchasePriceEvent message.
+                                 * @function verify
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {Object.<string,*>} message Plain object to verify
+                                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                 */
+                                UpdateDirectPurchasePriceEvent.verify = function verify(message) {
+                                    if (typeof message !== "object" || message === null)
+                                        return "object expected";
+                                    var properties = {};
+                                    if (message.fixedPrice != null && message.hasOwnProperty("fixedPrice")) {
+                                        properties.price = 1;
+                                        if (!$util.isInteger(message.fixedPrice) && !(message.fixedPrice && $util.isInteger(message.fixedPrice.low) && $util.isInteger(message.fixedPrice.high)))
+                                            return "fixedPrice: integer|Long expected";
+                                    }
+                                    if (message.variablePrice != null && message.hasOwnProperty("variablePrice")) {
+                                        if (properties.price === 1)
+                                            return "price: multiple values";
+                                        properties.price = 1;
+                                        {
+                                            var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.verify(message.variablePrice);
+                                            if (error)
+                                                return "variablePrice." + error;
+                                        }
+                                    }
+                                    if (message.publicNote != null && message.hasOwnProperty("publicNote"))
+                                        if (!$util.isString(message.publicNote))
+                                            return "publicNote: string expected";
+                                    return null;
+                                };
+
+                                /**
+                                 * Creates an UpdateDirectPurchasePriceEvent message from a plain object. Also converts values to their respective internal types.
+                                 * @function fromObject
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {Object.<string,*>} object Plain object
+                                 * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent} UpdateDirectPurchasePriceEvent
+                                 */
+                                UpdateDirectPurchasePriceEvent.fromObject = function fromObject(object) {
+                                    if (object instanceof $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent)
+                                        return object;
+                                    var message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent();
+                                    if (object.fixedPrice != null)
+                                        if ($util.Long)
+                                            (message.fixedPrice = $util.Long.fromValue(object.fixedPrice)).unsigned = true;
+                                        else if (typeof object.fixedPrice === "string")
+                                            message.fixedPrice = parseInt(object.fixedPrice, 10);
+                                        else if (typeof object.fixedPrice === "number")
+                                            message.fixedPrice = object.fixedPrice;
+                                        else if (typeof object.fixedPrice === "object")
+                                            message.fixedPrice = new $util.LongBits(object.fixedPrice.low >>> 0, object.fixedPrice.high >>> 0).toNumber(true);
+                                    if (object.variablePrice != null) {
+                                        if (typeof object.variablePrice !== "object")
+                                            throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.variablePrice: object expected");
+                                        message.variablePrice = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.fromObject(object.variablePrice);
+                                    }
+                                    if (object.publicNote != null)
+                                        message.publicNote = String(object.publicNote);
+                                    return message;
+                                };
+
+                                /**
+                                 * Creates a plain object from an UpdateDirectPurchasePriceEvent message. Also converts values to other types if specified.
+                                 * @function toObject
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @static
+                                 * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent} message UpdateDirectPurchasePriceEvent
+                                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                 * @returns {Object.<string,*>} Plain object
+                                 */
+                                UpdateDirectPurchasePriceEvent.toObject = function toObject(message, options) {
+                                    if (!options)
+                                        options = {};
+                                    var object = {};
+                                    if (options.defaults)
+                                        object.publicNote = "";
+                                    if (message.fixedPrice != null && message.hasOwnProperty("fixedPrice")) {
+                                        if (typeof message.fixedPrice === "number")
+                                            object.fixedPrice = options.longs === String ? String(message.fixedPrice) : message.fixedPrice;
+                                        else
+                                            object.fixedPrice = options.longs === String ? $util.Long.prototype.toString.call(message.fixedPrice) : options.longs === Number ? new $util.LongBits(message.fixedPrice.low >>> 0, message.fixedPrice.high >>> 0).toNumber(true) : message.fixedPrice;
+                                        if (options.oneofs)
+                                            object.price = "fixedPrice";
+                                    }
+                                    if (message.variablePrice != null && message.hasOwnProperty("variablePrice")) {
+                                        object.variablePrice = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.toObject(message.variablePrice, options);
+                                        if (options.oneofs)
+                                            object.price = "variablePrice";
+                                    }
+                                    if (message.publicNote != null && message.hasOwnProperty("publicNote"))
+                                        object.publicNote = message.publicNote;
+                                    return object;
+                                };
+
+                                /**
+                                 * Converts this UpdateDirectPurchasePriceEvent to JSON.
+                                 * @function toJSON
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                 * @instance
+                                 * @returns {Object.<string,*>} JSON object
+                                 */
+                                UpdateDirectPurchasePriceEvent.prototype.toJSON = function toJSON() {
+                                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                };
+
+                                UpdateDirectPurchasePriceEvent.PriceForQuantity = (function() {
+
+                                    /**
+                                     * Properties of a PriceForQuantity.
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                     * @interface IPriceForQuantity
+                                     * @property {number|Long|null} [quantity] PriceForQuantity quantity
+                                     * @property {number|Long|null} [price] PriceForQuantity price
+                                     */
+
+                                    /**
+                                     * Constructs a new PriceForQuantity.
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                     * @classdesc Represents a PriceForQuantity.
+                                     * @implements IPriceForQuantity
+                                     * @constructor
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPriceForQuantity=} [properties] Properties to set
+                                     */
+                                    function PriceForQuantity(properties) {
+                                        if (properties)
+                                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                                if (properties[keys[i]] != null)
+                                                    this[keys[i]] = properties[keys[i]];
+                                    }
+
+                                    /**
+                                     * PriceForQuantity quantity.
+                                     * @member {number|Long} quantity
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @instance
+                                     */
+                                    PriceForQuantity.prototype.quantity = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                                    /**
+                                     * PriceForQuantity price.
+                                     * @member {number|Long} price
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @instance
+                                     */
+                                    PriceForQuantity.prototype.price = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                                    /**
+                                     * Creates a new PriceForQuantity instance using the specified properties.
+                                     * @function create
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPriceForQuantity=} [properties] Properties to set
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity} PriceForQuantity instance
+                                     */
+                                    PriceForQuantity.create = function create(properties) {
+                                        return new PriceForQuantity(properties);
+                                    };
+
+                                    /**
+                                     * Encodes the specified PriceForQuantity message. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.verify|verify} messages.
+                                     * @function encode
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPriceForQuantity} message PriceForQuantity message or plain object to encode
+                                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                                     * @returns {$protobuf.Writer} Writer
+                                     */
+                                    PriceForQuantity.encode = function encode(message, writer) {
+                                        if (!writer)
+                                            writer = $Writer.create();
+                                        if (message.quantity != null && Object.hasOwnProperty.call(message, "quantity"))
+                                            writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.quantity);
+                                        if (message.price != null && Object.hasOwnProperty.call(message, "price"))
+                                            writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.price);
+                                        return writer;
+                                    };
+
+                                    /**
+                                     * Encodes the specified PriceForQuantity message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.verify|verify} messages.
+                                     * @function encodeDelimited
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPriceForQuantity} message PriceForQuantity message or plain object to encode
+                                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                                     * @returns {$protobuf.Writer} Writer
+                                     */
+                                    PriceForQuantity.encodeDelimited = function encodeDelimited(message, writer) {
+                                        return this.encode(message, writer).ldelim();
+                                    };
+
+                                    /**
+                                     * Decodes a PriceForQuantity message from the specified reader or buffer.
+                                     * @function decode
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                     * @param {number} [length] Message length if known beforehand
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity} PriceForQuantity
+                                     * @throws {Error} If the payload is not a reader or valid buffer
+                                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                     */
+                                    PriceForQuantity.decode = function decode(reader, length) {
+                                        if (!(reader instanceof $Reader))
+                                            reader = $Reader.create(reader);
+                                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity();
+                                        while (reader.pos < end) {
+                                            var tag = reader.uint32();
+                                            switch (tag >>> 3) {
+                                            case 1:
+                                                message.quantity = reader.uint64();
+                                                break;
+                                            case 2:
+                                                message.price = reader.uint64();
+                                                break;
+                                            default:
+                                                reader.skipType(tag & 7);
+                                                break;
+                                            }
+                                        }
+                                        return message;
+                                    };
+
+                                    /**
+                                     * Decodes a PriceForQuantity message from the specified reader or buffer, length delimited.
+                                     * @function decodeDelimited
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity} PriceForQuantity
+                                     * @throws {Error} If the payload is not a reader or valid buffer
+                                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                     */
+                                    PriceForQuantity.decodeDelimited = function decodeDelimited(reader) {
+                                        if (!(reader instanceof $Reader))
+                                            reader = new $Reader(reader);
+                                        return this.decode(reader, reader.uint32());
+                                    };
+
+                                    /**
+                                     * Verifies a PriceForQuantity message.
+                                     * @function verify
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {Object.<string,*>} message Plain object to verify
+                                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                     */
+                                    PriceForQuantity.verify = function verify(message) {
+                                        if (typeof message !== "object" || message === null)
+                                            return "object expected";
+                                        if (message.quantity != null && message.hasOwnProperty("quantity"))
+                                            if (!$util.isInteger(message.quantity) && !(message.quantity && $util.isInteger(message.quantity.low) && $util.isInteger(message.quantity.high)))
+                                                return "quantity: integer|Long expected";
+                                        if (message.price != null && message.hasOwnProperty("price"))
+                                            if (!$util.isInteger(message.price) && !(message.price && $util.isInteger(message.price.low) && $util.isInteger(message.price.high)))
+                                                return "price: integer|Long expected";
+                                        return null;
+                                    };
+
+                                    /**
+                                     * Creates a PriceForQuantity message from a plain object. Also converts values to their respective internal types.
+                                     * @function fromObject
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {Object.<string,*>} object Plain object
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity} PriceForQuantity
+                                     */
+                                    PriceForQuantity.fromObject = function fromObject(object) {
+                                        if (object instanceof $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity)
+                                            return object;
+                                        var message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity();
+                                        if (object.quantity != null)
+                                            if ($util.Long)
+                                                (message.quantity = $util.Long.fromValue(object.quantity)).unsigned = true;
+                                            else if (typeof object.quantity === "string")
+                                                message.quantity = parseInt(object.quantity, 10);
+                                            else if (typeof object.quantity === "number")
+                                                message.quantity = object.quantity;
+                                            else if (typeof object.quantity === "object")
+                                                message.quantity = new $util.LongBits(object.quantity.low >>> 0, object.quantity.high >>> 0).toNumber(true);
+                                        if (object.price != null)
+                                            if ($util.Long)
+                                                (message.price = $util.Long.fromValue(object.price)).unsigned = true;
+                                            else if (typeof object.price === "string")
+                                                message.price = parseInt(object.price, 10);
+                                            else if (typeof object.price === "number")
+                                                message.price = object.price;
+                                            else if (typeof object.price === "object")
+                                                message.price = new $util.LongBits(object.price.low >>> 0, object.price.high >>> 0).toNumber(true);
+                                        return message;
+                                    };
+
+                                    /**
+                                     * Creates a plain object from a PriceForQuantity message. Also converts values to other types if specified.
+                                     * @function toObject
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity} message PriceForQuantity
+                                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                     * @returns {Object.<string,*>} Plain object
+                                     */
+                                    PriceForQuantity.toObject = function toObject(message, options) {
+                                        if (!options)
+                                            options = {};
+                                        var object = {};
+                                        if (options.defaults) {
+                                            if ($util.Long) {
+                                                var long = new $util.Long(0, 0, true);
+                                                object.quantity = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                            } else
+                                                object.quantity = options.longs === String ? "0" : 0;
+                                            if ($util.Long) {
+                                                var long = new $util.Long(0, 0, true);
+                                                object.price = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                            } else
+                                                object.price = options.longs === String ? "0" : 0;
+                                        }
+                                        if (message.quantity != null && message.hasOwnProperty("quantity"))
+                                            if (typeof message.quantity === "number")
+                                                object.quantity = options.longs === String ? String(message.quantity) : message.quantity;
+                                            else
+                                                object.quantity = options.longs === String ? $util.Long.prototype.toString.call(message.quantity) : options.longs === Number ? new $util.LongBits(message.quantity.low >>> 0, message.quantity.high >>> 0).toNumber(true) : message.quantity;
+                                        if (message.price != null && message.hasOwnProperty("price"))
+                                            if (typeof message.price === "number")
+                                                object.price = options.longs === String ? String(message.price) : message.price;
+                                            else
+                                                object.price = options.longs === String ? $util.Long.prototype.toString.call(message.price) : options.longs === Number ? new $util.LongBits(message.price.low >>> 0, message.price.high >>> 0).toNumber(true) : message.price;
+                                        return object;
+                                    };
+
+                                    /**
+                                     * Converts this PriceForQuantity to JSON.
+                                     * @function toJSON
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity
+                                     * @instance
+                                     * @returns {Object.<string,*>} JSON object
+                                     */
+                                    PriceForQuantity.prototype.toJSON = function toJSON() {
+                                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                    };
+
+                                    return PriceForQuantity;
+                                })();
+
+                                UpdateDirectPurchasePriceEvent.PricingSchedule = (function() {
+
+                                    /**
+                                     * Properties of a PricingSchedule.
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                     * @interface IPricingSchedule
+                                     * @property {Array.<org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPriceForQuantity>|null} [priceForQuantity] PricingSchedule priceForQuantity
+                                     */
+
+                                    /**
+                                     * Constructs a new PricingSchedule.
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent
+                                     * @classdesc Represents a PricingSchedule.
+                                     * @implements IPricingSchedule
+                                     * @constructor
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPricingSchedule=} [properties] Properties to set
+                                     */
+                                    function PricingSchedule(properties) {
+                                        this.priceForQuantity = [];
+                                        if (properties)
+                                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                                if (properties[keys[i]] != null)
+                                                    this[keys[i]] = properties[keys[i]];
+                                    }
+
+                                    /**
+                                     * PricingSchedule priceForQuantity.
+                                     * @member {Array.<org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPriceForQuantity>} priceForQuantity
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @instance
+                                     */
+                                    PricingSchedule.prototype.priceForQuantity = $util.emptyArray;
+
+                                    /**
+                                     * Creates a new PricingSchedule instance using the specified properties.
+                                     * @function create
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPricingSchedule=} [properties] Properties to set
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule} PricingSchedule instance
+                                     */
+                                    PricingSchedule.create = function create(properties) {
+                                        return new PricingSchedule(properties);
+                                    };
+
+                                    /**
+                                     * Encodes the specified PricingSchedule message. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.verify|verify} messages.
+                                     * @function encode
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPricingSchedule} message PricingSchedule message or plain object to encode
+                                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                                     * @returns {$protobuf.Writer} Writer
+                                     */
+                                    PricingSchedule.encode = function encode(message, writer) {
+                                        if (!writer)
+                                            writer = $Writer.create();
+                                        if (message.priceForQuantity != null && message.priceForQuantity.length)
+                                            for (var i = 0; i < message.priceForQuantity.length; ++i)
+                                                $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.encode(message.priceForQuantity[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                                        return writer;
+                                    };
+
+                                    /**
+                                     * Encodes the specified PricingSchedule message, length delimited. Does not implicitly {@link org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.verify|verify} messages.
+                                     * @function encodeDelimited
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.IPricingSchedule} message PricingSchedule message or plain object to encode
+                                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                                     * @returns {$protobuf.Writer} Writer
+                                     */
+                                    PricingSchedule.encodeDelimited = function encodeDelimited(message, writer) {
+                                        return this.encode(message, writer).ldelim();
+                                    };
+
+                                    /**
+                                     * Decodes a PricingSchedule message from the specified reader or buffer.
+                                     * @function decode
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                     * @param {number} [length] Message length if known beforehand
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule} PricingSchedule
+                                     * @throws {Error} If the payload is not a reader or valid buffer
+                                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                     */
+                                    PricingSchedule.decode = function decode(reader, length) {
+                                        if (!(reader instanceof $Reader))
+                                            reader = $Reader.create(reader);
+                                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule();
+                                        while (reader.pos < end) {
+                                            var tag = reader.uint32();
+                                            switch (tag >>> 3) {
+                                            case 1:
+                                                if (!(message.priceForQuantity && message.priceForQuantity.length))
+                                                    message.priceForQuantity = [];
+                                                message.priceForQuantity.push($root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.decode(reader, reader.uint32()));
+                                                break;
+                                            default:
+                                                reader.skipType(tag & 7);
+                                                break;
+                                            }
+                                        }
+                                        return message;
+                                    };
+
+                                    /**
+                                     * Decodes a PricingSchedule message from the specified reader or buffer, length delimited.
+                                     * @function decodeDelimited
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule} PricingSchedule
+                                     * @throws {Error} If the payload is not a reader or valid buffer
+                                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                                     */
+                                    PricingSchedule.decodeDelimited = function decodeDelimited(reader) {
+                                        if (!(reader instanceof $Reader))
+                                            reader = new $Reader(reader);
+                                        return this.decode(reader, reader.uint32());
+                                    };
+
+                                    /**
+                                     * Verifies a PricingSchedule message.
+                                     * @function verify
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {Object.<string,*>} message Plain object to verify
+                                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                                     */
+                                    PricingSchedule.verify = function verify(message) {
+                                        if (typeof message !== "object" || message === null)
+                                            return "object expected";
+                                        if (message.priceForQuantity != null && message.hasOwnProperty("priceForQuantity")) {
+                                            if (!Array.isArray(message.priceForQuantity))
+                                                return "priceForQuantity: array expected";
+                                            for (var i = 0; i < message.priceForQuantity.length; ++i) {
+                                                var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.verify(message.priceForQuantity[i]);
+                                                if (error)
+                                                    return "priceForQuantity." + error;
+                                            }
+                                        }
+                                        return null;
+                                    };
+
+                                    /**
+                                     * Creates a PricingSchedule message from a plain object. Also converts values to their respective internal types.
+                                     * @function fromObject
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {Object.<string,*>} object Plain object
+                                     * @returns {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule} PricingSchedule
+                                     */
+                                    PricingSchedule.fromObject = function fromObject(object) {
+                                        if (object instanceof $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule)
+                                            return object;
+                                        var message = new $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule();
+                                        if (object.priceForQuantity) {
+                                            if (!Array.isArray(object.priceForQuantity))
+                                                throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.priceForQuantity: array expected");
+                                            message.priceForQuantity = [];
+                                            for (var i = 0; i < object.priceForQuantity.length; ++i) {
+                                                if (typeof object.priceForQuantity[i] !== "object")
+                                                    throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule.priceForQuantity: object expected");
+                                                message.priceForQuantity[i] = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.fromObject(object.priceForQuantity[i]);
+                                            }
+                                        }
+                                        return message;
+                                    };
+
+                                    /**
+                                     * Creates a plain object from a PricingSchedule message. Also converts values to other types if specified.
+                                     * @function toObject
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @static
+                                     * @param {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule} message PricingSchedule
+                                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                                     * @returns {Object.<string,*>} Plain object
+                                     */
+                                    PricingSchedule.toObject = function toObject(message, options) {
+                                        if (!options)
+                                            options = {};
+                                        var object = {};
+                                        if (options.arrays || options.defaults)
+                                            object.priceForQuantity = [];
+                                        if (message.priceForQuantity && message.priceForQuantity.length) {
+                                            object.priceForQuantity = [];
+                                            for (var j = 0; j < message.priceForQuantity.length; ++j)
+                                                object.priceForQuantity[j] = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PriceForQuantity.toObject(message.priceForQuantity[j], options);
+                                        }
+                                        return object;
+                                    };
+
+                                    /**
+                                     * Converts this PricingSchedule to JSON.
+                                     * @function toJSON
+                                     * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.PricingSchedule
+                                     * @instance
+                                     * @returns {Object.<string,*>} JSON object
+                                     */
+                                    PricingSchedule.prototype.toJSON = function toJSON() {
+                                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                                    };
+
+                                    return PricingSchedule;
+                                })();
+
+                                return UpdateDirectPurchasePriceEvent;
                             })();
 
                             GetGroupActionsResponseV0.GroupActionEvent = (function() {
@@ -66320,9 +65499,9 @@ $root.org = (function() {
                                  * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IFreezeEvent|null} [freeze] TokenEvent freeze
                                  * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUnfreezeEvent|null} [unfreeze] TokenEvent unfreeze
                                  * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IDestroyFrozenFundsEvent|null} [destroyFrozenFunds] TokenEvent destroyFrozenFunds
-                                 * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITransferEvent|null} [transfer] TokenEvent transfer
                                  * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IEmergencyActionEvent|null} [emergencyAction] TokenEvent emergencyAction
                                  * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITokenConfigUpdateEvent|null} [tokenConfigUpdate] TokenEvent tokenConfigUpdate
+                                 * @property {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUpdateDirectPurchasePriceEvent|null} [updatePrice] TokenEvent updatePrice
                                  */
 
                                 /**
@@ -66381,14 +65560,6 @@ $root.org = (function() {
                                 TokenEvent.prototype.destroyFrozenFunds = null;
 
                                 /**
-                                 * TokenEvent transfer.
-                                 * @member {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.ITransferEvent|null|undefined} transfer
-                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent
-                                 * @instance
-                                 */
-                                TokenEvent.prototype.transfer = null;
-
-                                /**
                                  * TokenEvent emergencyAction.
                                  * @member {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IEmergencyActionEvent|null|undefined} emergencyAction
                                  * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent
@@ -66404,17 +65575,25 @@ $root.org = (function() {
                                  */
                                 TokenEvent.prototype.tokenConfigUpdate = null;
 
+                                /**
+                                 * TokenEvent updatePrice.
+                                 * @member {org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.IUpdateDirectPurchasePriceEvent|null|undefined} updatePrice
+                                 * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent
+                                 * @instance
+                                 */
+                                TokenEvent.prototype.updatePrice = null;
+
                                 // OneOf field names bound to virtual getters and setters
                                 var $oneOfFields;
 
                                 /**
                                  * TokenEvent type.
-                                 * @member {"mint"|"burn"|"freeze"|"unfreeze"|"destroyFrozenFunds"|"transfer"|"emergencyAction"|"tokenConfigUpdate"|undefined} type
+                                 * @member {"mint"|"burn"|"freeze"|"unfreeze"|"destroyFrozenFunds"|"emergencyAction"|"tokenConfigUpdate"|"updatePrice"|undefined} type
                                  * @memberof org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent
                                  * @instance
                                  */
                                 Object.defineProperty(TokenEvent.prototype, "type", {
-                                    get: $util.oneOfGetter($oneOfFields = ["mint", "burn", "freeze", "unfreeze", "destroyFrozenFunds", "transfer", "emergencyAction", "tokenConfigUpdate"]),
+                                    get: $util.oneOfGetter($oneOfFields = ["mint", "burn", "freeze", "unfreeze", "destroyFrozenFunds", "emergencyAction", "tokenConfigUpdate", "updatePrice"]),
                                     set: $util.oneOfSetter($oneOfFields)
                                 });
 
@@ -66452,12 +65631,12 @@ $root.org = (function() {
                                         $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UnfreezeEvent.encode(message.unfreeze, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                                     if (message.destroyFrozenFunds != null && Object.hasOwnProperty.call(message, "destroyFrozenFunds"))
                                         $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.DestroyFrozenFundsEvent.encode(message.destroyFrozenFunds, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                                    if (message.transfer != null && Object.hasOwnProperty.call(message, "transfer"))
-                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.encode(message.transfer, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                                     if (message.emergencyAction != null && Object.hasOwnProperty.call(message, "emergencyAction"))
-                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.EmergencyActionEvent.encode(message.emergencyAction, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.EmergencyActionEvent.encode(message.emergencyAction, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                                     if (message.tokenConfigUpdate != null && Object.hasOwnProperty.call(message, "tokenConfigUpdate"))
-                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenConfigUpdateEvent.encode(message.tokenConfigUpdate, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenConfigUpdateEvent.encode(message.tokenConfigUpdate, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                                    if (message.updatePrice != null && Object.hasOwnProperty.call(message, "updatePrice"))
+                                        $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.encode(message.updatePrice, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                                     return writer;
                                 };
 
@@ -66508,13 +65687,13 @@ $root.org = (function() {
                                             message.destroyFrozenFunds = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.DestroyFrozenFundsEvent.decode(reader, reader.uint32());
                                             break;
                                         case 6:
-                                            message.transfer = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.decode(reader, reader.uint32());
-                                            break;
-                                        case 7:
                                             message.emergencyAction = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.EmergencyActionEvent.decode(reader, reader.uint32());
                                             break;
-                                        case 8:
+                                        case 7:
                                             message.tokenConfigUpdate = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenConfigUpdateEvent.decode(reader, reader.uint32());
+                                            break;
+                                        case 8:
+                                            message.updatePrice = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.decode(reader, reader.uint32());
                                             break;
                                         default:
                                             reader.skipType(tag & 7);
@@ -66600,16 +65779,6 @@ $root.org = (function() {
                                                 return "destroyFrozenFunds." + error;
                                         }
                                     }
-                                    if (message.transfer != null && message.hasOwnProperty("transfer")) {
-                                        if (properties.type === 1)
-                                            return "type: multiple values";
-                                        properties.type = 1;
-                                        {
-                                            var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.verify(message.transfer);
-                                            if (error)
-                                                return "transfer." + error;
-                                        }
-                                    }
                                     if (message.emergencyAction != null && message.hasOwnProperty("emergencyAction")) {
                                         if (properties.type === 1)
                                             return "type: multiple values";
@@ -66628,6 +65797,16 @@ $root.org = (function() {
                                             var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenConfigUpdateEvent.verify(message.tokenConfigUpdate);
                                             if (error)
                                                 return "tokenConfigUpdate." + error;
+                                        }
+                                    }
+                                    if (message.updatePrice != null && message.hasOwnProperty("updatePrice")) {
+                                        if (properties.type === 1)
+                                            return "type: multiple values";
+                                        properties.type = 1;
+                                        {
+                                            var error = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.verify(message.updatePrice);
+                                            if (error)
+                                                return "updatePrice." + error;
                                         }
                                     }
                                     return null;
@@ -66670,11 +65849,6 @@ $root.org = (function() {
                                             throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent.destroyFrozenFunds: object expected");
                                         message.destroyFrozenFunds = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.DestroyFrozenFundsEvent.fromObject(object.destroyFrozenFunds);
                                     }
-                                    if (object.transfer != null) {
-                                        if (typeof object.transfer !== "object")
-                                            throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent.transfer: object expected");
-                                        message.transfer = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.fromObject(object.transfer);
-                                    }
                                     if (object.emergencyAction != null) {
                                         if (typeof object.emergencyAction !== "object")
                                             throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent.emergencyAction: object expected");
@@ -66684,6 +65858,11 @@ $root.org = (function() {
                                         if (typeof object.tokenConfigUpdate !== "object")
                                             throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent.tokenConfigUpdate: object expected");
                                         message.tokenConfigUpdate = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenConfigUpdateEvent.fromObject(object.tokenConfigUpdate);
+                                    }
+                                    if (object.updatePrice != null) {
+                                        if (typeof object.updatePrice !== "object")
+                                            throw TypeError(".org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenEvent.updatePrice: object expected");
+                                        message.updatePrice = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.fromObject(object.updatePrice);
                                     }
                                     return message;
                                 };
@@ -66726,11 +65905,6 @@ $root.org = (function() {
                                         if (options.oneofs)
                                             object.type = "destroyFrozenFunds";
                                     }
-                                    if (message.transfer != null && message.hasOwnProperty("transfer")) {
-                                        object.transfer = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TransferEvent.toObject(message.transfer, options);
-                                        if (options.oneofs)
-                                            object.type = "transfer";
-                                    }
                                     if (message.emergencyAction != null && message.hasOwnProperty("emergencyAction")) {
                                         object.emergencyAction = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.EmergencyActionEvent.toObject(message.emergencyAction, options);
                                         if (options.oneofs)
@@ -66740,6 +65914,11 @@ $root.org = (function() {
                                         object.tokenConfigUpdate = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.TokenConfigUpdateEvent.toObject(message.tokenConfigUpdate, options);
                                         if (options.oneofs)
                                             object.type = "tokenConfigUpdate";
+                                    }
+                                    if (message.updatePrice != null && message.hasOwnProperty("updatePrice")) {
+                                        object.updatePrice = $root.org.dash.platform.dapi.v0.GetGroupActionsResponse.GetGroupActionsResponseV0.UpdateDirectPurchasePriceEvent.toObject(message.updatePrice, options);
+                                        if (options.oneofs)
+                                            object.type = "updatePrice";
                                     }
                                     return object;
                                 };

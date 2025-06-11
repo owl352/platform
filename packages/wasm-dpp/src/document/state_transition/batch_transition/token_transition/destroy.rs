@@ -13,10 +13,15 @@ impl From<TokenDestroyFrozenFundsTransition> for TokenDestroyFrozenFundsTransiti
     }
 }
 
-#[wasm_bindgen]
+#[wasm_bindgen(js_class = TokenDestroyFrozenFundsTransition)]
 impl TokenDestroyFrozenFundsTransitionWasm {
     #[wasm_bindgen(js_name=getFrozenIdentityId)]
     pub fn frozen_identity_id(&self) -> IdentifierWrapper {
         self.0.frozen_identity_id().into()
+    }
+
+    #[wasm_bindgen(js_name=getPublicNote)]
+    pub fn public_note(&self) -> Option<String> {
+        self.0.public_note().cloned()
     }
 }

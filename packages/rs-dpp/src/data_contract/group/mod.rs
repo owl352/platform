@@ -1,6 +1,7 @@
 use crate::data_contract::group::accessors::v0::{GroupV0Getters, GroupV0Setters};
 use crate::data_contract::group::methods::v0::GroupMethodsV0;
 use crate::data_contract::group::v0::GroupV0;
+use crate::data_contract::GroupContractPosition;
 use crate::errors::ProtocolError;
 use crate::validation::SimpleConsensusValidationResult;
 use bincode::{Decode, Encode};
@@ -32,7 +33,9 @@ pub type GroupRequiredPower = u32;
     Eq,
 )]
 #[platform_serialize(unversioned)]
+#[serde(tag = "$format_version")]
 pub enum Group {
+    #[serde(rename = "0")]
     V0(GroupV0),
 }
 
@@ -90,10 +93,11 @@ impl GroupV0Setters for Group {
 impl GroupMethodsV0 for Group {
     fn validate(
         &self,
+        group_contract_position: Option<GroupContractPosition>,
         platform_version: &PlatformVersion,
     ) -> Result<SimpleConsensusValidationResult, ProtocolError> {
         match self {
-            Group::V0(group_v0) => group_v0.validate(platform_version),
+            Group::V0(group_v0) => group_v0.validate(group_contract_position, platform_version),
         }
     }
 }

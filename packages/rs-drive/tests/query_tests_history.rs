@@ -168,7 +168,7 @@ pub fn setup(
     let epoch_change_fee_version_test: Lazy<CachedEpochIndexFeeVersions> =
         Lazy::new(|| BTreeMap::from([(0, FeeVersion::first())]));
 
-    let drive = setup_drive(Some(drive_config), None);
+    let drive = setup_drive(Some(drive_config));
 
     let db_transaction = drive.grove.start_transaction();
 
@@ -1666,8 +1666,8 @@ fn test_query_historical_latest_platform_version() {
     assert_eq!(
         root_hash.as_slice(),
         vec![
-            5, 227, 59, 163, 38, 58, 181, 91, 23, 56, 47, 52, 138, 63, 5, 54, 205, 249, 205, 225,
-            78, 225, 195, 2, 104, 6, 11, 77, 56, 69, 113, 237,
+            161, 240, 182, 38, 13, 26, 246, 165, 76, 67, 252, 39, 203, 128, 225, 233, 70, 76, 30,
+            228, 64, 40, 59, 240, 240, 135, 215, 135, 146, 2, 128, 65
         ]
     );
 
@@ -3032,8 +3032,8 @@ fn test_query_historical_latest_platform_version() {
     assert_eq!(
         root_hash.as_slice(),
         vec![
-            203, 160, 200, 71, 200, 156, 249, 93, 201, 35, 171, 6, 57, 176, 159, 104, 26, 253, 141,
-            193, 153, 0, 212, 9, 207, 239, 250, 51, 68, 228, 210, 164
+            82, 200, 76, 76, 113, 4, 94, 39, 105, 206, 63, 185, 209, 222, 13, 161, 194, 209, 156,
+            251, 133, 192, 38, 65, 93, 196, 214, 198, 52, 196, 37, 208
         ]
     );
 }

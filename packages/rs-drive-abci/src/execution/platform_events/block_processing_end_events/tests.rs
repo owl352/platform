@@ -36,11 +36,11 @@ mod refund_tests {
 
     // There's a fee for the first document that a user creates on a contract as they add space
     // For the identity data contract nonce
-    fn setup_join_contract_document<'a>(
+    fn setup_join_contract_document(
         platform: &TempPlatform<MockCoreRPCLike>,
         profile: DocumentTypeRef,
         rng: &mut StdRng,
-        identity: &'a Identity,
+        identity: &Identity,
         key: &IdentityPublicKey,
         signer: &SimpleSigner,
     ) -> Credits {
@@ -79,16 +79,15 @@ mod refund_tests {
                 key,
                 2,
                 0,
+                None,
                 signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
 
         let (mut fee_results, processed_block_fee_outcome) = process_state_transitions(
-            &platform,
+            platform,
             &vec![documents_batch_create_transition.clone()],
             BlockInfo::default(),
             &platform_state,
@@ -122,7 +121,7 @@ mod refund_tests {
             dash_to_credits!(1) - fee_result.total_base_fee();
 
         fetch_expected_identity_balance(
-            &platform,
+            platform,
             identity.id(),
             platform_version,
             expected_user_balance_after_creation,
@@ -131,11 +130,12 @@ mod refund_tests {
         expected_user_balance_after_creation
     }
 
-    fn setup_initial_document<'a>(
+    fn setup_initial_document(
         platform: &TempPlatform<MockCoreRPCLike>,
+        dashpay: &DataContract,
         profile: DocumentTypeRef,
         rng: &mut StdRng,
-        identity: &'a Identity,
+        identity: &Identity,
         key: &IdentityPublicKey,
         signer: &SimpleSigner,
     ) -> (Document, FeeResult, Credits) {
@@ -172,7 +172,7 @@ mod refund_tests {
         altered_document.set("avatarUrl", "http://test.com/cat.jpg".into());
 
         let serialized_len = document
-            .serialize(profile, platform_version)
+            .serialize(profile, dashpay, platform_version)
             .expect("expected to serialize")
             .len() as u64;
 
@@ -186,16 +186,15 @@ mod refund_tests {
                 key,
                 3,
                 0,
+                None,
                 signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
 
         let (mut fee_results, _) = process_state_transitions(
-            &platform,
+            platform,
             &vec![documents_batch_create_transition.clone()],
             BlockInfo::default(),
             &platform_state,
@@ -252,7 +251,7 @@ mod refund_tests {
         let expected_user_balance_after_creation = user_credits_left - fee_result.total_base_fee();
 
         fetch_expected_identity_balance(
-            &platform,
+            platform,
             identity.id(),
             platform_version,
             expected_user_balance_after_creation,
@@ -296,8 +295,15 @@ mod refund_tests {
             dash_to_credits!(1),
         );
 
-        let (document, insertion_fee_result, current_user_balance) =
-            setup_initial_document(&platform, profile, &mut rng, &identity, &key, &signer);
+        let (document, insertion_fee_result, current_user_balance) = setup_initial_document(
+            &platform,
+            &dashpay_contract_no_indexes,
+            profile,
+            &mut rng,
+            &identity,
+            &key,
+            &signer,
+        );
 
         let documents_batch_delete_transition =
             BatchTransition::new_document_deletion_transition_from_document(
@@ -306,10 +312,9 @@ mod refund_tests {
                 &key,
                 4,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -393,8 +398,15 @@ mod refund_tests {
             dash_to_credits!(1),
         );
 
-        let (document, insertion_fee_result, current_user_balance) =
-            setup_initial_document(&platform, profile, &mut rng, &identity, &key, &signer);
+        let (document, insertion_fee_result, current_user_balance) = setup_initial_document(
+            &platform,
+            &dashpay_contract_no_indexes,
+            profile,
+            &mut rng,
+            &identity,
+            &key,
+            &signer,
+        );
 
         fast_forward_to_block(&platform, 1_200_000_000, 900, 42, 1, false); //next epoch
 
@@ -405,10 +417,9 @@ mod refund_tests {
                 &key,
                 4,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -495,8 +506,15 @@ mod refund_tests {
             dash_to_credits!(1),
         );
 
-        let (document, insertion_fee_result, current_user_balance) =
-            setup_initial_document(&platform, profile, &mut rng, &identity, &key, &signer);
+        let (document, insertion_fee_result, current_user_balance) = setup_initial_document(
+            &platform,
+            &dashpay_contract_no_indexes,
+            profile,
+            &mut rng,
+            &identity,
+            &key,
+            &signer,
+        );
 
         fast_forward_to_block(&platform, 1_200_000_000, 900, 42, 40, false); //a year later
 
@@ -507,10 +525,9 @@ mod refund_tests {
                 &key,
                 4,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -593,8 +610,15 @@ mod refund_tests {
             dash_to_credits!(1),
         );
 
-        let (document, insertion_fee_result, current_user_balance) =
-            setup_initial_document(&platform, profile, &mut rng, &identity, &key, &signer);
+        let (document, insertion_fee_result, current_user_balance) = setup_initial_document(
+            &platform,
+            &dashpay_contract_no_indexes,
+            profile,
+            &mut rng,
+            &identity,
+            &key,
+            &signer,
+        );
 
         fast_forward_to_block(&platform, 10_200_000_000, 9000, 42, 40 * 25, false); //25 years later
 
@@ -605,10 +629,9 @@ mod refund_tests {
                 &key,
                 4,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -691,8 +714,15 @@ mod refund_tests {
             dash_to_credits!(1),
         );
 
-        let (document, _, current_user_balance) =
-            setup_initial_document(&platform, profile, &mut rng, &identity, &key, &signer);
+        let (document, _, current_user_balance) = setup_initial_document(
+            &platform,
+            &dashpay_contract_no_indexes,
+            profile,
+            &mut rng,
+            &identity,
+            &key,
+            &signer,
+        );
 
         fast_forward_to_block(&platform, 10_200_000_000, 9000, 42, 40 * 50, false); //50 years later
 
@@ -703,10 +733,9 @@ mod refund_tests {
                 &key,
                 4,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -790,8 +819,15 @@ mod refund_tests {
             dash_to_credits!(1),
         );
 
-        let (document, insertion_fee_result, current_user_balance) =
-            setup_initial_document(&platform, profile, &mut rng, &identity, &key, &signer);
+        let (document, insertion_fee_result, current_user_balance) = setup_initial_document(
+            &platform,
+            &dashpay_contract_no_indexes,
+            profile,
+            &mut rng,
+            &identity,
+            &key,
+            &signer,
+        );
 
         fast_forward_to_block(&platform, 1_200_000_000, 900, 42, 10, false); //next epoch
 
@@ -802,10 +838,9 @@ mod refund_tests {
                 &key,
                 4,
                 0,
+                None,
                 &signer,
                 &platform_version_with_higher_fees,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");

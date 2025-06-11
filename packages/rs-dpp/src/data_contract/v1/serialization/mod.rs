@@ -1,10 +1,10 @@
-use crate::data_contract::config::v0::DataContractConfigGettersV0;
 use crate::data_contract::document_type::DocumentType;
 use crate::data_contract::serialized_version::v0::DataContractInSerializationFormatV0;
 use crate::data_contract::serialized_version::DataContractInSerializationFormat;
 use crate::data_contract::{DataContract, DataContractV1};
 use crate::version::{PlatformVersion, PlatformVersionCurrentVersion};
 use crate::ProtocolError;
+use std::collections::BTreeMap;
 
 use crate::data_contract::serialized_version::v1::DataContractInSerializationFormatV1;
 use crate::validation::operations::ProtocolValidationOperation;
@@ -27,8 +27,12 @@ impl<'de> Deserialize<'de> for DataContractV1 {
         D: Deserializer<'de>,
     {
         let serialization_format = DataContractInSerializationFormatV1::deserialize(deserializer)?;
-        let current_version =
-            PlatformVersion::get_current().map_err(|e| serde::de::Error::custom(e.to_string()))?;
+        let current_version = PlatformVersion::get_current().map_err(|e| {
+            serde::de::Error::custom(format!(
+                "expected to be able to get current platform version: {}",
+                e
+            ))
+        })?;
         // when deserializing from json/platform_value/cbor we always want to validate (as this is not coming from the state)
         DataContractV1::try_from_platform_versioned_v1(
             serialization_format,
@@ -90,9 +94,8 @@ impl DataContractV1 {
             id,
             document_schemas,
             schema_defs.as_ref(),
-            config.documents_keep_history_contract_default(),
-            config.documents_mutable_contract_default(),
-            config.documents_can_be_deleted_contract_default(),
+            &BTreeMap::new(),
+            &config,
             full_validation,
             false,
             validation_operations,
@@ -104,11 +107,18 @@ impl DataContractV1 {
             version,
             owner_id,
             document_types,
-            metadata: None,
             config,
             schema_defs,
+            created_at: None,
+            updated_at: None,
+            created_at_block_height: None,
+            updated_at_block_height: None,
+            created_at_epoch: None,
+            updated_at_epoch: None,
             groups: Default::default(),
             tokens: Default::default(),
+            keywords: Default::default(),
+            description: None,
         };
 
         Ok(data_contract)
@@ -127,17 +137,24 @@ impl DataContractV1 {
             owner_id,
             document_schemas,
             schema_defs,
+            created_at,
+            updated_at,
+            created_at_block_height,
+            updated_at_block_height,
+            created_at_epoch,
+            updated_at_epoch,
             groups,
             tokens,
+            keywords,
+            description,
         } = data_contract_data;
 
         let document_types = DocumentType::create_document_types_from_document_schemas(
             id,
             document_schemas,
             schema_defs.as_ref(),
-            config.documents_keep_history_contract_default(),
-            config.documents_mutable_contract_default(),
-            config.documents_can_be_deleted_contract_default(),
+            &tokens,
+            &config,
             full_validation,
             !tokens.is_empty(),
             validation_operations,
@@ -149,11 +166,21 @@ impl DataContractV1 {
             version,
             owner_id,
             document_types,
-            metadata: None,
             config,
             schema_defs,
+            created_at,
+            updated_at,
+            created_at_block_height,
+            updated_at_block_height,
+            created_at_epoch,
+            updated_at_epoch,
             groups,
             tokens,
+            keywords: keywords
+                .into_iter()
+                .map(|keyword| keyword.to_lowercase())
+                .collect(),
+            description,
         };
 
         Ok(data_contract)

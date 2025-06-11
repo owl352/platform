@@ -56,9 +56,24 @@ impl DataContractUpdateTransitionWasm {
     }
 
     #[wasm_bindgen(js_name=getDataContract)]
-    pub fn get_data_contract(&self) -> DataContractWasm {
-        DataContractWasm::try_from_serialization_format(self.0.data_contract().clone(), false)
-            .expect("should create data contract from serialized format")
+    pub fn get_data_contract(
+        &self,
+        protocol_version: Option<u32>,
+    ) -> Result<DataContractWasm, JsValue> {
+        // Use provided protocol version or latest if not specified
+        let platform_version = if let Some(version) = protocol_version {
+            PlatformVersion::get(version)
+                .map_err(ProtocolError::PlatformVersionError)
+                .with_js_error()?
+        } else {
+            PlatformVersion::latest()
+        };
+
+        DataContractWasm::try_from_serialization_format_with_platform_version(
+            self.0.data_contract().clone(),
+            false,
+            platform_version,
+        )
     }
 
     // #[wasm_bindgen(js_name=setDataContractConfig)]
@@ -75,7 +90,7 @@ impl DataContractUpdateTransitionWasm {
 
     #[wasm_bindgen(js_name=getIdentityContractNonce)]
     pub fn get_identity_contract_nonce(&self) -> u64 {
-        self.0.identity_contract_nonce() as u64
+        self.0.identity_contract_nonce()
     }
 
     #[wasm_bindgen(js_name=getType)]
@@ -85,7 +100,7 @@ impl DataContractUpdateTransitionWasm {
 
     #[wasm_bindgen(js_name=getUserFeeIncrease)]
     pub fn get_user_fee_increase(&self) -> u16 {
-        self.0.user_fee_increase() as u16
+        self.0.user_fee_increase()
     }
 
     #[wasm_bindgen(js_name=setUserFeeIncrease)]

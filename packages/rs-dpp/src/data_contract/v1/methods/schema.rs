@@ -1,4 +1,4 @@
-use crate::data_contract::config::v0::DataContractConfigGettersV0;
+use crate::data_contract::accessors::v1::DataContractV1Getters;
 use crate::data_contract::document_type::accessors::DocumentTypeV0Getters;
 use crate::data_contract::document_type::DocumentType;
 use crate::data_contract::schema::DataContractSchemaMethodsV0;
@@ -22,9 +22,8 @@ impl DataContractSchemaMethodsV0 for DataContractV1 {
             self.id,
             schemas,
             defs.as_ref(),
-            self.config.documents_keep_history_contract_default(),
-            self.config.documents_mutable_contract_default(),
-            self.config.documents_can_be_deleted_contract_default(),
+            &self.tokens,
+            &self.config,
             full_validation,
             !self.tokens.is_empty(),
             validation_operations,
@@ -47,9 +46,8 @@ impl DataContractSchemaMethodsV0 for DataContractV1 {
             name,
             schema,
             self.schema_defs.as_ref(),
-            self.config.documents_keep_history_contract_default(),
-            self.config.documents_mutable_contract_default(),
-            self.config.documents_mutable_contract_default(),
+            self.tokens(),
+            &self.config,
             full_validation,
             validation_operations,
             platform_version,

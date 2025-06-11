@@ -1,7 +1,7 @@
 use crate::version::dpp_versions::dpp_contract_versions::{
     DPPContractVersions, DataContractMethodVersions, DocumentTypeClassMethodVersions,
     DocumentTypeIndexVersions, DocumentTypeMethodVersions, DocumentTypeSchemaVersions,
-    DocumentTypeVersions, RecursiveSchemaValidatorVersions,
+    DocumentTypeVersions, RecursiveSchemaValidatorVersions, TokenVersions,
 };
 use versioned_feature_core::FeatureVersionBounds;
 
@@ -14,19 +14,25 @@ pub const CONTRACT_VERSIONS_V2: DPPContractVersions = DPPContractVersions {
     },
     contract_structure_version: 1, //changed
     created_data_contract_structure: 0,
-    config: 0,
+    config: FeatureVersionBounds {
+        min_version: 0,
+        max_version: 1,
+        default_current_version: 1,
+    }, // changed to enable sized integer types
     methods: DataContractMethodVersions {
         validate_document: 0,
         validate_update: 0,
         schema: 0,
         validate_groups: 0,
+        equal_ignoring_time_fields: 0,
+        registration_cost: 1, //changed to version 1
     },
     document_type_versions: DocumentTypeVersions {
         index_versions: DocumentTypeIndexVersions {
             index_levels_from_indices: 0,
         },
         class_method_versions: DocumentTypeClassMethodVersions {
-            try_from_schema: 0,
+            try_from_schema: 1,                             //changed to use document type V1
             create_document_types_from_document_schemas: 1, //changed to allow contracts with only tokens
         },
         structure_version: 0,
@@ -51,5 +57,8 @@ pub const CONTRACT_VERSIONS_V2: DPPContractVersions = DPPContractVersions {
             serialize_value_for_key: 0,
             deserialize_value_for_key: 0,
         },
+    },
+    token_versions: TokenVersions {
+        validate_structure_interval: 0,
     },
 };

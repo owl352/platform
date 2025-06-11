@@ -1,6 +1,7 @@
 use crate::drive::balances::total_tokens_root_supply_path;
 use crate::drive::tokens::paths::{
-    token_balances_root_path, token_identity_infos_root_path, token_statuses_root_path,
+    token_balances_root_path, token_contract_infos_root_path, token_identity_infos_root_path,
+    token_statuses_root_path,
 };
 use crate::drive::Drive;
 use crate::error::drive::DriveError;
@@ -10,8 +11,11 @@ use crate::util::grove_operations::{BatchInsertApplyType, BatchInsertTreeApplyTy
 use crate::util::object_size_info::PathKeyElementInfo;
 use crate::util::object_size_info::PathKeyInfo::PathFixedSizeKeyRef;
 use dpp::block::block_info::BlockInfo;
+use dpp::data_contract::TokenContractPosition;
 use dpp::fee::fee_result::FeeResult;
+use dpp::prelude::Identifier;
 use dpp::serialization::PlatformSerializable;
+use dpp::tokens::contract_info::TokenContractInfo;
 use dpp::tokens::status::TokenStatus;
 use grovedb::batch::KeyInfoPath;
 use grovedb::{Element, EstimatedLayerInformation, TransactionArg, TreeType};
@@ -21,8 +25,11 @@ use std::collections::HashMap;
 impl Drive {
     /// Creates a new token root subtree at `TokenBalances` keyed by `token_id`.
     /// This function applies the operations directly, calculates fees, and returns the fee result.
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn create_token_trees_v0(
         &self,
+        contract_id: Identifier,
+        token_contract_position: TokenContractPosition,
         token_id: [u8; 32],
         start_as_paused: bool,
         allow_already_exists: bool,
@@ -35,6 +42,8 @@ impl Drive {
 
         // Add operations to create the token root tree
         self.create_token_trees_add_to_operations_v0(
+            contract_id,
+            token_contract_position,
             token_id,
             start_as_paused,
             allow_already_exists,
@@ -59,9 +68,12 @@ impl Drive {
     }
 
     /// Adds the token root creation operations to the provided `drive_operations` vector without
+    #[allow(clippy::too_many_arguments)]
     /// calculating or returning fees. If `apply` is false, it will only estimate costs.
     pub(super) fn create_token_trees_add_to_operations_v0(
         &self,
+        contract_id: Identifier,
+        token_contract_position: TokenContractPosition,
         token_id: [u8; 32],
         start_as_paused: bool,
         allow_already_exists: bool,
@@ -79,6 +91,8 @@ impl Drive {
 
         // Get the operations required to create the token tree
         let batch_operations = self.create_token_trees_operations_v0(
+            contract_id,
+            token_contract_position,
             token_id,
             start_as_paused,
             allow_already_exists,
@@ -100,8 +114,11 @@ impl Drive {
 
     /// Gathers the operations needed to create the token root subtree. If `apply` is false, it
     /// populates `estimated_costs_only_with_layer_info` instead of applying.
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn create_token_trees_operations_v0(
         &self,
+        contract_id: Identifier,
+        token_contract_position: TokenContractPosition,
         token_id: [u8; 32],
         start_as_paused: bool,
         allow_already_exists: bool,
@@ -201,6 +218,20 @@ impl Drive {
                 "token info tree already exists".to_string(),
             )));
         }
+
+        let token_contract_info =
+            TokenContractInfo::new(contract_id, token_contract_position, platform_version)?;
+        let token_contract_info_bytes = token_contract_info.serialize_consume_to_bytes()?;
+
+        self.batch_insert(
+            PathKeyElementInfo::PathFixedSizeKeyRefElement::<2>((
+                token_contract_infos_root_path(),
+                token_id.as_slice(),
+                Element::Item(token_contract_info_bytes, None),
+            )),
+            &mut batch_operations,
+            &platform_version.drive,
+        )?;
 
         self.batch_insert_sum_item_if_not_exists(
             PathKeyElementInfo::PathFixedSizeKeyRefElement::<2>((

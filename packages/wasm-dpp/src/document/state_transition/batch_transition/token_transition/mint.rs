@@ -16,7 +16,7 @@ impl From<TokenMintTransition> for TokenMintTransitionWasm {
     }
 }
 
-#[wasm_bindgen]
+#[wasm_bindgen(js_class=TokenMintTransition)]
 impl TokenMintTransitionWasm {
     #[wasm_bindgen(js_name=getRecipientId)]
     pub fn recipient_id(
@@ -27,5 +27,20 @@ impl TokenMintTransitionWasm {
             .recipient_id(&token_configuration.into())
             .with_js_error()
             .map(Into::into)
+    }
+
+    #[wasm_bindgen(js_name=getIssuedToIdentityId)]
+    pub fn issued_to_identity_id(&self) -> Option<IdentifierWrapper> {
+        self.0.issued_to_identity_id().map(|id| id.into())
+    }
+
+    #[wasm_bindgen(js_name=getPublicNote)]
+    pub fn public_note(&self) -> Option<String> {
+        self.0.public_note().cloned()
+    }
+
+    #[wasm_bindgen(js_name=getAmount)]
+    pub fn amount(&self) -> u64 {
+        self.0.amount()
     }
 }

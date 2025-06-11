@@ -36,6 +36,7 @@ impl TokenTransferTransitionActionV0 {
     /// * `Result<(TokenTransferTransitionActionV0, FeeResult), Error>` - Returns a tuple containing the constructed
     ///   `TokenTransferTransitionActionV0` and the calculated `FeeResult` if successful, or an error if the transition cannot
     ///   be created or an issue arises with the provided state or data.
+    #[allow(clippy::too_many_arguments)]
     pub fn try_from_token_transfer_transition_with_contract_lookup(
         drive: &Drive,
         owner_id: Identifier,
@@ -58,17 +59,19 @@ impl TokenTransferTransitionActionV0 {
         let mut drive_operations = vec![];
 
         // Lookup the base action using the base transition data and contract information
-        let base_action = TokenBaseTransitionAction::try_from_base_transition_with_contract_lookup(
-            drive,
-            owner_id,
-            base,
-            approximate_without_state_for_costs,
-            transaction,
-            &mut drive_operations,
-            get_data_contract,
-            platform_version,
-        )?
-        .into_data()?;
+        // There is no change note for transfer tokens
+        let (base_action, _change_note) =
+            TokenBaseTransitionAction::try_from_base_transition_with_contract_lookup(
+                drive,
+                owner_id,
+                base,
+                approximate_without_state_for_costs,
+                transaction,
+                &mut drive_operations,
+                get_data_contract,
+                platform_version,
+            )?
+            .into_data()?;
 
         let fee_result = Drive::calculate_fee(
             None,
@@ -117,6 +120,7 @@ impl TokenTransferTransitionActionV0 {
     /// * `Result<(TokenTransferTransitionActionV0, FeeResult), Error>` - Returns a tuple containing the constructed
     ///   `TokenTransferTransitionActionV0` and the calculated `FeeResult` if successful, or an error if the transition cannot
     ///   be created or an issue arises with the provided state or data.
+    #[allow(clippy::too_many_arguments)]
     pub fn try_from_borrowed_token_transfer_transition_with_contract_lookup(
         drive: &Drive,
         owner_id: Identifier,
@@ -139,11 +143,12 @@ impl TokenTransferTransitionActionV0 {
         let mut drive_operations = vec![];
 
         // Lookup the base action using the borrowed base transition data and contract information
-        let base_action =
+        // We can never change the note
+        let (base_action, _change_note) =
             TokenBaseTransitionAction::try_from_borrowed_base_transition_with_contract_lookup(
                 drive,
                 owner_id,
-                &base,
+                base,
                 approximate_without_state_for_costs,
                 transaction,
                 &mut drive_operations,
@@ -164,7 +169,7 @@ impl TokenTransferTransitionActionV0 {
         // Return the TokenTransferTransitionActionV0 with the relevant data
         Ok((
             TokenTransferTransitionActionV0 {
-                base: base_action.into(),
+                base: base_action,
                 amount: *amount,
                 recipient_id: *recipient_id,
                 public_note: public_note.clone(),

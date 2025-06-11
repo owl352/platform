@@ -9,6 +9,7 @@ use dpp::version::PlatformVersion;
 use grovedb::TransactionArg;
 
 impl Drive {
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn prove_action_infos_v0(
         &self,
         contract_id: Identifier,
@@ -30,7 +31,7 @@ impl Drive {
             platform_version,
         )
     }
-
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn prove_action_infos_operations_v0(
         &self,
         contract_id: Identifier,
@@ -108,7 +109,6 @@ mod tests {
             version: 0,
             owner_id: Default::default(),
             document_types: Default::default(),
-            metadata: None,
             config: DataContractConfig::V0(DataContractConfigV0 {
                 can_be_deleted: false,
                 readonly: false,
@@ -120,6 +120,12 @@ mod tests {
                 requires_identity_decryption_bounded_key: None,
             }),
             schema_defs: None,
+            created_at: None,
+            updated_at: None,
+            created_at_block_height: None,
+            updated_at_block_height: None,
+            created_at_epoch: None,
+            updated_at_epoch: None,
             groups: BTreeMap::from([
                 (
                     0,
@@ -147,6 +153,8 @@ mod tests {
                     TokenConfiguration::V0(TokenConfigurationV0::default_most_restrictive()),
                 ),
             ]),
+            keywords: Vec::new(),
+            description: None,
         });
 
         drive
@@ -168,11 +176,17 @@ mod tests {
         let action_id_2 = Identifier::random();
 
         let action_1 = GroupAction::V0(GroupActionV0 {
+            contract_id,
+            proposer_id: identity_1_id,
+            token_contract_position: 0,
             event: GroupActionEvent::TokenEvent(TokenEvent::Mint(100, identity_1_id, None)),
         });
 
         let action_2 = GroupAction::V0(GroupActionV0 {
-            event: GroupActionEvent::TokenEvent(TokenEvent::Burn(50, None)),
+            contract_id,
+            proposer_id: identity_2_id,
+            token_contract_position: 0,
+            event: GroupActionEvent::TokenEvent(TokenEvent::Burn(50, identity_1_id, None)),
         });
 
         // Add actions using `add_group_action`
@@ -181,6 +195,7 @@ mod tests {
                 contract_id,
                 group_contract_position,
                 Some(action_1.clone()),
+                false,
                 action_id_1,
                 identity_1_id,
                 1,
@@ -196,6 +211,7 @@ mod tests {
                 contract_id,
                 group_contract_position,
                 Some(action_2.clone()),
+                false,
                 action_id_2,
                 identity_2_id,
                 1,
@@ -330,7 +346,6 @@ mod tests {
             version: 0,
             owner_id: Default::default(),
             document_types: Default::default(),
-            metadata: None,
             config: DataContractConfig::V0(DataContractConfigV0 {
                 can_be_deleted: false,
                 readonly: false,
@@ -342,6 +357,12 @@ mod tests {
                 requires_identity_decryption_bounded_key: None,
             }),
             schema_defs: None,
+            created_at: None,
+            updated_at: None,
+            created_at_block_height: None,
+            updated_at_block_height: None,
+            created_at_epoch: None,
+            updated_at_epoch: None,
             groups: BTreeMap::from([
                 (
                     0,
@@ -369,6 +390,8 @@ mod tests {
                     TokenConfiguration::V0(TokenConfigurationV0::default_most_restrictive()),
                 ),
             ]),
+            keywords: Vec::new(),
+            description: None,
         });
 
         drive
@@ -392,14 +415,23 @@ mod tests {
         let action_id_4 = Identifier::new([4; 32]);
 
         let action_1 = GroupAction::V0(GroupActionV0 {
+            contract_id,
+            proposer_id: identity_1_id,
+            token_contract_position: 0,
             event: GroupActionEvent::TokenEvent(TokenEvent::Mint(200, identity_1_id, None)),
         });
 
         let action_2 = GroupAction::V0(GroupActionV0 {
-            event: GroupActionEvent::TokenEvent(TokenEvent::Burn(50, None)),
+            contract_id,
+            proposer_id: identity_1_id,
+            token_contract_position: 0,
+            event: GroupActionEvent::TokenEvent(TokenEvent::Burn(50, identity_1_id, None)),
         });
 
         let action_3 = GroupAction::V0(GroupActionV0 {
+            contract_id,
+            proposer_id: identity_2_id,
+            token_contract_position: 0,
             event: GroupActionEvent::TokenEvent(TokenEvent::Transfer(
                 identity_2_id,
                 None,
@@ -410,6 +442,9 @@ mod tests {
         });
 
         let action_4 = GroupAction::V0(GroupActionV0 {
+            contract_id,
+            proposer_id: identity_3_id,
+            token_contract_position: 0,
             event: GroupActionEvent::TokenEvent(TokenEvent::Transfer(
                 identity_3_id,
                 None,
@@ -425,6 +460,7 @@ mod tests {
                 contract_id,
                 group_contract_position,
                 Some(action_1.clone()),
+                false,
                 action_id_1,
                 identity_1_id,
                 1,
@@ -440,6 +476,7 @@ mod tests {
                 contract_id,
                 group_contract_position,
                 Some(action_2.clone()),
+                false,
                 action_id_2,
                 identity_1_id,
                 1,
@@ -455,6 +492,7 @@ mod tests {
                 contract_id,
                 group_contract_position,
                 Some(action_3.clone()),
+                false,
                 action_id_3,
                 identity_2_id,
                 1,
@@ -470,6 +508,7 @@ mod tests {
                 contract_id,
                 group_contract_position,
                 Some(action_4.clone()),
+                false,
                 action_id_4,
                 identity_3_id,
                 1,

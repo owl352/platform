@@ -66,7 +66,6 @@ mod tests {
             version: 0,
             owner_id: Default::default(),
             document_types: Default::default(),
-            metadata: None,
             config: DataContractConfig::V0(DataContractConfigV0 {
                 can_be_deleted: false,
                 readonly: false,
@@ -78,11 +77,19 @@ mod tests {
                 requires_identity_decryption_bounded_key: None,
             }),
             schema_defs: None,
+            created_at: None,
+            updated_at: None,
+            created_at_block_height: None,
+            updated_at_block_height: None,
+            created_at_epoch: None,
+            updated_at_epoch: None,
             groups: Default::default(),
             tokens: BTreeMap::from([(
                 0,
                 TokenConfiguration::V0(TokenConfigurationV0::default_most_restrictive()),
             )]),
+            keywords: Vec::new(),
+            description: None,
         });
 
         let token_id = contract.token_id(0).expect("expected token at position 0");
@@ -108,6 +115,7 @@ mod tests {
                 identity_1,
                 50_000,
                 true,
+                false,
                 &BlockInfo::default(),
                 true,
                 None,
@@ -121,6 +129,7 @@ mod tests {
                 identity_2,
                 50_000,
                 true,
+                false,
                 &BlockInfo::default(),
                 true,
                 None,
@@ -182,7 +191,6 @@ mod tests {
             version: 0,
             owner_id: Default::default(),
             document_types: Default::default(),
-            metadata: None,
             config: DataContractConfig::V0(DataContractConfigV0 {
                 can_be_deleted: false,
                 readonly: false,
@@ -194,6 +202,12 @@ mod tests {
                 requires_identity_decryption_bounded_key: None,
             }),
             schema_defs: None,
+            created_at: None,
+            updated_at: None,
+            created_at_block_height: None,
+            updated_at_block_height: None,
+            created_at_epoch: None,
+            updated_at_epoch: None,
             groups: Default::default(),
             tokens: BTreeMap::from([(
                 0,
@@ -201,6 +215,8 @@ mod tests {
                     TokenConfigurationV0::default_most_restrictive().with_base_supply(0),
                 ),
             )]),
+            keywords: Vec::new(),
+            description: None,
         });
 
         let token_id = contract.token_id(0).expect("expected token at position 0");

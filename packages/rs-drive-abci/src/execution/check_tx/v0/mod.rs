@@ -224,13 +224,13 @@ mod tests {
     use dpp::identity::accessors::{IdentityGettersV0, IdentitySettersV0};
 
     use dpp::identity::KeyType::ECDSA_SECP256K1;
-    use dpp::identity::{Identity, IdentityV0, KeyType, Purpose, SecurityLevel};
+    use dpp::identity::{Identity, IdentityV0, Purpose, SecurityLevel};
     use dpp::prelude::{Identifier, IdentityPublicKey};
     use dpp::serialization::{PlatformSerializable, Signable};
 
     use dpp::native_bls::NativeBlsModule;
     use dpp::state_transition::batch_transition::methods::v0::DocumentsBatchTransitionMethodsV0;
-    use dpp::state_transition::batch_transition::BatchTransition;
+    use dpp::state_transition::batch_transition::{BatchTransition, TokenMintTransition};
     use dpp::state_transition::identity_create_transition::methods::IdentityCreateTransitionMethodsV0;
     use dpp::state_transition::identity_create_transition::IdentityCreateTransition;
     use dpp::state_transition::identity_topup_transition::methods::IdentityTopUpTransitionMethodsV0;
@@ -248,28 +248,38 @@ mod tests {
 
     use crate::execution::check_tx::CheckTxLevel::{FirstTimeCheck, Recheck};
     use crate::execution::validation::state_transition::tests::{
-        setup_identity, setup_identity_return_master_key,
+        create_token_contract_with_owner_identity, setup_identity, setup_identity_return_master_key,
     };
     use crate::platform_types::platform::PlatformRef;
+    use crate::platform_types::state_transitions_processing_result::StateTransitionExecutionResult;
     use assert_matches::assert_matches;
     use dpp::consensus::state::state_error::StateError;
     use dpp::dash_to_credits;
+    use dpp::data_contract::associated_token::token_configuration::accessors::v0::TokenConfigurationV0Setters;
+    use dpp::data_contract::change_control_rules::authorized_action_takers::AuthorizedActionTakers;
+    use dpp::data_contract::change_control_rules::v0::ChangeControlRulesV0;
+    use dpp::data_contract::change_control_rules::ChangeControlRules;
     use dpp::data_contract::document_type::v0::random_document_type::{
         FieldMinMaxBounds, FieldTypeWeights, RandomDocumentTypeParameters,
     };
     use dpp::data_contract::document_type::v0::DocumentTypeV0;
     use dpp::data_contract::document_type::DocumentType;
+    use dpp::data_contract::group::v0::GroupV0;
+    use dpp::data_contract::group::Group;
+    use dpp::data_contract::TokenConfiguration;
+    use dpp::group::{GroupStateTransitionInfo, GroupStateTransitionInfoStatus};
     use dpp::identity::contract_bounds::ContractBounds::SingleContractDocumentType;
     use dpp::identity::identity_public_key::accessors::v0::IdentityPublicKeyGettersV0;
     use dpp::identity::signer::Signer;
     use dpp::platform_value::Bytes32;
+    use dpp::state_transition::batch_transition::methods::v1::DocumentsBatchTransitionMethodsV1;
     use dpp::state_transition::data_contract_update_transition::DataContractUpdateTransition;
     use dpp::state_transition::identity_create_transition::accessors::IdentityCreateTransitionAccessorsV0;
     use dpp::state_transition::public_key_in_creation::accessors::IdentityPublicKeyInCreationV0Setters;
     use dpp::system_data_contracts::SystemDataContract::Dashpay;
     use platform_version::{TryFromPlatformVersioned, TryIntoPlatformVersioned};
     use rand::rngs::StdRng;
-    use rand::SeedableRng;
+    use rand::{Rng, SeedableRng};
     use std::collections::BTreeMap;
 
     // This test needs to be redone with new contract bytes, but is still useful for debugging
@@ -363,7 +373,7 @@ mod tests {
         platform
             .platform
             .process_raw_state_transitions(
-                &vec![tx.clone()],
+                &[tx.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -459,7 +469,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -477,7 +487,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -559,7 +569,7 @@ mod tests {
                 166, 203, 222, 4, 64, 31, 215, 199, 149, 151, 190, 246, 251, 44,
             ]),
             public_keys: BTreeMap::from([(1, key.clone())]),
-            balance: 1000000000,
+            balance: 25_000_000_000, // 0.25 Dash
             revision: 0,
         }
         .into();
@@ -602,7 +612,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -620,7 +630,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -630,7 +640,10 @@ mod tests {
             )
             .expect("expected to process state transition");
 
-        assert_eq!(processing_result.aggregated_fees().processing_fee, 2484410);
+        assert_eq!(
+            processing_result.aggregated_fees().processing_fee,
+            24002489210
+        );
 
         let check_result = platform
             .check_tx(
@@ -709,7 +722,7 @@ mod tests {
                 166, 203, 222, 4, 64, 31, 215, 199, 149, 151, 190, 246, 251, 44,
             ]),
             public_keys: BTreeMap::from([(1, key.clone())]),
-            balance: 1000000000,
+            balance: 27_000_000_000,
             revision: 0,
         }
         .into();
@@ -803,7 +816,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -821,7 +834,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -953,7 +966,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         assert_eq!(validation_result.data.unwrap().priority, 10000);
 
@@ -975,7 +988,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1068,7 +1081,7 @@ mod tests {
                 166, 203, 222, 4, 64, 31, 215, 199, 149, 151, 190, 246, 251, 44,
             ]),
             public_keys: BTreeMap::from([(1, key.clone())]),
-            balance: 1000000000,
+            balance: 25_000_000_000, // 0.25 Dash
             revision: 0,
         }
         .into();
@@ -1107,7 +1120,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         assert_eq!(validation_result.data.unwrap().priority, 10000);
 
@@ -1129,7 +1142,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1141,7 +1154,11 @@ mod tests {
 
         // The processing fees should be twice as much as a fee multiplier of 0,
         // since a fee multiplier of 100 means 100% more of 1 (gives 2)
-        assert_eq!(processing_result.aggregated_fees().processing_fee, 4968820);
+        // Plus we have 24_000_000_000 in base costs
+        assert_eq!(
+            processing_result.aggregated_fees().processing_fee,
+            24004978420
+        );
 
         let check_result = platform
             .check_tx(
@@ -1222,7 +1239,7 @@ mod tests {
                 166, 203, 222, 4, 64, 31, 215, 199, 149, 151, 190, 246, 251, 44,
             ]),
             public_keys: BTreeMap::from([(1, key.clone())]),
-            balance: 200000000, // we have enough balance only for 1 insertion (this is where this test is different)
+            balance: 24_200_000_000, // we have enough balance only for 1 insertion (this is where this test is different)
             revision: 0,
         }
         .into();
@@ -1258,7 +1275,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -1276,7 +1293,7 @@ mod tests {
         platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1393,7 +1410,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1456,7 +1473,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -1474,7 +1491,7 @@ mod tests {
         let update_processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized_update.clone()],
+                &[serialized_update.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1569,7 +1586,7 @@ mod tests {
                 166, 203, 222, 4, 64, 31, 215, 199, 149, 151, 190, 246, 251, 44,
             ]),
             public_keys: BTreeMap::from([(1, key.clone())]),
-            balance: 1000000000,
+            balance: 100_000_000_000, // 1.0 Dash
             revision: 0,
         }
         .into();
@@ -1603,7 +1620,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1613,7 +1630,10 @@ mod tests {
             )
             .expect("expected to process state transition");
 
-        assert_eq!(processing_result.aggregated_fees().processing_fee, 2484410);
+        assert_eq!(
+            processing_result.aggregated_fees().processing_fee,
+            24002489210
+        );
 
         platform
             .drive
@@ -1666,7 +1686,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -1684,7 +1704,7 @@ mod tests {
         let update_processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized_update.clone()],
+                &[serialized_update.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1699,7 +1719,7 @@ mod tests {
 
         assert_eq!(
             update_processing_result.aggregated_fees().processing_fee,
-            2496910
+            27002504030
         );
 
         let check_result = platform
@@ -1814,7 +1834,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -1915,7 +1935,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -1933,7 +1953,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized_update.clone()],
+                &[serialized_update.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -2025,7 +2045,7 @@ mod tests {
                 166, 203, 222, 4, 64, 31, 215, 199, 149, 151, 190, 246, 251, 44,
             ]),
             public_keys: BTreeMap::from([(1, key.clone())]),
-            balance: 1000000000,
+            balance: 100_000_000_000, // 1 Dash
             revision: 0,
         }
         .into();
@@ -2059,7 +2079,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized.clone()],
+                &[serialized.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -2069,7 +2089,10 @@ mod tests {
             )
             .expect("expected to process state transition");
 
-        assert_eq!(processing_result.aggregated_fees().processing_fee, 2484410);
+        assert_eq!(
+            processing_result.aggregated_fees().processing_fee,
+            24002489210
+        );
 
         platform
             .drive
@@ -2160,7 +2183,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let check_result = platform
             .check_tx(
@@ -2178,7 +2201,7 @@ mod tests {
         let processing_result = platform
             .platform
             .process_raw_state_transitions(
-                &vec![serialized_update.clone()],
+                &[serialized_update.clone()],
                 &platform_state,
                 &BlockInfo::default(),
                 &transaction,
@@ -2261,7 +2284,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(3), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -2270,7 +2293,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -2355,10 +2378,9 @@ mod tests {
                 &key,
                 2,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -2374,10 +2396,9 @@ mod tests {
                 &key,
                 3,
                 0,
+                None,
                 &signer,
                 platform_version,
-                None,
-                None,
                 None,
             )
             .expect("expect to create documents batch transition");
@@ -2423,7 +2444,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
     }
 
     #[test]
@@ -2458,7 +2479,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(3), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -2467,7 +2488,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -2558,7 +2579,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let transaction = platform.drive.grove.start_transaction();
 
@@ -2607,7 +2628,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(3), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -2616,7 +2637,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -2707,7 +2728,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let transaction = platform.drive.grove.start_transaction();
 
@@ -2791,7 +2812,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -2852,7 +2873,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        // This errors because we never created the identity
+        // This will error because we never created the identity
 
         assert!(matches!(
             validation_result.errors.first().expect("expected an error"),
@@ -2892,7 +2913,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(3), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -2901,7 +2922,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -2992,7 +3013,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let transaction = platform.drive.grove.start_transaction();
 
@@ -3016,7 +3037,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(4), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -3025,7 +3046,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let identifier = asset_lock_proof_top_up
             .create_identifier()
@@ -3120,7 +3141,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(3), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -3129,7 +3150,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -3204,7 +3225,7 @@ mod tests {
 
         // now lets try to recreate the valid identity
 
-        // This one will use the balance on the outpoint that was already saved
+        // This one will use the balance from the transaction outpoint that was already saved
 
         let valid_identity_create_serialized_transition = valid_identity_create_transition
             .serialize_to_bytes()
@@ -3294,7 +3315,7 @@ mod tests {
             )
             .expect("expected to check tx");
 
-        assert!(validation_result.errors.is_empty());
+        assert_eq!(validation_result.errors.as_slice(), &[]);
 
         let transaction = platform.drive.grove.start_transaction();
 
@@ -3318,7 +3339,7 @@ mod tests {
             IdentityPublicKey::random_ecdsa_master_authentication_key(0, Some(4), platform_version)
                 .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (key, private_key) = IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
             1,
@@ -3327,7 +3348,7 @@ mod tests {
         )
         .expect("expected to get key pair");
 
-        signer.add_key(key.clone(), private_key.clone());
+        signer.add_key(key.clone(), private_key);
 
         let identifier = asset_lock_proof_top_up
             .create_identifier()
@@ -3421,7 +3442,7 @@ mod tests {
             id: 2,
             purpose: Purpose::AUTHENTICATION,
             security_level: SecurityLevel::HIGH,
-            key_type: KeyType::ECDSA_SECP256K1,
+            key_type: ECDSA_SECP256K1,
             read_only: false,
             data: new_key_pair.public_key().serialize().to_vec().into(),
             signature: Default::default(),
@@ -3582,5 +3603,206 @@ mod tests {
         // we shouldn't have any errors
 
         assert_eq!(validation_result.errors.len(), 0);
+    }
+
+    #[test]
+    fn token_mint_confirmation_check_tx() {
+        let platform_config = PlatformConfig {
+            testing_configs: PlatformTestConfig {
+                disable_instant_lock_signature_verification: true,
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        let mut platform = TestPlatformBuilder::new()
+            .with_config(platform_config)
+            .with_latest_protocol_version()
+            .build_with_mock_rpc()
+            .set_genesis_state();
+
+        let platform_state = platform.state.load();
+        let protocol_version = platform_state.current_protocol_version_in_consensus();
+        let platform_version = PlatformVersion::get(protocol_version).unwrap();
+
+        let mut rng = StdRng::seed_from_u64(49853);
+
+        let (identity, signer, key) =
+            setup_identity(&mut platform, rng.gen(), dash_to_credits!(0.5));
+
+        let (identity_2, signer2, key2) =
+            setup_identity(&mut platform, rng.gen(), dash_to_credits!(0.5));
+
+        let (contract, token_id) = create_token_contract_with_owner_identity(
+            &mut platform,
+            identity.id(),
+            Some(|token_configuration: &mut TokenConfiguration| {
+                token_configuration.set_manual_minting_rules(ChangeControlRules::V0(
+                    ChangeControlRulesV0 {
+                        authorized_to_make_change: AuthorizedActionTakers::Group(0),
+                        admin_action_takers: AuthorizedActionTakers::NoOne,
+                        changing_authorized_action_takers_to_no_one_allowed: false,
+                        changing_admin_action_takers_to_no_one_allowed: false,
+                        self_changing_admin_action_takers_allowed: false,
+                    },
+                ));
+            }),
+            None,
+            Some(
+                [(
+                    0,
+                    Group::V0(GroupV0 {
+                        members: [(identity.id(), 1), (identity_2.id(), 1)].into(),
+                        required_power: 2,
+                    }),
+                )]
+                .into(),
+            ),
+            None,
+            platform_version,
+        );
+
+        let token_mint_transition = BatchTransition::new_token_mint_transition(
+            token_id,
+            identity.id(),
+            contract.id(),
+            0,
+            1337,
+            Some(identity.id()),
+            None,
+            Some(GroupStateTransitionInfoStatus::GroupStateTransitionInfoProposer(0)),
+            &key,
+            2,
+            0,
+            &signer,
+            platform_version,
+            None,
+        )
+        .expect("expect to create documents batch transition");
+
+        let token_mint_serialized_transition = token_mint_transition
+            .serialize_to_bytes()
+            .expect("expected documents batch serialized state transition");
+
+        let transaction = platform.drive.grove.start_transaction();
+
+        let processing_result = platform
+            .platform
+            .process_raw_state_transitions(
+                &[token_mint_serialized_transition.clone()],
+                &platform_state,
+                &BlockInfo::default(),
+                &transaction,
+                platform_version,
+                false,
+                None,
+            )
+            .expect("expected to process state transition");
+
+        assert_matches!(
+            processing_result.execution_results().as_slice(),
+            [StateTransitionExecutionResult::SuccessfulExecution(_, _)]
+        );
+
+        platform
+            .drive
+            .grove
+            .commit_transaction(transaction)
+            .unwrap()
+            .expect("expected to commit transaction");
+
+        let action_id = TokenMintTransition::calculate_action_id_with_fields(
+            token_id.as_bytes(),
+            identity.id().as_bytes(),
+            2,
+            1337,
+        );
+
+        let confirm_transition = BatchTransition::new_token_mint_transition(
+            token_id,
+            identity_2.id(),
+            contract.id(),
+            0,
+            1337,
+            Some(identity.id()),
+            None,
+            Some(
+                GroupStateTransitionInfoStatus::GroupStateTransitionInfoOtherSigner(
+                    GroupStateTransitionInfo {
+                        group_contract_position: 0,
+                        action_id,
+                        action_is_proposer: false,
+                    },
+                ),
+            ),
+            &key2,
+            2,
+            0,
+            &signer2,
+            platform_version,
+            None,
+        )
+        .expect("expected to create confirmation transition");
+
+        let confirm_serialized = confirm_transition
+            .serialize_to_bytes()
+            .expect("expected serialization");
+
+        let platform_ref = PlatformRef {
+            drive: &platform.drive,
+            state: &platform_state,
+            config: &platform.config,
+            core_rpc: &platform.core_rpc,
+        };
+
+        let result = platform
+            .check_tx(
+                confirm_serialized.as_slice(),
+                FirstTimeCheck,
+                &platform_ref,
+                platform_version,
+            )
+            .expect("expected to validate with check_tx");
+
+        assert!(result.is_valid());
+
+        let transaction = platform.drive.grove.start_transaction();
+
+        platform
+            .platform
+            .process_raw_state_transitions(
+                &[confirm_serialized.clone()],
+                &platform_state,
+                &BlockInfo::default(),
+                &transaction,
+                platform_version,
+                false,
+                None,
+            )
+            .expect("expected to process state transition");
+
+        platform
+            .drive
+            .grove
+            .commit_transaction(transaction)
+            .unwrap()
+            .expect("expected to commit transaction");
+
+        let post_commit_result = platform
+            .check_tx(
+                confirm_serialized.as_slice(),
+                FirstTimeCheck,
+                &platform_ref,
+                platform_version,
+            )
+            .expect("expected re-check after commit");
+
+        assert!(!post_commit_result.is_valid());
+        assert!(matches!(
+            post_commit_result.errors.first(),
+            Some(ConsensusError::StateError(
+                StateError::InvalidIdentityNonceError(_)
+            ))
+        ));
     }
 }

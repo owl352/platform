@@ -3,6 +3,7 @@ use grovedb_costs::storage_cost::removal::Identifier;
 use grovedb_costs::storage_cost::removal::StorageRemovedBytes::{
     BasicStorageRemoval, NoStorageRemoval, SectionedStorageRemoval,
 };
+use std::collections::BTreeMap;
 
 use enum_map::Enum;
 use grovedb::batch::key_info::KeyInfo;
@@ -239,20 +240,32 @@ impl LowLevelDriveOperation {
                                 (FeeRefunds::default(), amount)
                             }
                             SectionedStorageRemoval(mut removal_per_epoch_by_identifier) => {
-                                let previous_fee_versions = previous_fee_versions.ok_or(Error::Drive(DriveError::CorruptedCodeExecution("expected previous epoch index fee versions to be able to offer refunds")))?;
+
                                 let system_amount = removal_per_epoch_by_identifier
                                     .remove(&Identifier::default())
                                     .map_or(0, |a| a.values().sum());
-
-                                (
-                                    FeeRefunds::from_storage_removal(
-                                        removal_per_epoch_by_identifier,
-                                        epoch.index,
-                                        epochs_per_era,
-                                        previous_fee_versions,
-                                    )?,
-                                    system_amount,
-                                )
+                                if fee_version.fee_version_number == 1 {
+                                    (
+                                        FeeRefunds::from_storage_removal(
+                                            removal_per_epoch_by_identifier,
+                                            epoch.index,
+                                            epochs_per_era,
+                                            &BTreeMap::default(),
+                                        )?,
+                                        system_amount,
+                                    )
+                                } else {
+                                    let previous_fee_versions = previous_fee_versions.ok_or(Error::Drive(DriveError::CorruptedCodeExecution("expected previous epoch index fee versions to be able to offer refunds")))?;
+                                    (
+                                        FeeRefunds::from_storage_removal(
+                                            removal_per_epoch_by_identifier,
+                                            epoch.index,
+                                            epochs_per_era,
+                                            previous_fee_versions,
+                                        )?,
+                                        system_amount,
+                                    )
+                                }
                             }
                         };
                     Ok(FeeResult {
@@ -597,7 +610,7 @@ impl DriveCost for OperationCost {
                 .checked_mul(epoch_cost_for_processing_credit_per_byte)
                 .ok_or_else(|| get_overflow_error("storage written bytes cost overflow"))?;
         // not accessible
-        let storage_loaded_bytes_cost = (*storage_loaded_bytes as u64)
+        let storage_loaded_bytes_cost = { *storage_loaded_bytes }
             .checked_mul(fee_version.storage.storage_load_credit_per_byte)
             .ok_or_else(|| get_overflow_error("storage loaded cost overflow"))?;
 

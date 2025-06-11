@@ -40,6 +40,7 @@ impl TokenUnfreezeTransitionActionV0 {
     ///
     /// * `Result<ConsensusValidationResult<TokenUnfreezeTransitionActionV0>, Error>` - Returns the constructed `TokenUnfreezeTransitionActionV0` if successful,
     ///   or an error if any issue arises, such as missing data or an invalid state transition.
+    #[allow(clippy::too_many_arguments)]
     pub fn try_from_token_unfreeze_transition_with_contract_lookup(
         drive: &Drive,
         owner_id: Identifier,
@@ -86,7 +87,7 @@ impl TokenUnfreezeTransitionActionV0 {
             None,
         )?;
 
-        let base_action = match base_action_validation_result.is_valid() {
+        let (base_action, change_note) = match base_action_validation_result.is_valid() {
             true => base_action_validation_result.into_data()?,
             false => {
                 let bump_action = BumpIdentityDataContractNonceAction::from_token_base_transition(
@@ -99,7 +100,7 @@ impl TokenUnfreezeTransitionActionV0 {
 
                 return Ok((
                     ConsensusValidationResult::new_with_data_and_errors(
-                        batched_action.into(),
+                        batched_action,
                         base_action_validation_result.errors,
                     ),
                     fee_result,
@@ -112,7 +113,7 @@ impl TokenUnfreezeTransitionActionV0 {
                 TokenUnfreezeTransitionActionV0 {
                     base: base_action,
                     frozen_identity_id,
-                    public_note,
+                    public_note: change_note.unwrap_or(public_note),
                 }
                 .into(),
             ))
@@ -148,6 +149,7 @@ impl TokenUnfreezeTransitionActionV0 {
     ///   `TokenUnfreezeTransitionActionV0` and a `FeeResult` if successful. If an error occurs (e.g., missing data or
     ///   invalid state transition), it returns an `Error`.
     ///
+    #[allow(clippy::too_many_arguments)]
     pub fn try_from_borrowed_token_unfreeze_transition_with_contract_lookup(
         drive: &Drive,
         owner_id: Identifier,
@@ -194,7 +196,7 @@ impl TokenUnfreezeTransitionActionV0 {
             None,
         )?;
 
-        let base_action = match base_action_validation_result.is_valid() {
+        let (base_action, change_note) = match base_action_validation_result.is_valid() {
             true => base_action_validation_result.into_data()?,
             false => {
                 let bump_action =
@@ -208,7 +210,7 @@ impl TokenUnfreezeTransitionActionV0 {
 
                 return Ok((
                     ConsensusValidationResult::new_with_data_and_errors(
-                        batched_action.into(),
+                        batched_action,
                         base_action_validation_result.errors,
                     ),
                     fee_result,
@@ -221,7 +223,7 @@ impl TokenUnfreezeTransitionActionV0 {
                 TokenUnfreezeTransitionActionV0 {
                     base: base_action,
                     frozen_identity_id: *frozen_identity_id,
-                    public_note: public_note.clone(),
+                    public_note: change_note.unwrap_or(public_note.clone()),
                 }
                 .into(),
             ))

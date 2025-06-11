@@ -1,9 +1,9 @@
 use crate::masternodes::MasternodeListItemWithUpdates;
 use crate::query::QueryStrategy;
 use crate::BlockHeight;
-use dashcore_rpc::dashcore::{Network, PrivateKey};
-use dashcore_rpc::dashcore::{ProTxHash, QuorumHash};
 use dpp::block::block_info::BlockInfo;
+use dpp::dashcore::{Network, PrivateKey};
+use dpp::dashcore::{ProTxHash, QuorumHash};
 use dpp::state_transition::identity_topup_transition::methods::IdentityTopUpTransitionMethodsV0;
 use dpp::ProtocolError;
 
@@ -1595,6 +1595,7 @@ impl NetworkStrategy {
     pub fn state_transitions_for_block(
         &mut self,
         platform: &Platform<MockCoreRPCLike>,
+        start_block_height: BlockHeight,
         block_info: &BlockInfo,
         current_identities: &mut Vec<Identity>,
         identity_nonce_counter: &mut BTreeMap<Identifier, u64>,
@@ -1630,17 +1631,22 @@ impl NetworkStrategy {
 
         current_identities.append(&mut identities);
 
-        if block_info.height == 1 {
-            // add contracts on block 1
-            let mut contract_state_transitions = self.initial_contract_state_transitions(
-                current_identities,
-                signer,
-                contract_nonce_counter,
-                rng,
-                platform_version,
-            );
-            state_transitions.append(&mut contract_state_transitions);
-        } else {
+        let should_do_operation_transitions =
+            if block_info.height == start_block_height && !current_identities.is_empty() {
+                // add contracts on block 1
+                let mut contract_state_transitions = self.initial_contract_state_transitions(
+                    current_identities,
+                    signer,
+                    contract_nonce_counter,
+                    rng,
+                    platform_version,
+                );
+                state_transitions.append(&mut contract_state_transitions);
+                block_info.height != 1
+            } else {
+                true
+            };
+        if should_do_operation_transitions {
             // Don't do any state transitions on block 1
             let (mut document_state_transitions, mut add_to_finalize_block_operations) = self
                 .operations_based_transitions(
@@ -1846,7 +1852,7 @@ pub struct ChainExecutionOutcome<'a> {
     pub signer: SimpleSigner,
 }
 
-impl<'a> ChainExecutionOutcome<'a> {
+impl ChainExecutionOutcome<'_> {
     pub fn current_quorum(&self) -> &TestQuorumInfo {
         self.validator_quorums
             .get::<QuorumHash>(&self.current_validator_quorum_hash)

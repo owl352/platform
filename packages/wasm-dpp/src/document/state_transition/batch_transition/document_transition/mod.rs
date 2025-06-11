@@ -18,11 +18,12 @@ use serde_json::Value as JsonValue;
 use wasm_bindgen::prelude::*;
 use dpp::fee::Credits;
 use dpp::platform_value::converter::serde_json::BTreeValueJsonConverter;
-use dpp::state_transition::batch_transition::document_base_transition::DocumentBaseTransition;
+use dpp::prelude::Revision;
 use dpp::state_transition::batch_transition::document_replace_transition::v0::v0_methods::DocumentReplaceTransitionV0Methods;
 use dpp::state_transition::batch_transition::batched_transition::document_purchase_transition::v0::v0_methods::DocumentPurchaseTransitionV0Methods;
 use dpp::state_transition::batch_transition::batched_transition::document_transfer_transition::v0::v0_methods::DocumentTransferTransitionV0Methods;
 use dpp::state_transition::batch_transition::batched_transition::document_update_price_transition::v0::v0_methods::DocumentUpdatePriceTransitionV0Methods;
+use dpp::state_transition::batch_transition::document_base_transition::v0::v0_methods::DocumentBaseTransitionV0Methods;
 use crate::{
     buffer::Buffer,
     identifier::{identifier_from_js_value, IdentifierWrapper},
@@ -88,18 +89,12 @@ impl DocumentTransitionWasm {
 
     #[wasm_bindgen(js_name=getIdentityContractNonce)]
     pub fn get_identity_contract_nonce(&self) -> JsValue {
-        match self.0.base() {
-            DocumentBaseTransition::V0(v0) => JsValue::from(v0.identity_contract_nonce),
-        }
+        JsValue::from(self.0.base().identity_contract_nonce())
     }
 
     #[wasm_bindgen(js_name=getRevision)]
-    pub fn get_revision(&self) -> JsValue {
-        if let Some(revision) = self.0.revision() {
-            (revision as f64).into()
-        } else {
-            JsValue::NULL
-        }
+    pub fn get_revision(&self) -> Option<Revision> {
+        self.0.revision()
     }
     #[wasm_bindgen(js_name=getEntropy)]
     pub fn get_entropy(&self) -> Option<Vec<u8>> {
@@ -131,8 +126,8 @@ impl DocumentTransitionWasm {
     }
 
     #[wasm_bindgen(js_name=setRevision)]
-    pub fn set_revision(&mut self, revision: u32) {
-        self.0.set_revision(revision as u64);
+    pub fn set_revision(&mut self, revision: u64) {
+        self.0.set_revision(revision);
     }
 
     #[wasm_bindgen(js_name=hasPrefundedBalance)]

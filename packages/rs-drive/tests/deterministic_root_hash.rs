@@ -301,17 +301,22 @@ mod tests {
 
         // We expect a different app hash because data contract is not serialized the same way
         let expected_app_hash = match platform_version.protocol_version {
-            0..7 => "1b80f4a9f00597b3f1ddca904b3cee67576868adcdd802c0a3f91e14209bb402",
-            _ => "387fe8e2298bb33e0ff79fd377eccb14109fb2534c7338c535bd74b5b8580580",
+            0..=8 => "1b80f4a9f00597b3f1ddca904b3cee67576868adcdd802c0a3f91e14209bb402",
+            _ => "76e3af331ff60aea3006671d048ce16871369da4ec562bdc9966837bb49ee92c",
         };
 
-        assert_eq!(hex::encode(app_hash), expected_app_hash);
+        assert_eq!(
+            hex::encode(app_hash),
+            expected_app_hash,
+            "not matching after contract insertion for protocol version {}",
+            platform_version.protocol_version
+        );
     }
 
     /// Runs `test_root_hash_with_batches` 10 times.
     #[test]
     fn test_deterministic_root_hash_with_batches_first_platform_version() {
-        let drive = setup_drive(None, None);
+        let drive = setup_drive(None);
 
         let platform_version = PlatformVersion::first();
 
@@ -329,14 +334,14 @@ mod tests {
 
     /// Runs `test_root_hash_with_batches` 10 times.
     #[test]
-    fn test_deterministic_root_hash_with_batches_latest_platform_version() {
-        let drive = setup_drive(None, None);
-
-        let platform_version = PlatformVersion::latest();
+    fn test_root_hash_with_batches_for_version() {
+        let drive = setup_drive(None);
 
         let db_transaction = drive.grove.start_transaction();
 
-        for _ in 0..10 {
+        for i in 1..=PlatformVersion::latest().protocol_version {
+            let platform_version = PlatformVersion::get(i).expect("expected platform version");
+
             test_root_hash_with_batches(&drive, &db_transaction, platform_version);
 
             drive

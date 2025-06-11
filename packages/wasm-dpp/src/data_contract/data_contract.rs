@@ -25,10 +25,9 @@ use dpp::ProtocolError;
 
 use crate::data_contract::tokens::TokenConfigurationWasm;
 use crate::identifier::identifier_from_js_value;
-use crate::metadata::MetadataWasm;
 use crate::utils::get_bool_from_options;
 use crate::utils::SKIP_VALIDATION_PROPERTY_NAME;
-use crate::utils::{Inner, IntoWasm, ToSerdeJSONExt, WithJsError};
+use crate::utils::{Inner, ToSerdeJSONExt, WithJsError};
 use crate::with_js_error;
 use crate::{buffer::Buffer, identifier::IdentifierWrapper};
 
@@ -315,33 +314,14 @@ impl DataContractWasm {
     }
 
     #[wasm_bindgen(js_name=setIdentityNonce)]
-    pub fn set_identity_nonce(&mut self, e: u64) -> Result<(), JsValue> {
-        self.identity_nonce = Some(e);
+    pub fn set_identity_nonce(&mut self, nonce: u64) -> Result<(), JsValue> {
+        self.identity_nonce = Some(nonce);
         Ok(())
     }
 
     #[wasm_bindgen(js_name=getIdentityNonce)]
     pub fn identity_nonce(&mut self) -> u64 {
         self.identity_nonce.unwrap_or_default()
-    }
-
-    #[wasm_bindgen(js_name=getMetadata)]
-    pub fn metadata(&self) -> Option<MetadataWasm> {
-        self.inner.metadata().cloned().map(Into::into)
-    }
-
-    #[wasm_bindgen(js_name=setMetadata)]
-    pub fn set_metadata(&mut self, metadata: JsValue) -> Result<(), JsValue> {
-        let metadata = if !metadata.is_falsy() {
-            let metadata = metadata.to_wasm::<MetadataWasm>("Metadata")?;
-            Some(metadata.to_owned().into())
-        } else {
-            None
-        };
-
-        self.inner.set_metadata(metadata);
-
-        Ok(())
     }
 
     #[wasm_bindgen(js_name=toObject)]
@@ -435,12 +415,11 @@ impl DataContractWasm {
         self.clone()
     }
 
-    pub(crate) fn try_from_serialization_format(
+    pub(crate) fn try_from_serialization_format_with_platform_version(
         value: DataContractInSerializationFormat,
         full_validation: bool,
+        platform_version: &PlatformVersion,
     ) -> Result<Self, JsValue> {
-        let platform_version = PlatformVersion::first();
-
         DataContract::try_from_platform_versioned(
             value,
             full_validation,
@@ -458,7 +437,6 @@ impl DataContractWasm {
     ) -> Result<TokenConfigurationWasm, JsValue> {
         self.inner
             .expected_token_configuration(token_contract_position)
-            .map_err(ProtocolError::from)
             .with_js_error()
             .map(|token_configuration| token_configuration.clone().into())
     }

@@ -18,13 +18,18 @@ use crate::state_transition::StateTransition;
 use crate::ProtocolError;
 use platform_value::Identifier;
 #[cfg(feature = "state-transition-signing")]
-use platform_version::version::{FeatureVersion, PlatformVersion};
+use platform_version::version::PlatformVersion;
 use std::convert::TryFrom;
 use crate::state_transition::batch_transition::batched_transition::{BatchedTransition, BatchedTransitionRef};
+#[cfg(feature = "state-transition-signing")]
+use crate::state_transition::batch_transition::methods::StateTransitionCreationOptions;
 use crate::state_transition::state_transitions::document::batch_transition::batched_transition::document_transition::DocumentTransitionV0Methods;
+#[cfg(feature = "state-transition-signing")]
+use crate::tokens::token_payment_info::TokenPaymentInfo;
 
 pub trait DocumentsBatchTransitionMethodsV0: DocumentsBatchTransitionAccessorsV0 {
     #[cfg(feature = "state-transition-signing")]
+    #[allow(clippy::too_many_arguments)]
     fn new_document_creation_transition_from_document<S: Signer>(
         document: Document,
         document_type: DocumentTypeRef,
@@ -32,42 +37,42 @@ pub trait DocumentsBatchTransitionMethodsV0: DocumentsBatchTransitionAccessorsV0
         identity_public_key: &IdentityPublicKey,
         identity_contract_nonce: IdentityNonce,
         user_fee_increase: UserFeeIncrease,
+        token_payment_info: Option<TokenPaymentInfo>,
         signer: &S,
         platform_version: &PlatformVersion,
-        batch_feature_version: Option<FeatureVersion>,
-        create_feature_version: Option<FeatureVersion>,
-        base_feature_version: Option<FeatureVersion>,
+        options: Option<StateTransitionCreationOptions>,
     ) -> Result<StateTransition, ProtocolError>;
 
     #[cfg(feature = "state-transition-signing")]
+    #[allow(clippy::too_many_arguments)]
     fn new_document_replacement_transition_from_document<S: Signer>(
         document: Document,
         document_type: DocumentTypeRef,
         identity_public_key: &IdentityPublicKey,
         identity_contract_nonce: IdentityNonce,
         user_fee_increase: UserFeeIncrease,
+        token_payment_info: Option<TokenPaymentInfo>,
         signer: &S,
         platform_version: &PlatformVersion,
-        _batch_feature_version: Option<FeatureVersion>,
-        replace_feature_version: Option<FeatureVersion>,
-        base_feature_version: Option<FeatureVersion>,
+        options: Option<StateTransitionCreationOptions>,
     ) -> Result<StateTransition, ProtocolError>;
 
     #[cfg(feature = "state-transition-signing")]
+    #[allow(clippy::too_many_arguments)]
     fn new_document_deletion_transition_from_document<S: Signer>(
         document: Document,
         document_type: DocumentTypeRef,
         identity_public_key: &IdentityPublicKey,
         identity_contract_nonce: IdentityNonce,
         user_fee_increase: UserFeeIncrease,
+        token_payment_info: Option<TokenPaymentInfo>,
         signer: &S,
         platform_version: &PlatformVersion,
-        _batch_feature_version: Option<FeatureVersion>,
-        delete_feature_version: Option<FeatureVersion>,
-        base_feature_version: Option<FeatureVersion>,
+        options: Option<StateTransitionCreationOptions>,
     ) -> Result<StateTransition, ProtocolError>;
 
     #[cfg(feature = "state-transition-signing")]
+    #[allow(clippy::too_many_arguments)]
     fn new_document_transfer_transition_from_document<S: Signer>(
         document: Document,
         document_type: DocumentTypeRef,
@@ -75,14 +80,14 @@ pub trait DocumentsBatchTransitionMethodsV0: DocumentsBatchTransitionAccessorsV0
         identity_public_key: &IdentityPublicKey,
         identity_contract_nonce: IdentityNonce,
         user_fee_increase: UserFeeIncrease,
+        token_payment_info: Option<TokenPaymentInfo>,
         signer: &S,
         platform_version: &PlatformVersion,
-        _batch_feature_version: Option<FeatureVersion>,
-        transfer_feature_version: Option<FeatureVersion>,
-        base_feature_version: Option<FeatureVersion>,
+        options: Option<StateTransitionCreationOptions>,
     ) -> Result<StateTransition, ProtocolError>;
 
     #[cfg(feature = "state-transition-signing")]
+    #[allow(clippy::too_many_arguments)]
     fn new_document_update_price_transition_from_document<S: Signer>(
         document: Document,
         document_type: DocumentTypeRef,
@@ -90,14 +95,14 @@ pub trait DocumentsBatchTransitionMethodsV0: DocumentsBatchTransitionAccessorsV0
         identity_public_key: &IdentityPublicKey,
         identity_contract_nonce: IdentityNonce,
         user_fee_increase: UserFeeIncrease,
+        token_payment_info: Option<TokenPaymentInfo>,
         signer: &S,
         platform_version: &PlatformVersion,
-        batch_feature_version: Option<FeatureVersion>,
-        update_price_feature_version: Option<FeatureVersion>,
-        base_feature_version: Option<FeatureVersion>,
+        options: Option<StateTransitionCreationOptions>,
     ) -> Result<StateTransition, ProtocolError>;
 
     #[cfg(feature = "state-transition-signing")]
+    #[allow(clippy::too_many_arguments)]
     fn new_document_purchase_transition_from_document<S: Signer>(
         document: Document,
         document_type: DocumentTypeRef,
@@ -106,20 +111,17 @@ pub trait DocumentsBatchTransitionMethodsV0: DocumentsBatchTransitionAccessorsV0
         identity_public_key: &IdentityPublicKey,
         identity_contract_nonce: IdentityNonce,
         user_fee_increase: UserFeeIncrease,
+        token_payment_info: Option<TokenPaymentInfo>,
         signer: &S,
         platform_version: &PlatformVersion,
-        batch_feature_version: Option<FeatureVersion>,
-        purchase_feature_version: Option<FeatureVersion>,
-        base_feature_version: Option<FeatureVersion>,
+        options: Option<StateTransitionCreationOptions>,
     ) -> Result<StateTransition, ProtocolError>;
 
-    fn contract_based_security_level_requirement(
+    fn combined_security_level_requirement(
         &self,
-        get_data_contract_security_level_requirement: impl Fn(
-            Identifier,
-            String,
-        )
-            -> Result<SecurityLevel, ProtocolError>,
+        get_data_contract_security_level_requirement: Option<
+            impl Fn(Identifier, String) -> Result<SecurityLevel, ProtocolError>,
+        >,
     ) -> Result<Vec<SecurityLevel>, ProtocolError> {
         // Step 1: Get all document types for the ST
         // Step 2: Get document schema for every type
@@ -128,21 +130,41 @@ pub trait DocumentsBatchTransitionMethodsV0: DocumentsBatchTransitionAccessorsV0
         // requirement is the highest level across all documents affected by the ST./
         let mut highest_security_level = SecurityLevel::lowest_level();
 
-        for transition in self.transitions_iter() {
-            if let BatchedTransitionRef::Document(document_transition) = transition {
-                let document_type_name = document_transition.base().document_type_name();
-                let data_contract_id = document_transition.base().data_contract_id();
-                let document_security_level = get_data_contract_security_level_requirement(
-                    data_contract_id,
-                    document_type_name.to_owned(),
+        if self
+            .transitions_iter()
+            .any(|transition| matches!(transition, BatchedTransitionRef::Token(_)))
+        {
+            // If we ever have a token transition it will be security level critical and so will the whole state transition
+            highest_security_level = SecurityLevel::CRITICAL;
+        } else if self
+            .transitions_iter()
+            .any(|transition| matches!(transition, BatchedTransitionRef::Document(_)))
+        {
+            // We know we don't have token transitions at this point
+            let get_data_contract_security_level_requirement =
+                get_data_contract_security_level_requirement.ok_or(
+                    ProtocolError::CorruptedCodeExecution(
+                        "must supply get_data_contract when signing a documents batch transition"
+                            .to_string(),
+                    ),
                 )?;
+            for transition in self.transitions_iter() {
+                if let BatchedTransitionRef::Document(document_transition) = transition {
+                    let document_type_name = document_transition.base().document_type_name();
+                    let data_contract_id = document_transition.base().data_contract_id();
+                    let document_security_level = get_data_contract_security_level_requirement(
+                        data_contract_id,
+                        document_type_name.to_owned(),
+                    )?;
 
-                // lower enum representation means higher in security
-                if document_security_level < highest_security_level {
-                    highest_security_level = document_security_level
+                    // lower enum representation means higher in security
+                    if document_security_level < highest_security_level {
+                        highest_security_level = document_security_level;
+                    }
                 }
             }
-        }
+        };
+
         Ok(if highest_security_level == SecurityLevel::MASTER {
             vec![SecurityLevel::MASTER]
         } else {

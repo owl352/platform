@@ -18,11 +18,13 @@ mod v0;
 
 impl Drive {
     /// Adds an action to the state
+    #[allow(clippy::too_many_arguments)]
     pub fn add_group_action(
         &self,
         contract_id: Identifier,
         group_contract_position: GroupContractPosition,
         initialize_with_insert_action_info: Option<GroupAction>,
+        closes_group_action: bool,
         action_id: Identifier,
         signer_identity_id: Identifier,
         signer_power: GroupMemberPower,
@@ -36,6 +38,7 @@ impl Drive {
                 contract_id,
                 group_contract_position,
                 initialize_with_insert_action_info,
+                closes_group_action,
                 action_id,
                 signer_identity_id,
                 signer_power,
@@ -52,12 +55,14 @@ impl Drive {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     /// Adds action creation operations to drive operations
     pub fn add_group_action_add_to_operations(
         &self,
         contract_id: Identifier,
         group_contract_position: GroupContractPosition,
         initialize_with_insert_action_info: Option<GroupAction>,
+        closes_group_action: bool,
         action_id: Identifier,
         signer_identity_id: Identifier,
         signer_power: GroupMemberPower,
@@ -72,6 +77,7 @@ impl Drive {
                 contract_id,
                 group_contract_position,
                 initialize_with_insert_action_info,
+                closes_group_action,
                 action_id,
                 signer_identity_id,
                 signer_power,
@@ -88,13 +94,14 @@ impl Drive {
             })),
         }
     }
-
     /// The operations needed to create a new group action
+    #[allow(clippy::too_many_arguments)]
     pub fn add_group_action_operations(
         &self,
         contract_id: Identifier,
         group_contract_position: GroupContractPosition,
         initialize_with_insert_action_info: Option<GroupAction>,
+        closes_group_action: bool,
         action_id: Identifier,
         signer_identity_id: Identifier,
         signer_power: GroupMemberPower,
@@ -110,6 +117,7 @@ impl Drive {
                 contract_id,
                 group_contract_position,
                 initialize_with_insert_action_info,
+                closes_group_action,
                 action_id,
                 signer_identity_id,
                 signer_power,

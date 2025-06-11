@@ -3,6 +3,7 @@ pub mod v2;
 pub mod v3;
 pub mod v4;
 pub mod v5;
+pub mod v6;
 
 use versioned_feature_core::{FeatureVersion, OptionalFeatureVersion};
 
@@ -59,6 +60,8 @@ pub struct DriveAbciStateTransitionCommonValidationVersions {
     pub validate_unique_identity_public_key_hashes_in_state: FeatureVersion,
     pub validate_master_key_uniqueness: FeatureVersion,
     pub validate_simple_pre_check_balance: FeatureVersion,
+    pub validate_non_masternode_identity_exists: FeatureVersion,
+    pub validate_identity_exists: FeatureVersion,
 }
 
 /// All of these penalty amounts are in credits
@@ -92,6 +95,7 @@ pub struct DriveAbciDocumentsStateTransitionValidationVersions {
     pub document_transfer_transition_structure_validation: FeatureVersion,
     pub document_purchase_transition_structure_validation: FeatureVersion,
     pub document_update_price_transition_structure_validation: FeatureVersion,
+    pub document_base_transition_state_validation: FeatureVersion,
     pub document_create_transition_state_validation: FeatureVersion,
     pub document_delete_transition_state_validation: FeatureVersion,
     pub document_replace_transition_state_validation: FeatureVersion,
@@ -101,7 +105,7 @@ pub struct DriveAbciDocumentsStateTransitionValidationVersions {
     pub token_mint_transition_structure_validation: FeatureVersion,
     pub token_burn_transition_structure_validation: FeatureVersion,
     pub token_transfer_transition_structure_validation: FeatureVersion,
-    pub token_issuance_transition_state_validation: FeatureVersion,
+    pub token_mint_transition_state_validation: FeatureVersion,
     pub token_burn_transition_state_validation: FeatureVersion,
     pub token_transfer_transition_state_validation: FeatureVersion,
     pub token_base_transition_structure_validation: FeatureVersion,
@@ -117,6 +121,12 @@ pub struct DriveAbciDocumentsStateTransitionValidationVersions {
     pub token_config_update_transition_structure_validation: FeatureVersion,
     pub token_config_update_transition_state_validation: FeatureVersion,
     pub token_base_transition_group_action_validation: FeatureVersion,
+    pub token_claim_transition_structure_validation: FeatureVersion,
+    pub token_claim_transition_state_validation: FeatureVersion,
+    pub token_direct_purchase_transition_structure_validation: FeatureVersion,
+    pub token_direct_purchase_transition_state_validation: FeatureVersion,
+    pub token_set_price_for_direct_purchase_transition_structure_validation: FeatureVersion,
+    pub token_set_price_for_direct_purchase_transition_state_validation: FeatureVersion,
 }
 
 #[derive(Clone, Debug, Default)]

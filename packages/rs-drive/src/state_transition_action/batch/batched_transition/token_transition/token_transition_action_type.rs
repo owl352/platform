@@ -11,6 +11,7 @@ impl TokenTransitionActionTypeGetter for TokenTransitionAction {
             TokenTransitionAction::TransferAction(_) => TokenTransitionActionType::Transfer,
             TokenTransitionAction::FreezeAction(_) => TokenTransitionActionType::Freeze,
             TokenTransitionAction::UnfreezeAction(_) => TokenTransitionActionType::Unfreeze,
+            TokenTransitionAction::ClaimAction(_) => TokenTransitionActionType::Claim,
             TokenTransitionAction::EmergencyActionAction(_) => {
                 TokenTransitionActionType::EmergencyAction
             }
@@ -18,6 +19,12 @@ impl TokenTransitionActionTypeGetter for TokenTransitionAction {
                 TokenTransitionActionType::DestroyFrozenFunds
             }
             TokenTransitionAction::ConfigUpdateAction(_) => TokenTransitionActionType::ConfigUpdate,
+            TokenTransitionAction::DirectPurchaseAction(_) => {
+                TokenTransitionActionType::DirectPurchase
+            }
+            TokenTransitionAction::SetPriceForDirectPurchaseAction(_) => {
+                TokenTransitionActionType::SetPriceForDirectPurchase
+            }
         }
     }
 }

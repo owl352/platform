@@ -4,8 +4,10 @@ use crate::state_transition::batch_transition::batched_transition::{
 use crate::state_transition::batch_transition::resolvers::v0::BatchTransitionResolversV0;
 use crate::state_transition::batch_transition::{
     DocumentCreateTransition, DocumentDeleteTransition, DocumentReplaceTransition,
-    TokenBurnTransition, TokenDestroyFrozenFundsTransition, TokenEmergencyActionTransition,
-    TokenFreezeTransition, TokenMintTransition, TokenTransferTransition, TokenUnfreezeTransition,
+    TokenBurnTransition, TokenClaimTransition, TokenConfigUpdateTransition,
+    TokenDestroyFrozenFundsTransition, TokenDirectPurchaseTransition,
+    TokenEmergencyActionTransition, TokenFreezeTransition, TokenMintTransition,
+    TokenSetPriceForDirectPurchaseTransition, TokenTransferTransition, TokenUnfreezeTransition,
 };
 
 impl BatchTransitionResolversV0 for BatchedTransition {
@@ -88,15 +90,47 @@ impl BatchTransitionResolversV0 for BatchedTransition {
         }
     }
 
+    fn as_transition_token_claim(&self) -> Option<&TokenClaimTransition> {
+        match self {
+            BatchedTransition::Document(_) => None,
+            BatchedTransition::Token(token) => token.as_transition_token_claim(),
+        }
+    }
+
     fn as_transition_token_emergency_action(&self) -> Option<&TokenEmergencyActionTransition> {
         match self {
             BatchedTransition::Document(_) => None,
             BatchedTransition::Token(token) => token.as_transition_token_emergency_action(),
         }
     }
+
+    fn as_transition_token_config_update(&self) -> Option<&TokenConfigUpdateTransition> {
+        match self {
+            BatchedTransition::Document(_) => None,
+            BatchedTransition::Token(token) => token.as_transition_token_config_update(),
+        }
+    }
+
+    fn as_transition_token_direct_purchase(&self) -> Option<&TokenDirectPurchaseTransition> {
+        match self {
+            BatchedTransition::Document(_) => None,
+            BatchedTransition::Token(token) => token.as_transition_token_direct_purchase(),
+        }
+    }
+
+    fn as_transition_token_set_price_for_direct_purchase(
+        &self,
+    ) -> Option<&TokenSetPriceForDirectPurchaseTransition> {
+        match self {
+            BatchedTransition::Document(_) => None,
+            BatchedTransition::Token(token) => {
+                token.as_transition_token_set_price_for_direct_purchase()
+            }
+        }
+    }
 }
 
-impl<'a> BatchTransitionResolversV0 for BatchedTransitionRef<'a> {
+impl BatchTransitionResolversV0 for BatchedTransitionRef<'_> {
     fn as_transition_create(&self) -> Option<&DocumentCreateTransition> {
         match self {
             BatchedTransitionRef::Document(document) => document.as_transition_create(),
@@ -176,10 +210,42 @@ impl<'a> BatchTransitionResolversV0 for BatchedTransitionRef<'a> {
         }
     }
 
+    fn as_transition_token_claim(&self) -> Option<&TokenClaimTransition> {
+        match self {
+            BatchedTransitionRef::Document(_) => None,
+            BatchedTransitionRef::Token(token) => token.as_transition_token_claim(),
+        }
+    }
+
     fn as_transition_token_emergency_action(&self) -> Option<&TokenEmergencyActionTransition> {
         match self {
             BatchedTransitionRef::Document(_) => None,
             BatchedTransitionRef::Token(token) => token.as_transition_token_emergency_action(),
+        }
+    }
+
+    fn as_transition_token_config_update(&self) -> Option<&TokenConfigUpdateTransition> {
+        match self {
+            BatchedTransitionRef::Document(_) => None,
+            BatchedTransitionRef::Token(token) => token.as_transition_token_config_update(),
+        }
+    }
+
+    fn as_transition_token_direct_purchase(&self) -> Option<&TokenDirectPurchaseTransition> {
+        match self {
+            BatchedTransitionRef::Document(_) => None,
+            BatchedTransitionRef::Token(token) => token.as_transition_token_direct_purchase(),
+        }
+    }
+
+    fn as_transition_token_set_price_for_direct_purchase(
+        &self,
+    ) -> Option<&TokenSetPriceForDirectPurchaseTransition> {
+        match self {
+            BatchedTransitionRef::Document(_) => None,
+            BatchedTransitionRef::Token(token) => {
+                token.as_transition_token_set_price_for_direct_purchase()
+            }
         }
     }
 }

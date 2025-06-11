@@ -1,6 +1,8 @@
 pub(crate) mod identity_retrieval;
 mod structure;
 mod transform_into_action;
+
+use dpp::dashcore::Network;
 use dpp::state_transition::identity_topup_transition::IdentityTopUpTransition;
 use dpp::validation::{ConsensusValidationResult, SimpleConsensusValidationResult};
 use dpp::version::PlatformVersion;
@@ -73,6 +75,7 @@ impl StateTransitionIdentityTopUpTransitionActionTransformer for IdentityTopUpTr
 impl StateTransitionBasicStructureValidationV0 for IdentityTopUpTransition {
     fn validate_basic_structure(
         &self,
+        _network_type: Network,
         platform_version: &PlatformVersion,
     ) -> Result<SimpleConsensusValidationResult, Error> {
         match platform_version
@@ -151,7 +154,7 @@ mod tests {
             )
             .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (critical_public_key, private_key) =
             IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
@@ -186,7 +189,7 @@ mod tests {
             )
             .expect("expected to add a new identity");
 
-        signer.add_key(critical_public_key.clone(), private_key.clone());
+        signer.add_key(critical_public_key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)
@@ -281,7 +284,7 @@ mod tests {
             )
             .expect("expected to get key pair");
 
-        signer.add_key(master_key.clone(), master_private_key.clone());
+        signer.add_key(master_key.clone(), master_private_key);
 
         let (critical_public_key, private_key) =
             IdentityPublicKey::random_ecdsa_critical_level_authentication_key(
@@ -316,7 +319,7 @@ mod tests {
             )
             .expect("expected to add a new identity");
 
-        signer.add_key(critical_public_key.clone(), private_key.clone());
+        signer.add_key(critical_public_key.clone(), private_key);
 
         let (_, pk) = ECDSA_SECP256K1
             .random_public_and_private_key_data(&mut rng, platform_version)

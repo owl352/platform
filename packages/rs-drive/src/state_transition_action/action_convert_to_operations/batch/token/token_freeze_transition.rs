@@ -1,5 +1,6 @@
 use dpp::block::epoch::Epoch;
 use dpp::data_contract::associated_token::token_configuration::accessors::v0::TokenConfigurationV0Getters;
+use dpp::data_contract::associated_token::token_keeps_history_rules::accessors::v0::TokenKeepsHistoryRulesV0Getters;
 use dpp::group::action_event::GroupActionEvent;
 use dpp::group::group_action::GroupAction;
 use dpp::group::group_action::v0::GroupActionV0;
@@ -51,11 +52,16 @@ impl DriveHighLevelBatchOperationConverter for TokenFreezeTransitionAction {
                     ..
                 }) = self.base().store_in_group()
                 {
-                    let event =
-                        TokenEvent::Freeze(self.frozen_identity_id(), self.public_note().cloned());
+                    let event = TokenEvent::Freeze(
+                        self.identity_to_freeze_id(),
+                        self.public_note().cloned(),
+                    );
 
                     let initialize_with_insert_action_info = if *action_is_proposer {
                         Some(GroupAction::V0(GroupActionV0 {
+                            contract_id: self.base().data_contract_id(),
+                            proposer_id: owner_id,
+                            token_contract_position: self.base().token_position(),
                             event: GroupActionEvent::TokenEvent(event),
                         }))
                     } else {
@@ -69,23 +75,24 @@ impl DriveHighLevelBatchOperationConverter for TokenFreezeTransitionAction {
                         action_id: *action_id,
                         signer_identity_id: owner_id,
                         signer_power: *signer_power,
+                        closes_group_action: self.base().perform_action(),
                     }));
                 }
 
                 if self.base().perform_action() {
                     ops.push(TokenOperation(TokenOperationType::TokenFreeze {
                         token_id: self.token_id(),
-                        frozen_identity_id: self.frozen_identity_id(),
+                        frozen_identity_id: self.identity_to_freeze_id(),
                     }));
 
                     let token_configuration = self.base().token_configuration()?;
-                    if token_configuration.keeps_history() {
+                    if token_configuration.keeps_history().keeps_freezing_history() {
                         ops.push(TokenOperation(TokenOperationType::TokenHistory {
                             token_id: self.token_id(),
                             owner_id,
                             nonce: identity_contract_nonce,
                             event: TokenEvent::Freeze(
-                                self.frozen_identity_id(),
+                                self.identity_to_freeze_id(),
                                 self.public_note_owned(),
                             ),
                         }));

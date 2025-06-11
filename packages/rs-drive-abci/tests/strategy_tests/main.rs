@@ -48,10 +48,10 @@ mod tests {
     use crate::execution::{continue_chain_for_strategy, run_chain_for_strategy};
     use crate::query::QueryStrategy;
     use crate::strategy::{FailureStrategy, MasternodeListChangesStrategy};
-    use dashcore_rpc::dashcore::hashes::Hash;
-    use dashcore_rpc::dashcore::BlockHash;
     use dashcore_rpc::json::QuorumType;
     use dpp::block::extended_block_info::v0::ExtendedBlockInfoV0Getters;
+    use dpp::dashcore::hashes::Hash;
+    use dpp::dashcore::BlockHash;
     use strategy_tests::operations::DocumentAction::{
         DocumentActionReplaceRandom, DocumentActionTransferRandom,
     };
@@ -134,7 +134,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        run_chain_for_strategy(&mut platform, 100, strategy, config, 15, &mut None);
+        run_chain_for_strategy(
+            &mut platform,
+            100,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
     }
 
     #[test]
@@ -179,7 +187,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        run_chain_for_strategy(&mut platform, 50, strategy, config, 13, &mut None);
+        run_chain_for_strategy(
+            &mut platform,
+            50,
+            strategy,
+            config,
+            13,
+            &mut None,
+            &mut None,
+        );
     }
 
     #[test]
@@ -244,6 +260,7 @@ mod tests {
             strategy.clone(),
             config.clone(),
             40,
+            &mut None,
             &mut None,
         );
 
@@ -388,6 +405,7 @@ mod tests {
             config.clone(),
             40,
             &mut None,
+            &mut None,
         );
 
         let state = abci_app.platform.state.load();
@@ -512,7 +530,8 @@ mod tests {
             .with_initial_protocol_version(1)
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 2, strategy, config, 15, &mut None);
+        let outcome =
+            run_chain_for_strategy(&mut platform, 2, strategy, config, 15, &mut None, &mut None);
 
         let balance = outcome
             .abci_app
@@ -590,7 +609,8 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 2, strategy, config, 15, &mut None);
+        let outcome =
+            run_chain_for_strategy(&mut platform, 2, strategy, config, 15, &mut None, &mut None);
 
         let balance = outcome
             .abci_app
@@ -652,7 +672,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        run_chain_for_strategy(&mut platform, 1000, strategy, config, 15, &mut None);
+        run_chain_for_strategy(
+            &mut platform,
+            1000,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
     }
 
     #[test]
@@ -702,7 +730,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 1000, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            1000,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
             .masternode_identity_balances
@@ -760,7 +796,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 1000, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            1000,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
             .masternode_identity_balances
@@ -832,8 +876,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let ChainExecutionOutcome { abci_app, .. } =
-            run_chain_for_strategy(&mut platform, 2000, strategy, config, 40, &mut None);
+        let ChainExecutionOutcome { abci_app, .. } = run_chain_for_strategy(
+            &mut platform,
+            2000,
+            strategy,
+            config,
+            40,
+            &mut None,
+            &mut None,
+        );
 
         // With these params if we didn't rotate we would have at most 240
         // of the 500 hpmns that could get paid, however we are expecting that most
@@ -858,7 +909,13 @@ mod tests {
                 .index,
             0
         );
-        assert!(counter.get(&1).unwrap().unwrap() > &240);
+        assert!(
+            counter
+                .get(&platform_version.protocol_version)
+                .unwrap()
+                .unwrap()
+                > &240
+        );
     }
 
     #[test]
@@ -928,8 +985,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let ChainExecutionOutcome { abci_app, .. } =
-            run_chain_for_strategy(&mut platform, 300, strategy, config, 43, &mut None);
+        let ChainExecutionOutcome { abci_app, .. } = run_chain_for_strategy(
+            &mut platform,
+            300,
+            strategy,
+            config,
+            43,
+            &mut None,
+            &mut None,
+        );
 
         // With these params if we add new mns the hpmn masternode list would be 100, but we
         // can expect it to be much higher.
@@ -1011,8 +1075,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let ChainExecutionOutcome { abci_app, .. } =
-            run_chain_for_strategy(&mut platform, 300, strategy, config, 43, &mut None);
+        let ChainExecutionOutcome { abci_app, .. } = run_chain_for_strategy(
+            &mut platform,
+            300,
+            strategy,
+            config,
+            43,
+            &mut None,
+            &mut None,
+        );
 
         // With these params if we add new mns the hpmn masternode list would be randomly different than 100.
 
@@ -1093,7 +1164,15 @@ mod tests {
             abci_app,
             proposers,
             ..
-        } = run_chain_for_strategy(&mut platform, 300, strategy, config, 43, &mut None);
+        } = run_chain_for_strategy(
+            &mut platform,
+            300,
+            strategy,
+            config,
+            43,
+            &mut None,
+            &mut None,
+        );
 
         // With these params if we add new mns the hpmn masternode list would be randomly different than 100.
 
@@ -1186,7 +1265,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 100, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            100,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         assert_eq!(outcome.identities.len(), 100);
     }
@@ -1242,7 +1329,15 @@ mod tests {
             .with_initial_protocol_version(PROTOCOL_VERSION_1)
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 150, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            150,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.identities.len(), 150);
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
@@ -1328,7 +1423,8 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 1, strategy, config, 15, &mut None);
+        let outcome =
+            run_chain_for_strategy(&mut platform, 1, strategy, config, 15, &mut None, &mut None);
 
         for tx_results_per_block in outcome.state_transition_results_per_block.values() {
             for (state_transition, result) in tx_results_per_block {
@@ -1457,7 +1553,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        run_chain_for_strategy(&mut platform, 30, strategy, config, 15, &mut None);
+        run_chain_for_strategy(
+            &mut platform,
+            30,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
     }
 
     #[test]
@@ -1544,7 +1648,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 10, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            10,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         outcome
             .abci_app
@@ -1648,7 +1760,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        run_chain_for_strategy(&mut platform, 100, strategy, config, 15, &mut None);
+        run_chain_for_strategy(
+            &mut platform,
+            100,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
     }
 
     #[test]
@@ -1730,8 +1850,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.identities.len() as u64, block_count);
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
@@ -1839,8 +1966,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.identities.len() as u64, block_count);
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
@@ -1969,8 +2103,15 @@ mod tests {
             .with_initial_protocol_version(PROTOCOL_VERSION_1)
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.identities.len() as u64, block_count);
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
@@ -2100,8 +2241,15 @@ mod tests {
             .with_initial_protocol_version(PROTOCOL_VERSION_1)
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome.identities.len() as u64, block_count);
         assert_eq!(outcome.masternode_identity_balances.len(), 100);
         let all_have_balances = outcome
@@ -2230,8 +2378,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         for tx_results_per_block in outcome.state_transition_results_per_block.values() {
             for (state_transition, result) in tx_results_per_block {
                 assert_eq!(
@@ -2345,8 +2500,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         for tx_results_per_block in outcome.state_transition_results_per_block.values() {
             for (state_transition, _unused_result) in tx_results_per_block {
                 // We can't ever get a documents batch transition, because the proposer will remove it from a block
@@ -2358,135 +2520,160 @@ mod tests {
     #[test]
     fn run_chain_insert_many_new_identity_per_block_many_document_insertions_and_deletions_with_epoch_change(
     ) {
-        let platform_version = PlatformVersion::latest();
-        let created_contract = json_document_to_created_contract(
-            "tests/supporting_files/contract/dashpay/dashpay-contract-all-mutable.json",
-            1,
-            true,
-            platform_version,
-        )
-        .expect("expected to get contract from a json document");
+        // Define the desired stack size
+        let stack_size = 4 * 1024 * 1024; //Let's set the stack size to be higher than the default 2MB
 
-        let contract = created_contract.data_contract();
+        let builder = std::thread::Builder::new()
+            .stack_size(stack_size)
+            .name("custom_stack_size_thread".into());
 
-        let document_insertion_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentAction::DocumentActionInsertRandom(
-                DocumentFieldFillType::FillIfNotRequired,
-                DocumentFieldFillSize::AnyDocumentFillSize,
-            ),
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+        let handler = builder
+            .spawn(|| {
+                let platform_version = PlatformVersion::latest();
+                let created_contract = json_document_to_created_contract(
+                    "tests/supporting_files/contract/dashpay/dashpay-contract-all-mutable.json",
+                    1,
+                    true,
+                    platform_version,
+                )
+                .expect("expected to get contract from a json document");
 
-        let document_deletion_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentAction::DocumentActionDelete,
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+                let contract = created_contract.data_contract();
 
-        let strategy = NetworkStrategy {
-            strategy: Strategy {
-                start_contracts: vec![(created_contract, None)],
-                operations: vec![
-                    Operation {
-                        op_type: OperationType::Document(document_insertion_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..40,
-                            chance_per_block: None,
+                let document_insertion_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentAction::DocumentActionInsertRandom(
+                        DocumentFieldFillType::FillIfNotRequired,
+                        DocumentFieldFillSize::AnyDocumentFillSize,
+                    ),
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
+
+                let document_deletion_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentAction::DocumentActionDelete,
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
+
+                let strategy = NetworkStrategy {
+                    strategy: Strategy {
+                        start_contracts: vec![(created_contract, None)],
+                        operations: vec![
+                            Operation {
+                                op_type: OperationType::Document(document_insertion_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..40,
+                                    chance_per_block: None,
+                                },
+                            },
+                            Operation {
+                                op_type: OperationType::Document(document_deletion_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..15,
+                                    chance_per_block: None,
+                                },
+                            },
+                        ],
+                        start_identities: StartIdentities::default(),
+                        identity_inserts: IdentityInsertInfo {
+                            frequency: Frequency {
+                                times_per_block_range: 1..30,
+                                chance_per_block: None,
+                            },
+                            start_keys: 5,
+                            extra_keys: Default::default(),
+                            start_balance_range: dash_to_duffs!(1)..=dash_to_duffs!(1),
                         },
+
+                        identity_contract_nonce_gaps: None,
+                        signer: None,
                     },
-                    Operation {
-                        op_type: OperationType::Document(document_deletion_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..15,
-                            chance_per_block: None,
-                        },
+                    total_hpmns: 100,
+                    extra_normal_mns: 0,
+                    validator_quorum_count: 24,
+                    chain_lock_quorum_count: 24,
+                    upgrading_info: None,
+
+                    proposer_strategy: Default::default(),
+                    rotate_quorums: false,
+                    failure_testing: None,
+                    query_testing: None,
+                    verify_state_transition_results: true,
+                    ..Default::default()
+                };
+
+                let day_in_ms = 1000 * 60 * 60 * 24;
+
+                let config = PlatformConfig {
+                    validator_set: ValidatorSetConfig::default_100_67(),
+                    chain_lock: ChainLockConfig::default_100_67(),
+                    instant_lock: InstantLockConfig::default_100_67(),
+                    execution: ExecutionConfig {
+                        verify_sum_trees: true,
+
+                        epoch_time_length_s: 1576800,
+                        ..Default::default()
                     },
-                ],
-                start_identities: StartIdentities::default(),
-                identity_inserts: IdentityInsertInfo {
-                    frequency: Frequency {
-                        times_per_block_range: 1..30,
-                        chance_per_block: None,
-                    },
-                    start_keys: 5,
-                    extra_keys: Default::default(),
-                    start_balance_range: dash_to_duffs!(1)..=dash_to_duffs!(1),
-                },
+                    block_spacing_ms: day_in_ms,
+                    testing_configs: PlatformTestConfig::default_minimal_verifications(),
+                    ..Default::default()
+                };
+                let block_count = 30;
+                let mut platform = TestPlatformBuilder::new()
+                    .with_config(config.clone())
+                    .build_with_mock_rpc();
 
-                identity_contract_nonce_gaps: None,
-                signer: None,
-            },
-            total_hpmns: 100,
-            extra_normal_mns: 0,
-            validator_quorum_count: 24,
-            chain_lock_quorum_count: 24,
-            upgrading_info: None,
+                let outcome = run_chain_for_strategy(
+                    &mut platform,
+                    block_count,
+                    strategy,
+                    config,
+                    15,
+                    &mut None,
+                    &mut None,
+                );
+                assert_eq!(outcome.identities.len() as u64, 472);
+                assert_eq!(outcome.masternode_identity_balances.len(), 100);
+                let balance_count = outcome
+                    .masternode_identity_balances
+                    .into_iter()
+                    .filter(|(_, balance)| *balance != 0)
+                    .count();
+                assert_eq!(balance_count, 19); // 1 epoch worth of proposers
 
-            proposer_strategy: Default::default(),
-            rotate_quorums: false,
-            failure_testing: None,
-            query_testing: None,
-            verify_state_transition_results: true,
-            ..Default::default()
-        };
+                let issues = outcome
+                    .abci_app
+                    .platform
+                    .drive
+                    .grove
+                    .visualize_verify_grovedb(
+                        None,
+                        true,
+                        false,
+                        &platform_version.drive.grove_version,
+                    )
+                    .expect("expected to have no issues");
 
-        let day_in_ms = 1000 * 60 * 60 * 24;
-
-        let config = PlatformConfig {
-            validator_set: ValidatorSetConfig::default_100_67(),
-            chain_lock: ChainLockConfig::default_100_67(),
-            instant_lock: InstantLockConfig::default_100_67(),
-            execution: ExecutionConfig {
-                verify_sum_trees: true,
-
-                epoch_time_length_s: 1576800,
-                ..Default::default()
-            },
-            block_spacing_ms: day_in_ms,
-            testing_configs: PlatformTestConfig::default_minimal_verifications(),
-            ..Default::default()
-        };
-        let block_count = 30;
-        let mut platform = TestPlatformBuilder::new()
-            .with_config(config.clone())
-            .build_with_mock_rpc();
-
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
-        assert_eq!(outcome.identities.len() as u64, 472);
-        assert_eq!(outcome.masternode_identity_balances.len(), 100);
-        let balance_count = outcome
-            .masternode_identity_balances
-            .into_iter()
-            .filter(|(_, balance)| *balance != 0)
-            .count();
-        assert_eq!(balance_count, 19); // 1 epoch worth of proposers
-
-        let issues = outcome
-            .abci_app
-            .platform
-            .drive
-            .grove
-            .visualize_verify_grovedb(None, true, false, &platform_version.drive.grove_version)
-            .expect("expected to have no issues");
-
-        assert_eq!(
-            issues.len(),
-            0,
-            "issues are {}",
-            issues
-                .iter()
-                .map(|(hash, (a, b, c))| format!("{}: {} {} {}", hash, a, b, c))
-                .collect::<Vec<_>>()
-                .join(" | ")
-        );
+                assert_eq!(
+                    issues.len(),
+                    0,
+                    "issues are {}",
+                    issues
+                        .iter()
+                        .map(|(hash, (a, b, c))| format!("{}: {} {} {}", hash, a, b, c))
+                        .collect::<Vec<_>>()
+                        .join(" | ")
+                );
+            })
+            .expect("Failed to create thread with custom stack size");
+        // Wait for the thread to finish and assert that it didn't panic.
+        handler.join().expect("Thread has panicked");
     }
 
     #[test]
@@ -2592,8 +2779,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         let issues = outcome
             .abci_app
@@ -2741,8 +2935,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            block_count,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         let issues = outcome
             .abci_app
@@ -2767,298 +2968,343 @@ mod tests {
     #[test]
     fn run_chain_insert_many_new_identity_per_block_many_document_insertions_updates_and_deletions_with_epoch_change(
     ) {
-        let platform_version = PlatformVersion::latest();
-        let created_contract = json_document_to_created_contract(
-            "tests/supporting_files/contract/dashpay/dashpay-contract-all-mutable.json",
-            1,
-            true,
-            platform_version,
-        )
-        .expect("expected to get contract from a json document");
+        // Define the desired stack size
+        let stack_size = 4 * 1024 * 1024; //Let's set the stack size to be higher than the default 2MB
 
-        let contract = created_contract.data_contract();
+        let builder = std::thread::Builder::new()
+            .stack_size(stack_size)
+            .name("custom_stack_size_thread".into());
 
-        let document_insertion_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentAction::DocumentActionInsertRandom(
-                DocumentFieldFillType::FillIfNotRequired,
-                DocumentFieldFillSize::AnyDocumentFillSize,
-            ),
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+        let handler = builder
+            .spawn(|| {
+                let platform_version = PlatformVersion::latest();
+                let created_contract = json_document_to_created_contract(
+                    "tests/supporting_files/contract/dashpay/dashpay-contract-all-mutable.json",
+                    1,
+                    true,
+                    platform_version,
+                )
+                .expect("expected to get contract from a json document");
 
-        let document_replace_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentActionReplaceRandom,
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+                let contract = created_contract.data_contract();
 
-        let document_deletion_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentAction::DocumentActionDelete,
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+                let document_insertion_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentAction::DocumentActionInsertRandom(
+                        DocumentFieldFillType::FillIfNotRequired,
+                        DocumentFieldFillSize::AnyDocumentFillSize,
+                    ),
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
 
-        let strategy = NetworkStrategy {
-            strategy: Strategy {
-                start_contracts: vec![(created_contract, None)],
-                operations: vec![
-                    Operation {
-                        op_type: OperationType::Document(document_insertion_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..40,
-                            chance_per_block: None,
+                let document_replace_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentActionReplaceRandom,
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
+
+                let document_deletion_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentAction::DocumentActionDelete,
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
+
+                let strategy = NetworkStrategy {
+                    strategy: Strategy {
+                        start_contracts: vec![(created_contract, None)],
+                        operations: vec![
+                            Operation {
+                                op_type: OperationType::Document(document_insertion_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..40,
+                                    chance_per_block: None,
+                                },
+                            },
+                            Operation {
+                                op_type: OperationType::Document(document_replace_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..5,
+                                    chance_per_block: None,
+                                },
+                            },
+                            Operation {
+                                op_type: OperationType::Document(document_deletion_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..5,
+                                    chance_per_block: None,
+                                },
+                            },
+                        ],
+                        start_identities: StartIdentities::default(),
+                        identity_inserts: IdentityInsertInfo {
+                            frequency: Frequency {
+                                times_per_block_range: 1..6,
+                                chance_per_block: None,
+                            },
+                            start_keys: 5,
+                            extra_keys: Default::default(),
+                            start_balance_range: dash_to_duffs!(1)..=dash_to_duffs!(1),
                         },
+
+                        identity_contract_nonce_gaps: None,
+                        signer: None,
                     },
-                    Operation {
-                        op_type: OperationType::Document(document_replace_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..5,
-                            chance_per_block: None,
-                        },
+                    total_hpmns: 100,
+                    extra_normal_mns: 0,
+                    validator_quorum_count: 24,
+                    chain_lock_quorum_count: 24,
+                    upgrading_info: None,
+
+                    proposer_strategy: Default::default(),
+                    rotate_quorums: false,
+                    failure_testing: None,
+                    query_testing: None,
+                    verify_state_transition_results: true,
+                    ..Default::default()
+                };
+
+                let day_in_ms = 1000 * 60 * 60 * 24;
+
+                let config = PlatformConfig {
+                    validator_set: ValidatorSetConfig::default_100_67(),
+                    chain_lock: ChainLockConfig::default_100_67(),
+                    instant_lock: InstantLockConfig::default_100_67(),
+                    execution: ExecutionConfig {
+                        verify_sum_trees: true,
+
+                        epoch_time_length_s: 1576800,
+                        ..Default::default()
                     },
-                    Operation {
-                        op_type: OperationType::Document(document_deletion_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..5,
-                            chance_per_block: None,
-                        },
-                    },
-                ],
-                start_identities: StartIdentities::default(),
-                identity_inserts: IdentityInsertInfo {
-                    frequency: Frequency {
-                        times_per_block_range: 1..6,
-                        chance_per_block: None,
-                    },
-                    start_keys: 5,
-                    extra_keys: Default::default(),
-                    start_balance_range: dash_to_duffs!(1)..=dash_to_duffs!(1),
-                },
+                    block_spacing_ms: day_in_ms,
+                    testing_configs: PlatformTestConfig::default_minimal_verifications(),
+                    ..Default::default()
+                };
+                let block_count = 100;
+                let mut platform = TestPlatformBuilder::new()
+                    .with_config(config.clone())
+                    .build_with_mock_rpc();
 
-                identity_contract_nonce_gaps: None,
-                signer: None,
-            },
-            total_hpmns: 100,
-            extra_normal_mns: 0,
-            validator_quorum_count: 24,
-            chain_lock_quorum_count: 24,
-            upgrading_info: None,
+                let outcome = run_chain_for_strategy(
+                    &mut platform,
+                    block_count,
+                    strategy,
+                    config,
+                    15,
+                    &mut None,
+                    &mut None,
+                );
+                assert_eq!(outcome.identities.len() as u64, 296);
+                assert_eq!(outcome.masternode_identity_balances.len(), 100);
+                let balance_count = outcome
+                    .masternode_identity_balances
+                    .into_iter()
+                    .filter(|(_, balance)| *balance != 0)
+                    .count();
+                assert_eq!(balance_count, 92); // 1 epoch worth of proposers
 
-            proposer_strategy: Default::default(),
-            rotate_quorums: false,
-            failure_testing: None,
-            query_testing: None,
-            verify_state_transition_results: true,
-            ..Default::default()
-        };
+                let issues = outcome
+                    .abci_app
+                    .platform
+                    .drive
+                    .grove
+                    .visualize_verify_grovedb(
+                        None,
+                        true,
+                        false,
+                        &platform_version.drive.grove_version,
+                    )
+                    .expect("expected to have no issues");
 
-        let day_in_ms = 1000 * 60 * 60 * 24;
-
-        let config = PlatformConfig {
-            validator_set: ValidatorSetConfig::default_100_67(),
-            chain_lock: ChainLockConfig::default_100_67(),
-            instant_lock: InstantLockConfig::default_100_67(),
-            execution: ExecutionConfig {
-                verify_sum_trees: true,
-
-                epoch_time_length_s: 1576800,
-                ..Default::default()
-            },
-            block_spacing_ms: day_in_ms,
-            testing_configs: PlatformTestConfig::default_minimal_verifications(),
-            ..Default::default()
-        };
-        let block_count = 100;
-        let mut platform = TestPlatformBuilder::new()
-            .with_config(config.clone())
-            .build_with_mock_rpc();
-
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
-        assert_eq!(outcome.identities.len() as u64, 296);
-        assert_eq!(outcome.masternode_identity_balances.len(), 100);
-        let balance_count = outcome
-            .masternode_identity_balances
-            .into_iter()
-            .filter(|(_, balance)| *balance != 0)
-            .count();
-        assert_eq!(balance_count, 92); // 1 epoch worth of proposers
-
-        let issues = outcome
-            .abci_app
-            .platform
-            .drive
-            .grove
-            .visualize_verify_grovedb(None, true, false, &platform_version.drive.grove_version)
-            .expect("expected to have no issues");
-
-        assert_eq!(
-            issues.len(),
-            0,
-            "issues are {}",
-            issues
-                .iter()
-                .map(|(hash, (a, b, c))| format!("{}: {} {} {}", hash, a, b, c))
-                .collect::<Vec<_>>()
-                .join(" | ")
-        );
+                assert_eq!(
+                    issues.len(),
+                    0,
+                    "issues are {}",
+                    issues
+                        .iter()
+                        .map(|(hash, (a, b, c))| format!("{}: {} {} {}", hash, a, b, c))
+                        .collect::<Vec<_>>()
+                        .join(" | ")
+                );
+            })
+            .expect("Failed to create thread with custom stack size");
+        // Wait for the thread to finish and assert that it didn't panic.
+        handler.join().expect("Thread has panicked");
     }
 
     #[test]
     fn run_chain_insert_many_new_identity_per_block_many_document_insertions_updates_transfers_and_deletions_with_epoch_change(
     ) {
-        let platform_version = PlatformVersion::latest();
-        let created_contract = json_document_to_created_contract(
-            "tests/supporting_files/contract/dashpay/dashpay-contract-all-mutable.json",
-            1,
-            true,
-            platform_version,
-        )
-        .expect("expected to get contract from a json document");
+        // Define the desired stack size
+        let stack_size = 4 * 1024 * 1024; //Let's set the stack size to be higher than the default 2MB
 
-        let contract = created_contract.data_contract();
+        let builder = std::thread::Builder::new()
+            .stack_size(stack_size)
+            .name("custom_stack_size_thread".into());
 
-        let document_insertion_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentAction::DocumentActionInsertRandom(
-                DocumentFieldFillType::FillIfNotRequired,
-                DocumentFieldFillSize::AnyDocumentFillSize,
-            ),
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+        let handler = builder
+            .spawn(|| {
+                let platform_version = PlatformVersion::latest();
+                let created_contract = json_document_to_created_contract(
+                    "tests/supporting_files/contract/dashpay/dashpay-contract-all-mutable.json",
+                    1,
+                    true,
+                    platform_version,
+                )
+                .expect("expected to get contract from a json document");
 
-        let document_replace_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentActionReplaceRandom,
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+                let contract = created_contract.data_contract();
 
-        let document_transfer_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentActionTransferRandom,
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+                let document_insertion_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentAction::DocumentActionInsertRandom(
+                        DocumentFieldFillType::FillIfNotRequired,
+                        DocumentFieldFillSize::AnyDocumentFillSize,
+                    ),
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
 
-        let document_deletion_op = DocumentOp {
-            contract: contract.clone(),
-            action: DocumentAction::DocumentActionDelete,
-            document_type: contract
-                .document_type_for_name("contactRequest")
-                .expect("expected a profile document type")
-                .to_owned_document_type(),
-        };
+                let document_replace_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentActionReplaceRandom,
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
 
-        let strategy = NetworkStrategy {
-            strategy: Strategy {
-                start_contracts: vec![(created_contract, None)],
-                operations: vec![
-                    Operation {
-                        op_type: OperationType::Document(document_insertion_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..10,
-                            chance_per_block: None,
+                let document_transfer_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentActionTransferRandom,
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
+
+                let document_deletion_op = DocumentOp {
+                    contract: contract.clone(),
+                    action: DocumentAction::DocumentActionDelete,
+                    document_type: contract
+                        .document_type_for_name("contactRequest")
+                        .expect("expected a profile document type")
+                        .to_owned_document_type(),
+                };
+
+                let strategy = NetworkStrategy {
+                    strategy: Strategy {
+                        start_contracts: vec![(created_contract, None)],
+                        operations: vec![
+                            Operation {
+                                op_type: OperationType::Document(document_insertion_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..10,
+                                    chance_per_block: None,
+                                },
+                            },
+                            Operation {
+                                op_type: OperationType::Document(document_replace_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..5,
+                                    chance_per_block: None,
+                                },
+                            },
+                            Operation {
+                                op_type: OperationType::Document(document_transfer_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..5,
+                                    chance_per_block: None,
+                                },
+                            },
+                            Operation {
+                                op_type: OperationType::Document(document_deletion_op),
+                                frequency: Frequency {
+                                    times_per_block_range: 1..5,
+                                    chance_per_block: None,
+                                },
+                            },
+                        ],
+                        start_identities: StartIdentities::default(),
+                        identity_inserts: IdentityInsertInfo {
+                            frequency: Frequency {
+                                times_per_block_range: 1..6,
+                                chance_per_block: None,
+                            },
+                            start_keys: 5,
+                            extra_keys: Default::default(),
+                            start_balance_range: dash_to_duffs!(1)..=dash_to_duffs!(1),
                         },
+
+                        identity_contract_nonce_gaps: None,
+                        signer: None,
                     },
-                    Operation {
-                        op_type: OperationType::Document(document_replace_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..5,
-                            chance_per_block: None,
-                        },
+                    total_hpmns: 100,
+                    extra_normal_mns: 0,
+                    validator_quorum_count: 24,
+                    chain_lock_quorum_count: 24,
+                    upgrading_info: None,
+
+                    proposer_strategy: Default::default(),
+                    rotate_quorums: false,
+                    failure_testing: None,
+                    query_testing: None,
+                    verify_state_transition_results: true,
+                    ..Default::default()
+                };
+
+                let day_in_ms = 1000 * 60 * 60 * 24;
+
+                let config = PlatformConfig {
+                    validator_set: ValidatorSetConfig::default_100_67(),
+                    chain_lock: ChainLockConfig::default_100_67(),
+                    instant_lock: InstantLockConfig::default_100_67(),
+                    execution: ExecutionConfig {
+                        verify_sum_trees: true,
+
+                        epoch_time_length_s: 1576800,
+                        ..Default::default()
                     },
-                    Operation {
-                        op_type: OperationType::Document(document_transfer_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..5,
-                            chance_per_block: None,
-                        },
-                    },
-                    Operation {
-                        op_type: OperationType::Document(document_deletion_op),
-                        frequency: Frequency {
-                            times_per_block_range: 1..5,
-                            chance_per_block: None,
-                        },
-                    },
-                ],
-                start_identities: StartIdentities::default(),
-                identity_inserts: IdentityInsertInfo {
-                    frequency: Frequency {
-                        times_per_block_range: 1..6,
-                        chance_per_block: None,
-                    },
-                    start_keys: 5,
-                    extra_keys: Default::default(),
-                    start_balance_range: dash_to_duffs!(1)..=dash_to_duffs!(1),
-                },
+                    block_spacing_ms: day_in_ms,
+                    testing_configs: PlatformTestConfig::default_minimal_verifications(),
+                    ..Default::default()
+                };
+                let block_count = 70;
+                let mut platform = TestPlatformBuilder::new()
+                    .with_config(config.clone())
+                    .build_with_mock_rpc();
 
-                identity_contract_nonce_gaps: None,
-                signer: None,
-            },
-            total_hpmns: 100,
-            extra_normal_mns: 0,
-            validator_quorum_count: 24,
-            chain_lock_quorum_count: 24,
-            upgrading_info: None,
-
-            proposer_strategy: Default::default(),
-            rotate_quorums: false,
-            failure_testing: None,
-            query_testing: None,
-            verify_state_transition_results: true,
-            ..Default::default()
-        };
-
-        let day_in_ms = 1000 * 60 * 60 * 24;
-
-        let config = PlatformConfig {
-            validator_set: ValidatorSetConfig::default_100_67(),
-            chain_lock: ChainLockConfig::default_100_67(),
-            instant_lock: InstantLockConfig::default_100_67(),
-            execution: ExecutionConfig {
-                verify_sum_trees: true,
-
-                epoch_time_length_s: 1576800,
-                ..Default::default()
-            },
-            block_spacing_ms: day_in_ms,
-            testing_configs: PlatformTestConfig::default_minimal_verifications(),
-            ..Default::default()
-        };
-        let block_count = 70;
-        let mut platform = TestPlatformBuilder::new()
-            .with_config(config.clone())
-            .build_with_mock_rpc();
-
-        let outcome =
-            run_chain_for_strategy(&mut platform, block_count, strategy, config, 15, &mut None);
-        assert_eq!(outcome.identities.len() as u64, 201);
-        assert_eq!(outcome.masternode_identity_balances.len(), 100);
-        let balance_count = outcome
-            .masternode_identity_balances
-            .into_iter()
-            .filter(|(_, balance)| *balance != 0)
-            .count();
-        assert_eq!(balance_count, 55); // 1 epoch worth of proposers
+                let outcome = run_chain_for_strategy(
+                    &mut platform,
+                    block_count,
+                    strategy,
+                    config,
+                    15,
+                    &mut None,
+                    &mut None,
+                );
+                assert_eq!(outcome.identities.len() as u64, 201);
+                assert_eq!(outcome.masternode_identity_balances.len(), 100);
+                let balance_count = outcome
+                    .masternode_identity_balances
+                    .into_iter()
+                    .filter(|(_, balance)| *balance != 0)
+                    .count();
+                assert_eq!(balance_count, 55); // 1 epoch worth of proposers
+            })
+            .expect("Failed to create thread with custom stack size");
+        // Wait for the thread to finish and assert that it didn't panic.
+        handler.join().expect("Thread has panicked");
     }
 
     #[test]
@@ -3119,7 +3365,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 10, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            10,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         let max_initial_balance = 100000000000u64; // TODO: some centralized way for random test data (`arbitrary` maybe?)
         let balances = outcome
@@ -3200,7 +3454,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 10, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            10,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
         let state = outcome.abci_app.platform.state.load();
         let protocol_version = state.current_protocol_version_in_consensus();
         let platform_version = PlatformVersion::get(protocol_version).unwrap();
@@ -3285,7 +3547,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 10, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            10,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         let identities = outcome
             .abci_app
@@ -3400,8 +3670,15 @@ mod tests {
                     })
                 });
 
-            let outcome =
-                run_chain_for_strategy(platform, 1, strategy.clone(), config.clone(), 7, &mut None);
+            let outcome = run_chain_for_strategy(
+                platform,
+                1,
+                strategy.clone(),
+                config.clone(),
+                7,
+                &mut None,
+                &mut None,
+            );
             outcomes.push(outcome);
         }
 
@@ -3599,8 +3876,17 @@ mod tests {
             config.clone(),
             7,
             &mut None,
+            &mut None,
         );
-        let outcome_b = run_chain_for_strategy(&mut platform_b, 18, strategy, config, 7, &mut None);
+        let outcome_b = run_chain_for_strategy(
+            &mut platform_b,
+            18,
+            strategy,
+            config,
+            7,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome_a.end_epoch_index, outcome_b.end_epoch_index); // 100/18
         assert_eq!(outcome_a.masternode_identity_balances.len(), 500); // 500 nodes
         assert_eq!(outcome_b.masternode_identity_balances.len(), 500); // 500 nodes
@@ -3761,9 +4047,17 @@ mod tests {
             config.clone(),
             7,
             &mut None,
+            &mut None,
         );
-        let outcome_b =
-            run_chain_for_strategy(&mut platform_b, 100, strategy, config, 7, &mut None);
+        let outcome_b = run_chain_for_strategy(
+            &mut platform_b,
+            100,
+            strategy,
+            config,
+            7,
+            &mut None,
+            &mut None,
+        );
         assert_eq!(outcome_a.end_epoch_index, outcome_b.end_epoch_index); // 100/18
         assert_eq!(outcome_a.masternode_identity_balances.len(), 500); // 500 nodes
         assert_eq!(outcome_b.masternode_identity_balances.len(), 500); // 500 nodes
@@ -3905,6 +4199,7 @@ mod tests {
             config.clone(),
             89,
             &mut None,
+            &mut None,
         );
 
         let state = abci_app.platform.state.load();
@@ -4041,7 +4336,15 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 15, strategy, config, 15, &mut None);
+        let outcome = run_chain_for_strategy(
+            &mut platform,
+            15,
+            strategy,
+            config,
+            15,
+            &mut None,
+            &mut None,
+        );
 
         let _balances = &outcome
             .abci_app
@@ -4098,7 +4401,8 @@ mod tests {
             .with_config(config.clone())
             .build_with_mock_rpc();
 
-        let outcome = run_chain_for_strategy(&mut platform, 1, strategy, config, 15, &mut None);
+        let outcome =
+            run_chain_for_strategy(&mut platform, 1, strategy, config, 15, &mut None, &mut None);
         let state_transitions = outcome
             .state_transition_results_per_block
             .get(&1)

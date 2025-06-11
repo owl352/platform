@@ -3,7 +3,7 @@ use crate::prelude::{DerivationEncryptionKeyIndex, RecipientKeyIndex, RootEncryp
 use crate::state_transition::batch_transition::batched_transition::token_transfer_transition::TokenTransferTransitionV0;
 use crate::state_transition::batch_transition::token_base_transition::token_base_transition_accessors::TokenBaseTransitionAccessors;
 use crate::state_transition::batch_transition::token_base_transition::TokenBaseTransition;
-use crate::state_transition::batch_transition::token_transfer_transition::{PrivateEncryptedNote, SharedEncryptedNote};
+use crate::tokens::{PrivateEncryptedNote, SharedEncryptedNote};
 
 impl TokenBaseTransitionAccessors for TokenTransferTransitionV0 {
     fn base(&self) -> &TokenBaseTransition {
@@ -83,7 +83,9 @@ pub trait TokenTransferTransitionV0Methods: TokenBaseTransitionAccessors {
         Option<PrivateEncryptedNote>,
     );
 
+    // TODO: Introduce structs notes
     /// Returns all notes (public, shared, and private) as cloned values in a tuple.
+    #[allow(clippy::type_complexity)]
     fn notes(
         &self,
     ) -> (
