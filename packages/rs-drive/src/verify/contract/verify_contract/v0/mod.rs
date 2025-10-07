@@ -129,7 +129,7 @@ impl Drive {
                 .transpose();
             match contract {
                 Ok(contract) => {
-                    if contract.is_none() && (contract_known_keeps_history.is_none() || is_proof_subset == false) {
+                    if contract.is_none() && (contract_known_keeps_history.is_none() || is_proof_subset == false) && contract_known_keeps_history != Some(true) {
                         Self::verify_contract(
                             proof,
                             Some(true),
