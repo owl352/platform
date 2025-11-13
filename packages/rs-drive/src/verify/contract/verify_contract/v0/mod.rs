@@ -4,6 +4,7 @@ use crate::drive::contract::paths::{contract_keeping_history_root_path, contract
 use crate::drive::Drive;
 use crate::error::proof::ProofError;
 use crate::error::Error;
+use crate::error::Error::GroveDB;
 use crate::verify::RootHash;
 use dpp::prelude::DataContract;
 use dpp::serialization::PlatformDeserializableWithPotentialValidationFromVersionedStructure;
@@ -67,7 +68,7 @@ impl Drive {
                 &platform_version.drive.grove_version,
             )
         };
-        let (root_hash, mut proved_key_values) = match result.map_err(Error::from) {
+        let (root_hash, mut proved_key_values) = match result.map_err(GroveDB) {
             Ok(ok_result) => ok_result,
             Err(e) => {
                 return if contract_known_keeps_history.is_none() {
@@ -108,8 +109,8 @@ impl Drive {
                     )));
                 }
                 return Err(Error::Proof(ProofError::CorruptedProof(
-                        "we did not get back an element for the correct path for the historical contract".to_string(),
-                    )));
+                    "we did not get back an element for the correct path for the historical contract".to_string(),
+                )));
             };
             tracing::trace!(?maybe_element, "verify contract returns proved element");
 
@@ -117,17 +118,30 @@ impl Drive {
                 .map(|element| {
                     element
                         .into_item_bytes()
-                        .map_err(Error::from)
+                        .map_err(Error::GroveDB)
                         .and_then(|bytes| {
                             // we don't need to validate the contract locally because it was proved to be in platform
                             // and hence it is valid
                             DataContract::versioned_deserialize(&bytes, false, platform_version)
-                                .map_err(Error::from)
+                                .map_err(Error::Protocol)
                         })
                 })
                 .transpose();
             match contract {
-                Ok(contract) => Ok((root_hash, contract)),
+                Ok(contract) => {
+                    if contract.is_none() && (contract_known_keeps_history.is_none() || is_proof_subset == false) && contract_known_keeps_history != Some(true) {
+                        Self::verify_contract(
+                            proof,
+                            Some(true),
+                            is_proof_subset,
+                            in_multiple_contract_proof_form,
+                            contract_id,
+                            platform_version,
+                        )
+                    } else {
+                        Ok((root_hash, contract))
+                    }
+                },
                 Err(e) => {
                     if contract_known_keeps_history.is_some() {
                         // just return error
@@ -159,8 +173,8 @@ impl Drive {
     /// - `proof`: A byte slice representing the proof to be verified.
     /// - `is_proof_subset`: A boolean indicating whether to verify a subset of a larger proof.
     /// - `contract_ids_with_keeps_history` a BTreemap with keys being the contract ids we are looking
-    ///   to search for, values being if they keep history. For this call we must know if they keep
-    ///   history.
+    ///     to search for, values being if they keep history. For this call we must know if they keep
+    ///     history.
     ///
     /// # Returns
     ///
