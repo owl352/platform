@@ -127,7 +127,20 @@ impl Drive {
                 })
                 .transpose();
             match contract {
-                Ok(contract) => Ok((root_hash, contract)),
+                Ok(contract) => {
+                    if contract.is_none() && (contract_known_keeps_history.is_none() || is_proof_subset == false) {
+                        Self::verify_contract(
+                            proof,
+                            Some(true),
+                            is_proof_subset,
+                            in_multiple_contract_proof_form,
+                            contract_id,
+                            platform_version,
+                        )
+                    } else {
+                        Ok((root_hash, contract))
+                    }
+                },
                 Err(e) => {
                     if contract_known_keeps_history.is_some() {
                         // just return error
